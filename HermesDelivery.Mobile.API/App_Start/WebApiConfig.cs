@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace HermesDelivery.Mobile.API
 {
@@ -9,9 +11,7 @@ namespace HermesDelivery.Mobile.API
     {
         public static void Register(HttpConfiguration config)
         {
-            // Конфигурация и службы веб-API
-
-            // Маршруты веб-API
+            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -19,6 +19,9 @@ namespace HermesDelivery.Mobile.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
