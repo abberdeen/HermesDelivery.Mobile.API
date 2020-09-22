@@ -7,8 +7,10 @@ using System.Web.Http;
 
 namespace HermesDelivery.Mobile.API.Controllers
 {
+    [Authorize]
     public class ValuesController : ApiController
     {
+       
         // GET api/values
         public IEnumerable<string> Get()
         {

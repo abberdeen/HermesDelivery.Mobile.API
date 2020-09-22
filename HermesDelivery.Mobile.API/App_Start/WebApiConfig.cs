@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Newtonsoft.Json.Serialization;
 
 namespace HermesDelivery.Mobile.API
 {

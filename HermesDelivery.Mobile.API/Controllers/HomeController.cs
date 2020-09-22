@@ -10,9 +10,7 @@ namespace HermesDelivery.Mobile.API.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
+            return Redirect("/swagger");
         }
     }
 }
