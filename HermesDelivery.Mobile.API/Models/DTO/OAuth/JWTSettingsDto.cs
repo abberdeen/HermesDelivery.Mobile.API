@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HermesDelivery.Mobile.API.Models.DTO.OAuth
 {
-    public class JWTSettings
+    public class JWTSettingsDTO
     {
         public string Secret { get; set; }
         public string Issuer { get; set; }

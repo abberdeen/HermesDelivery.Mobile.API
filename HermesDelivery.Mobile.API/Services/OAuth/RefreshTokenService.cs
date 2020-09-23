@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HermesDelivery.Mobile.API.Infrastructure;
+using HermesDelivery.Mobile.API.Models.DTO.OAuth;
 
 namespace HermesDelivery.Mobile.API.Services.OAuth
 {
     public class RefreshTokenService
     {
-        private HDEntities _dbContext;
+        private HDEntities _dbContext =   new HDEntities();
         private readonly IMapper _mapper;
 
         public RefreshTokenService(  IMapper mapper )
@@ -22,19 +23,21 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
         {
         }
 
-        public async Task<AspNetUser> GetByUserIdAsync(string id)
+        public async Task<AspNetUser> GetByUserByIdAsync(string id)
         {
             return await _dbContext.AspNetUsers.Where(e => e.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task SetAsync(string token, DateTime tokenExpires, string userId)
+        public async Task SetAsync(RefreshTokenDTO model, string userId)
         {
             var user = await _dbContext.AspNetUsers.FindAsync(userId);
 
             if (user != null)
             {
-                user.RefreshToken = token;
-                user.TokenExpires = tokenExpires;
+                user.RefreshToken = model.Token;
+                user.RefreshTokenIp = model.RemoteIp;
+                user.RefreshTokenExpires = model.Expires;
+                user.RefreshTokenIsActive = model.IsActive;
                 await _dbContext.SaveChangesAsync();
             }
         }
@@ -46,7 +49,9 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
             if (user != null)
             {
                 user.RefreshToken = null;
-                user.TokenExpires = null;
+                user.RefreshTokenIp = null;
+                user.RefreshTokenExpires = null;
+                user.RefreshTokenIsActive = null;
                 await _dbContext.SaveChangesAsync();
             }
         }

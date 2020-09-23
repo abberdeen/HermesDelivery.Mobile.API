@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -12,99 +13,118 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using ERP.API.Identity;
+using HermesDelivery.Mobile.API.App_Extension;
 using HermesDelivery.Mobile.API.Models.DTO.OAuth;
 using HermesDelivery.Mobile.API.Services.OAuth;
 using Microsoft.Owin.Security;
 
 namespace ERP.API.Controllers
-{
-    [System.Web.Http.RoutePrefix("api/v1/Auth")]
-    public class AuthController : Controller
+{ 
+    public class AuthController : ApiController
     {
         private readonly AccountService _userService;
         private readonly RefreshTokenService _refreshTokenService;
-        private readonly JWTokenService _jwTokenService;
-        private readonly IUserRoleService _userRoleService; 
+        private readonly JWTokenService _jwTokenService; 
 
         public AuthController( )
         {
             _userService = new AccountService();
             _refreshTokenService = new RefreshTokenService();
-            _jwTokenService = new JWTokenService();
-            _userRoleService = userRoleService; 
+            _jwTokenService = new JWTokenService(); 
+        }
+
+        public static bool VerifyHashedPassword(string hashedPassword, string password)
+        {
+            byte[] buffer4;
+            if (hashedPassword == null)
+            {
+                return false;
+            }
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+            byte[] src = Convert.FromBase64String(hashedPassword);
+            if ((src.Length != 0x31) || (src[0] != 0))
+            {
+                return false;
+            }
+            byte[] dst = new byte[0x10];
+            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+            byte[] buffer3 = new byte[0x20];
+            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+            {
+                buffer4 = bytes.GetBytes(0x20);
+            }
+            return ByteArraysEqual(buffer3, buffer4);
+        }
+
+        public static bool ByteArraysEqual(byte[] b1, byte[] b2)
+        {
+            if (b1 == b2) return true;
+            if (b1 == null || b2 == null) return false;
+            if (b1.Length != b2.Length) return false;
+            for (int i = 0; i < b1.Length; i++)
+            {
+                if (b1[i] != b2[i]) return false;
+            }
+            return true;
         }
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("Login")]
         [System.Web.Http.AllowAnonymous]
-        public async Task<ActionResult> Login([FromBody]AuthLoginDTO model)
+        public async Task<Object> Login([FromBody]AuthLoginDTO model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userService.GetUserAsync(model.UserName);
+                var user = await _userService.GetUserByNameAsync(model.UserName);
 
                 if (user == null)
                 {
-                    return HttpNotFound();
+                    return NotFound();
                 }
-
-                if (Encrypt(model.Password) != user.PasswordHash) return BaseDataResponse<AuthenticateResult>.Fail(null, new ErrorModel(ErrorCode.InvalidLoginPass));
-
-                if (user.LockDate != null) return BaseDataResponse<AuthenticateResult>.Fail(null, new ErrorModel(ErrorCode.AccessToTheSystemIsSuspended));
-
-                var t = await _refreshTokenService.GetByUserIdAsync(user.Id);
-                if (t != null)
-                    await _refreshTokenService.DeleteAsync(t);
-
-                var token = await GetJwtTokenForUserAsync(user);
-
-                var refreshToken = GenerateTokenByRandomNumber();
-
-                RefreshToken rt = new RefreshToken();
-                rt.CreatedAt = DateTime.Now;
-                rt.IsActive = true;
-                rt.UserId = user.Id;
-                rt.Token = refreshToken;
-                rt.Expires = DateTime.Now.AddDays(5);
-                rt.RemoteIpAddress = HttpContext.Current.Request.UserHostAddress;
-
-                await _refreshTokenService.CreateAsync(rt);
-
-                var userToken = await _jwTokenService.GetByUserIdAsync(user.Id);
-
-                if (userToken == null)
+                 
+                if (!VerifyHashedPassword(user.PasswordHash, model.Password))
                 {
-                    userToken = new ActiveUserToken()
-                    {
-                        UserId = user.Id,
-                        Token = token
-                    };
-                    await _jwTokenService.CreateAsync(userToken);
-
-                    //cache
-                    var memCacher = new MemoryCacher();
-                    if (memCacher.GetValue(userToken.Token) == null)
-                    {
-                        memCacher.Add(token, user.Id, DateTimeOffset.UtcNow.AddHours(10));
-                    }
+                    return BadRequest("Incorrect login or password");
                 }
-                else
+                
+                var newRefreshToken = GenerateTokenByRandomNumber();
+
+                var refreshTokenDto = new RefreshTokenDTO
                 {
-                    var memCacher = new MemoryCacher();
-                    if (memCacher.GetValue(userToken.Token) != null)
-                    {
-                        memCacher.Delete(userToken.Token);
-                    }
-                    memCacher.Add(token, user.Id, DateTimeOffset.UtcNow.AddHours(10));
-                    userToken.Token = token;
-                    await _jwTokenService.UpdateAsync(userToken);
-                }
+                    IsActive = true,
+                    Token = newRefreshToken,
+                    Expires = DateTime.Now.AddDays(1),
+                    RemoteIp = GetRemoteIp()
+                };
 
-                return BaseDataResponse<AuthenticateResult>.Success(new AuthenticateResult(token, refreshToken));
+                await _refreshTokenService.SetAsync(refreshTokenDto, user.Id);
+
+                var jwToken = await _jwTokenService.GetTokenAsync(user.Id);
+
+                var newJWToken = await GenerateJWTokenAsync(user.Id);
+
+                var memCacher = new MemoryCacher();
+                if (jwToken != null)
+                {
+                    if (memCacher.GetValue(jwToken) != null)
+                    {
+                        memCacher.Delete(jwToken);
+                    }
+                } 
+                memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
+            
+                await _jwTokenService.SetAsync(user.Id, newJWToken);
+                
+                return new { JWT = newJWToken, RefreshToken = newRefreshToken };
             }
-            return Response(BaseDataResponse<AuthenticateResult>.Fail(null, new ErrorModel(ErrorCode.ModelStateIsNotValid)));
+            return NotFound();
         }
-
+         
         //[System.Web.Http.HttpGet]
         //[System.Web.Http.Route("LogOut")]
         //public async Task<string> LogOut()
@@ -145,77 +165,54 @@ namespace ERP.API.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("RefreshToken")]
-        public async Task<ActionResult> RefreshToken(string refreshToken)
+        public async Task<Object> RefreshToken([FromBody]string jwToken, string refreshToken)
         {
-            var userPrincipal = GetPrincipalFromToken(refreshToken);
-            var tokenActive = await TokenActiveAsync(refreshToken);
+            var userPrincipal = GetPrincipalFromToken(jwToken);
+
+            var tokenActive = await IsTokenExistsAsync(jwToken);
+
             // invalid token/signing key was passed and we can't extract user claims
             if (userPrincipal != null && tokenActive)
             {
-                var userId = userPrincipal.Claims.First(c => c.Type == "id").Value;
+                var userId = userPrincipal.Claims.First(c => c.Type == "id").Value; 
 
-                //var ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress?.ToString();
-                var ipAddress = HttpContext.Current.Request.UserHostAddress;
+                var user = await _refreshTokenService.GetByUserByIdAsync(userId);
 
-                var user = await _refreshTokenService.GetByUserIdAsync(userId);
-
-                if (user != null && user.IsActive && user.RemoteIpAddress == ipAddress && user.Token == model.RefreshToken)
+                if (user != null && user.RefreshTokenIsActive == true && user.RefreshTokenIp == GetRemoteIp() && user.RefreshToken == refreshToken)
                 {
                     string _userId = userPrincipal.Claims.FirstOrDefault(c => c.Type == "id")?.Value.ToString();
+                    
+                    await _refreshTokenService.ClearAsync(userId);
 
-                    var user = await _userService.GetUserByIdAsync(_userId);
-                    var jwtToken = await GetJwtTokenForUserAsync(user);
-                    var existingRt = await _refreshTokenService.GetByUserIdAsync(userId);
-
-                    await _refreshTokenService.DeleteAsync(existingRt);
-
-                    var refreshToken = GenerateTokenByRandomNumber();
-
-                    RefreshToken rt = new RefreshToken();
-                    rt.CreatedAt = DateTime.Now;
-                    rt.IsActive = true;
-                    rt.UserId = user.Id;
-                    rt.Token = refreshToken;
-                    rt.Expires = DateTime.Now.AddDays(5);
-                    rt.RemoteIpAddress = HttpContext.Current.Request.UserHostAddress;
-
-                    await _refreshTokenService.CreateAsync(rt);
-
-                    var userToken = await _jwTokenService.GetByUserIdAsync(user.Id);
-
-                    if (userToken == null)
+                    // RefreshToken
+                    var newRefreshToken = GenerateTokenByRandomNumber();
+                     
+                    var refreshTokenDto = new RefreshTokenDTO
                     {
-                        userToken = new ActiveUserToken()
-                        {
-                            UserId = user.Id,
-                            Token = jwtToken
-                        };
-                        await _jwTokenService.CreateAsync(userToken);
+                        IsActive = true,
+                        Token = newRefreshToken,
+                        Expires = DateTime.Now.AddDays(5),
+                        RemoteIp = GetRemoteIp()
+                    };
 
-                        var memCacher = new MemoryCacher();
-                        memCacher.Add(jwtToken, user.Id, DateTimeOffset.UtcNow.AddHours(10));
-                    }
-                    else
+                    await _refreshTokenService.SetAsync(refreshTokenDto, userId);
+
+                    // JWToken
+                    var newJWToken = await GenerateJWTokenAsync(userId);
+                     
+                    await _jwTokenService.SetAsync(userId, newJWToken);
+
+                    var memCacher = new MemoryCacher();
+                    if (memCacher.GetValue(jwToken) == null)
                     {
-                        //if (HttpRuntime.Cache.Get())
-                        //{
-                        //    activeTokens.Remove(userToken.Token);
-                        //    _cache.Set(ActiveTokenCacheName, activeTokens);
-                        //}
-                        var memCacher = new MemoryCacher();
-                        if (memCacher.GetValue(model.Token) == null)
-                        {
-                            memCacher.Add(jwtToken, user.Id, DateTimeOffset.UtcNow.AddHours(10));
-                        }
-
-                        userToken.Token = jwtToken;
-                        await _jwTokenService.UpdateAsync(userToken);
+                        memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
                     }
-                    return BaseDataResponse<AuthenticateResult>.Success(new AuthenticateResult(jwtToken, refreshToken));
+
+                    return new { JWT = newJWToken, RefreshToken = newRefreshToken };
                 }
-                return BaseDataResponse<AuthenticateResult>.Fail(null, new ErrorModel(ErrorCode.InvalidLoginPass));
+                return new HttpNotFoundResult();
             }
-            return Response(BaseDataResponse<AuthenticateResult>.Fail(null));
+            return new HttpNotFoundResult();
         }
 
         private async Task<string> GenerateJWTokenAsync(string userId, bool remember = false)
@@ -237,11 +234,11 @@ namespace ERP.API.Controllers
             claims.Add(new Claim("name", user.UserName)); 
             
             //
-            var roles = await _userRoleService.GetByUserIdAsync(user.Id);
+            var roles = await _userService.GetUserRolesByIdAsync(user.Id);
 
             claims.AddRange(roles.Select(p => new Claim(type: ClaimTypes.Role, p)));
 
-            JWTSettings jwtSettings = GetSettings();
+            JWTSettingsDTO jwtSettings = GetSettings();
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
             SigningCredentials _signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
@@ -280,7 +277,7 @@ namespace ERP.API.Controllers
             return principal;
         }
 
-        public static TokenValidationParameters GetTokenValidationParameters(JWTSettings jwtSettings)
+        public static TokenValidationParameters GetTokenValidationParameters(JWTSettingsDTO jwtSettings)
         {
             return new TokenValidationParameters
             {
@@ -295,9 +292,9 @@ namespace ERP.API.Controllers
             };
         }
 
-        private static JWTSettings GetSettings()
+        private static JWTSettingsDTO GetSettings()
         {
-            return new JWTSettings
+            return new JWTSettingsDTO
             {
                 Secret = "98RzBdS6S8E3kP4AdmdKfPzahJNqXMLn4t2VLwrRXDesepjeUg5t8ddrHcWemGswUU8TsF9dRqLm2YzCbaVXUWKKUgSXSFtmW6wad6vJCYVG4dQWfLvKCy9tse3AWVtMeyRqSta5Vy7XaAmDdhqzmna6ZeV68886RKzLA25egGJ3Fy7nQe68Aw5WpLK3HEEkG67YTH8daJkpHR5BhJKXa2zLX5ZvWtgAuVYSQZxykbp64bgAQ4AZFadFMCcafhTZ",
                 Issuer = "https://kenguru.tj",
@@ -306,6 +303,16 @@ namespace ERP.API.Controllers
                 RefreshExpiration = 2260,
                 RememberMeExpiration = 2260
             };
+        }
+
+        private static string GetRemoteIp()
+        {
+            string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            return ip;
         }
 
     }

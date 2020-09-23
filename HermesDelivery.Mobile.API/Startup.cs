@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using HermesDelivery.Mobile.API.App_Extension;
 using HermesDelivery.Mobile.API.App_Extension.OAuth;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Owin.Security.Jwt;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
@@ -18,34 +20,14 @@ namespace HermesDelivery.Mobile.API
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-
-            ConfigureOAuth(app);
-
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
-            app.UseWebApi(config);
-
+            var config = new HttpConfiguration();
+            config.MessageHandlers.Add(new WebApiConfig.CrossDomainHandler());
+            app.UseWebApi(config); 
         }
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public void ConfigureOAuth(IAppBuilder app)
-        {
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-                //For Dev environment only (on production should be AllowInsecureHttp = false)
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/oauth2/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromHours(12),
-                Provider = new CustomOAuthProvider(),
-                AccessTokenFormat = new CustomJwtFormat("https://kenguru.tj")
-            };
+        public static Func<UserManager<IdentityUser>> UserManagerFactory { get; set; }
 
-            // OAuth 2.0 Bearer Access Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-
-        }
+        public static string PublicClientId { get; private set; }
     }
 }

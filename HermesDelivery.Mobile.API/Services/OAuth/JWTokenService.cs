@@ -8,7 +8,7 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
 {
     public class JWTokenService
     {
-        private HDEntities _dbContext;
+        private HDEntities _dbContext = new HDEntities() ;
         private readonly IMapper _mapper;
 
         public JWTokenService(IMapper mapper)
