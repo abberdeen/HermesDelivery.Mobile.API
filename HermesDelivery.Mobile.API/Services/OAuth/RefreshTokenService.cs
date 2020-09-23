@@ -1,19 +1,18 @@
-﻿using System;
+﻿using AutoMapper;
+using HermesDelivery.Mobile.API.Infrastructure;
+using HermesDelivery.Mobile.API.Models.DTO.OAuth;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using HermesDelivery.Mobile.API.Infrastructure;
-using HermesDelivery.Mobile.API.Models.DTO.OAuth;
 
 namespace HermesDelivery.Mobile.API.Services.OAuth
 {
     public class RefreshTokenService
     {
-        private HDEntities _dbContext =   new HDEntities();
+        private HDEntities _dbContext = new HDEntities();
         private readonly IMapper _mapper;
 
-        public RefreshTokenService(  IMapper mapper )
+        public RefreshTokenService(IMapper mapper)
         {
             _mapper = mapper;
             _dbContext = new HDEntities();

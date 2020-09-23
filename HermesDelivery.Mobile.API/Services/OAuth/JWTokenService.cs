@@ -1,14 +1,14 @@
-﻿using System.Data.Entity;
+﻿using AutoMapper;
+using HermesDelivery.Mobile.API.Infrastructure;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using HermesDelivery.Mobile.API.Infrastructure;
 
 namespace HermesDelivery.Mobile.API.Services.OAuth
 {
     public class JWTokenService
     {
-        private HDEntities _dbContext = new HDEntities() ;
+        private HDEntities _dbContext = new HDEntities();
         private readonly IMapper _mapper;
 
         public JWTokenService(IMapper mapper)

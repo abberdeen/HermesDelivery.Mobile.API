@@ -1,37 +1,32 @@
-﻿using AutoMapper;
+﻿using ERP.API.Identity;
+using HermesDelivery.Mobile.API.Models.DTO.OAuth;
+using HermesDelivery.Mobile.API.Services.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using ERP.API.Identity;
-using HermesDelivery.Mobile.API.App_Extension;
-using HermesDelivery.Mobile.API.Models.DTO.OAuth;
-using HermesDelivery.Mobile.API.Services.OAuth;
-using Microsoft.Owin.Security;
 
 namespace ERP.API.Controllers
-{ 
+{
     public class AuthController : ApiController
     {
         private readonly AccountService _userService;
         private readonly RefreshTokenService _refreshTokenService;
-        private readonly JWTokenService _jwTokenService; 
+        private readonly JWTokenService _jwTokenService;
 
-        public AuthController( )
+        public AuthController()
         {
             _userService = new AccountService();
             _refreshTokenService = new RefreshTokenService();
-            _jwTokenService = new JWTokenService(); 
+            _jwTokenService = new JWTokenService();
         }
 
         public static bool VerifyHashedPassword(string hashedPassword, string password)
@@ -86,12 +81,12 @@ namespace ERP.API.Controllers
                 {
                     return NotFound();
                 }
-                 
+
                 if (!VerifyHashedPassword(user.PasswordHash, model.Password))
                 {
                     return BadRequest("Incorrect login or password");
                 }
-                
+
                 var newRefreshToken = GenerateTokenByRandomNumber();
 
                 var refreshTokenDto = new RefreshTokenDTO
@@ -115,16 +110,16 @@ namespace ERP.API.Controllers
                     {
                         memCacher.Delete(jwToken);
                     }
-                } 
+                }
                 memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
-            
+
                 await _jwTokenService.SetAsync(user.Id, newJWToken);
-                
+
                 return new { JWT = newJWToken, RefreshToken = newRefreshToken };
             }
             return NotFound();
         }
-         
+
         //[System.Web.Http.HttpGet]
         //[System.Web.Http.Route("LogOut")]
         //public async Task<string> LogOut()
@@ -174,19 +169,19 @@ namespace ERP.API.Controllers
             // invalid token/signing key was passed and we can't extract user claims
             if (userPrincipal != null && tokenActive)
             {
-                var userId = userPrincipal.Claims.First(c => c.Type == "id").Value; 
+                var userId = userPrincipal.Claims.First(c => c.Type == "id").Value;
 
                 var user = await _refreshTokenService.GetByUserByIdAsync(userId);
 
                 if (user != null && user.RefreshTokenIsActive == true && user.RefreshTokenIp == GetRemoteIp() && user.RefreshToken == refreshToken)
                 {
                     string _userId = userPrincipal.Claims.FirstOrDefault(c => c.Type == "id")?.Value.ToString();
-                    
+
                     await _refreshTokenService.ClearAsync(userId);
 
                     // RefreshToken
                     var newRefreshToken = GenerateTokenByRandomNumber();
-                     
+
                     var refreshTokenDto = new RefreshTokenDTO
                     {
                         IsActive = true,
@@ -199,7 +194,7 @@ namespace ERP.API.Controllers
 
                     // JWToken
                     var newJWToken = await GenerateJWTokenAsync(userId);
-                     
+
                     await _jwTokenService.SetAsync(userId, newJWToken);
 
                     var memCacher = new MemoryCacher();
@@ -229,10 +224,10 @@ namespace ERP.API.Controllers
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim("id", user.Id.ToString()),
             };
-            
+
             //
-            claims.Add(new Claim("name", user.UserName)); 
-            
+            claims.Add(new Claim("name", user.UserName));
+
             //
             var roles = await _userService.GetUserRolesByIdAsync(user.Id);
 
@@ -258,14 +253,13 @@ namespace ERP.API.Controllers
 
         public async Task<bool> IsTokenExistsAsync(string token)
         {
-            var userId= await _jwTokenService.GetUserIdAsync(token);
+            var userId = await _jwTokenService.GetUserIdAsync(token);
             return userId != null;
         }
 
         public ClaimsPrincipal GetPrincipalFromToken(string token)
         {
             JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            
 
             var tokenValidationParameters = GetTokenValidationParameters(GetSettings());
             tokenValidationParameters.ValidateLifetime = false;
@@ -296,8 +290,8 @@ namespace ERP.API.Controllers
         {
             return new JWTSettingsDTO
             {
-                Secret = "98RzBdS6S8E3kP4AdmdKfPzahJNqXMLn4t2VLwrRXDesepjeUg5t8ddrHcWemGswUU8TsF9dRqLm2YzCbaVXUWKKUgSXSFtmW6wad6vJCYVG4dQWfLvKCy9tse3AWVtMeyRqSta5Vy7XaAmDdhqzmna6ZeV68886RKzLA25egGJ3Fy7nQe68Aw5WpLK3HEEkG67YTH8daJkpHR5BhJKXa2zLX5ZvWtgAuVYSQZxykbp64bgAQ4AZFadFMCcafhTZ",
-                Issuer = "https://kenguru.tj",
+                Secret = ConfigurationManager.AppSettings.Get("secret"),
+                Issuer = ConfigurationManager.AppSettings.Get("issuer"),
                 Audience = "https://api.kenguru.tj",
                 AccessExpiration = 2260,
                 RefreshExpiration = 2260,
@@ -314,6 +308,5 @@ namespace ERP.API.Controllers
             }
             return ip;
         }
-
     }
 }

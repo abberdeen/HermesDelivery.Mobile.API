@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using HermesDelivery.Mobile.API.Infrastructure;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using HermesDelivery.Mobile.API.Infrastructure;
 
 namespace HermesDelivery.Mobile.API.Services.OAuth
 {
@@ -20,10 +20,10 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
         public AccountService()
         {
         }
-         
+
         public async Task<AspNetUser> GetUserByNameAsync(string userName)
         {
-            return await _dbContext.AspNetUsers.Where(e => e.UserName == userName).FirstOrDefaultAsync(); 
+            return await _dbContext.AspNetUsers.Where(e => e.UserName == userName).FirstOrDefaultAsync();
         }
 
         public async Task<AspNetUser> GetUserByIdAsync(string id)
@@ -35,6 +35,5 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
         {
             return await _dbContext.AspNetUserRoles.Where(e => e.UserId == id).Select(e => e.AspNetRole.Name).ToListAsync();
         }
-
     }
 }

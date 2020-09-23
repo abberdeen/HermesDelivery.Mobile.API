@@ -204,6 +204,7 @@
   <ItemGroup>
     <Compile Include="App_Extension\MemoryCacher.cs" />
     <Compile Include="App_Extension\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
+    <Compile Include="App_Extension\OAuth\PreflightRequestsHandler.cs" />
     <Compile Include="App_Extension\PasswordHasher.cs" />
     <Compile Include="Controllers\OAuth\AuthController.cs" />
     <Compile Include="Infrastructure\Application.cs">
@@ -365,7 +366,6 @@
     <Compile Include="Services\Account\AccountService.cs" />
     <Compile Include="Services\OAuth\JWTokenService.cs" />
     <Compile Include="Services\OAuth\RefreshTokenService.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />

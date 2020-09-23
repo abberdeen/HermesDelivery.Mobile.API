@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Swagger.Net;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http.Description;
-using Swagger.Net;
 
 namespace HermesDelivery.Mobile.API.App_Extension.OAuth
 {

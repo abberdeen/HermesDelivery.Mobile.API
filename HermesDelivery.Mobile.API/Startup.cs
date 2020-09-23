@@ -21,13 +21,7 @@ namespace HermesDelivery.Mobile.API
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
-            config.MessageHandlers.Add(new WebApiConfig.CrossDomainHandler());
             app.UseWebApi(config); 
-        }
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
-
-        public static Func<UserManager<IdentityUser>> UserManagerFactory { get; set; }
-
-        public static string PublicClientId { get; private set; }
+        } 
     }
 }
