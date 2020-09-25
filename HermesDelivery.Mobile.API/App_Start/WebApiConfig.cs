@@ -1,11 +1,11 @@
-﻿using HermesDelivery.Mobile.API.App_Extension.OAuth;
+﻿using HermesDMobAPI.Infrastructure.Extensions.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace HermesDelivery.Mobile.API
+namespace HermesDMobAPI
 {
     public static class WebApiConfig
     {

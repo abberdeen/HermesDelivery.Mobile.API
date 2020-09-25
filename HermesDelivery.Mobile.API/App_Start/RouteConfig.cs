@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace HermesDelivery.Mobile.API
+namespace HermesDMobAPI
 {
     public class RouteConfig
     {

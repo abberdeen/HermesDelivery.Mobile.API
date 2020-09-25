@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HermesDelivery.Mobile.API.Controllers
+namespace HermesDMobAPI.Controllers
 {
     public class HomeController : Controller
     {

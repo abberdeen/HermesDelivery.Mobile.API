@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using HermesDelivery.Mobile.API.Infrastructure;
-using HermesDelivery.Mobile.API.Models.DTO.OAuth;
+using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Models.DTO.OAuth;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HermesDelivery.Mobile.API.Services.OAuth
+namespace HermesDMobAPI.Services.OAuth
 {
     public class RefreshTokenService
     {
@@ -27,7 +27,7 @@ namespace HermesDelivery.Mobile.API.Services.OAuth
             return await _dbContext.AspNetUsers.Where(e => e.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task SetAsync(RefreshTokenDTO model, string userId)
+        public async Task SetAsync(RefreshTokenDto model, string userId)
         {
             var user = await _dbContext.AspNetUsers.FindAsync(userId);
 

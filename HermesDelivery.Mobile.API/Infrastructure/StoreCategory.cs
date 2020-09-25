@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HermesDelivery.Mobile.API.Infrastructure
+namespace HermesDMobAPI.Infrastructure
 {
     using System;
     using System.Collections.Generic;

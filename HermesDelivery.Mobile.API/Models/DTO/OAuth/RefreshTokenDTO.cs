@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HermesDelivery.Mobile.API.Models.DTO.OAuth
+namespace HermesDMobAPI.Models.DTO.OAuth
 {
-    public class RefreshTokenDTO
+    public class RefreshTokenDto
     {
         public string Token { get; set; }
         public DateTime Expires { get; set; }

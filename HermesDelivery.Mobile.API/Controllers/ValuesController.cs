@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using HermesDMobAPI.Infrastructure.Extensions;
+using Microsoft.AspNet.Identity;
+using Thinktecture.IdentityModel;
 
-namespace HermesDelivery.Mobile.API.Controllers
+namespace HermesDMobAPI.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController
@@ -15,7 +18,7 @@ namespace HermesDelivery.Mobile.API.Controllers
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return id.ToString();
         }
 
         // POST api/values

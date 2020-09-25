@@ -1,77 +1,36 @@
-﻿using ERP.API.Identity;
-using HermesDelivery.Mobile.API.Models.DTO.OAuth;
-using HermesDelivery.Mobile.API.Services.OAuth;
-using Microsoft.IdentityModel.Tokens;
+﻿using HermesDMobAPI.Infrastructure.Extensions;
+using HermesDMobAPI.Models.DTO.OAuth;
+using HermesDMobAPI.Services.Account;
+using HermesDMobAPI.Services.OAuth;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
-namespace ERP.API.Controllers
+namespace HermesDMobAPI.Controllers.OAuth
 {
     public class AuthController : ApiController
     {
-        private readonly AccountService _userService;
+        private readonly UserService _userService;
         private readonly RefreshTokenService _refreshTokenService;
-        private readonly JWTokenService _jwTokenService;
+        private readonly JwTokenService _jwTokenService;
+        private readonly AuthService _authService;
 
         public AuthController()
         {
-            _userService = new AccountService();
+            _userService = new UserService();
             _refreshTokenService = new RefreshTokenService();
-            _jwTokenService = new JWTokenService();
-        }
-
-        public static bool VerifyHashedPassword(string hashedPassword, string password)
-        {
-            byte[] buffer4;
-            if (hashedPassword == null)
-            {
-                return false;
-            }
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
-            byte[] src = Convert.FromBase64String(hashedPassword);
-            if ((src.Length != 0x31) || (src[0] != 0))
-            {
-                return false;
-            }
-            byte[] dst = new byte[0x10];
-            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
-            byte[] buffer3 = new byte[0x20];
-            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
-            {
-                buffer4 = bytes.GetBytes(0x20);
-            }
-            return ByteArraysEqual(buffer3, buffer4);
-        }
-
-        public static bool ByteArraysEqual(byte[] b1, byte[] b2)
-        {
-            if (b1 == b2) return true;
-            if (b1 == null || b2 == null) return false;
-            if (b1.Length != b2.Length) return false;
-            for (int i = 0; i < b1.Length; i++)
-            {
-                if (b1[i] != b2[i]) return false;
-            }
-            return true;
+            _jwTokenService = new JwTokenService();
+            _authService = new AuthService();
         }
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("Login")]
         [System.Web.Http.AllowAnonymous]
-        public async Task<Object> Login([FromBody]AuthLoginDTO model)
+        public async Task<Object> Login([FromBody]AuthLoginDto model)
         {
             if (ModelState.IsValid)
             {
@@ -81,15 +40,17 @@ namespace ERP.API.Controllers
                 {
                     return NotFound();
                 }
+                
+                var hasher = new Microsoft.AspNet.Identity.PasswordHasher();
 
-                if (!VerifyHashedPassword(user.PasswordHash, model.Password))
+                if (hasher.VerifyHashedPassword(user.PasswordHash, model.Password) != PasswordVerificationResult.Success)
                 {
                     return BadRequest("Incorrect login or password");
                 }
 
                 var newRefreshToken = GenerateTokenByRandomNumber();
 
-                var refreshTokenDto = new RefreshTokenDTO
+                var refreshTokenDto = new RefreshTokenDto
                 {
                     IsActive = true,
                     Token = newRefreshToken,
@@ -101,7 +62,7 @@ namespace ERP.API.Controllers
 
                 var jwToken = await _jwTokenService.GetTokenAsync(user.Id);
 
-                var newJWToken = await GenerateJWTokenAsync(user.Id);
+                var newJWToken = await _authService.GenerateJWTokenAsync(user.Id);
 
                 var memCacher = new MemoryCacher();
                 if (jwToken != null)
@@ -147,24 +108,14 @@ namespace ERP.API.Controllers
         //    return "Logged out";
         //}
 
-        public static string GenerateTokenByRandomNumber(int size = 32)
-        {
-            var randomNumber = new byte[size];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
-            }
-        }
-
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("RefreshToken")]
         public async Task<Object> RefreshToken([FromBody]string jwToken, string refreshToken)
         {
-            var userPrincipal = GetPrincipalFromToken(jwToken);
+            var userPrincipal = _authService.GetPrincipalFromToken(jwToken);
 
-            var tokenActive = await IsTokenExistsAsync(jwToken);
+            var tokenActive = await _authService.IsTokenExistsAsync(jwToken);
 
             // invalid token/signing key was passed and we can't extract user claims
             if (userPrincipal != null && tokenActive)
@@ -182,7 +133,7 @@ namespace ERP.API.Controllers
                     // RefreshToken
                     var newRefreshToken = GenerateTokenByRandomNumber();
 
-                    var refreshTokenDto = new RefreshTokenDTO
+                    var refreshTokenDto = new RefreshTokenDto
                     {
                         IsActive = true,
                         Token = newRefreshToken,
@@ -193,7 +144,7 @@ namespace ERP.API.Controllers
                     await _refreshTokenService.SetAsync(refreshTokenDto, userId);
 
                     // JWToken
-                    var newJWToken = await GenerateJWTokenAsync(userId);
+                    var newJWToken = await _authService.GenerateJWTokenAsync(userId);
 
                     await _jwTokenService.SetAsync(userId, newJWToken);
 
@@ -210,94 +161,7 @@ namespace ERP.API.Controllers
             return new HttpNotFoundResult();
         }
 
-        private async Task<string> GenerateJWTokenAsync(string userId, bool remember = false)
-        {
-            var user = await _userService.GetUserByIdAsync(userId);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("id", user.Id.ToString()),
-            };
-
-            //
-            claims.Add(new Claim("name", user.UserName));
-
-            //
-            var roles = await _userService.GetUserRolesByIdAsync(user.Id);
-
-            claims.AddRange(roles.Select(p => new Claim(type: ClaimTypes.Role, p)));
-
-            JWTSettingsDTO jwtSettings = GetSettings();
-
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
-            SigningCredentials _signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
-            var accessExpiration = remember ? jwtSettings.RememberMeExpiration : jwtSettings.AccessExpiration;
-
-            var jwtToken = new JwtSecurityToken(
-                jwtSettings.Issuer,
-                jwtSettings.Audience,
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(accessExpiration),
-                signingCredentials: _signingCredentials
-            );
-            JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            return _jwtSecurityTokenHandler.WriteToken(jwtToken);
-        }
-
-        public async Task<bool> IsTokenExistsAsync(string token)
-        {
-            var userId = await _jwTokenService.GetUserIdAsync(token);
-            return userId != null;
-        }
-
-        public ClaimsPrincipal GetPrincipalFromToken(string token)
-        {
-            JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-
-            var tokenValidationParameters = GetTokenValidationParameters(GetSettings());
-            tokenValidationParameters.ValidateLifetime = false;
-
-            var principal = _jwtSecurityTokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-            if (!(securityToken is JwtSecurityToken jwtSecurityToken) || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                throw new SecurityTokenException("Invalid token");
-            return principal;
-        }
-
-        public static TokenValidationParameters GetTokenValidationParameters(JWTSettingsDTO jwtSettings)
-        {
-            return new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                ValidIssuer = jwtSettings.Issuer,
-                ValidAudience = jwtSettings.Audience,
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-            };
-        }
-
-        private static JWTSettingsDTO GetSettings()
-        {
-            return new JWTSettingsDTO
-            {
-                Secret = ConfigurationManager.AppSettings.Get("secret"),
-                Issuer = ConfigurationManager.AppSettings.Get("issuer"),
-                Audience = "https://api.kenguru.tj",
-                AccessExpiration = 2260,
-                RefreshExpiration = 2260,
-                RememberMeExpiration = 2260
-            };
-        }
+        #region "Helpers"
 
         private static string GetRemoteIp()
         {
@@ -308,5 +172,17 @@ namespace ERP.API.Controllers
             }
             return ip;
         }
+
+        private static string GenerateTokenByRandomNumber(int size = 32)
+        {
+            var randomNumber = new byte[size];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+        #endregion "Helpers"
     }
 }

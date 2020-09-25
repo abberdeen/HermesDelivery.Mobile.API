@@ -1,5 +1,5 @@
-using HermesDelivery.Mobile.API;
-using HermesDelivery.Mobile.API.App_Extension.OAuth;
+using HermesDMobAPI;
+using HermesDMobAPI.Infrastructure.Extensions.OAuth;
 using Swagger.Net;
 using Swagger.Net.Application;
 using System;
@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace HermesDelivery.Mobile.API
+namespace HermesDMobAPI
 {
     public class SwaggerConfig
     {

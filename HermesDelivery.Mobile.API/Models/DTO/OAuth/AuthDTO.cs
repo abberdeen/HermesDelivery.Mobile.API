@@ -1,6 +1,6 @@
-﻿namespace HermesDelivery.Mobile.API.Models.DTO.OAuth
+﻿namespace HermesDMobAPI.Models.DTO.OAuth
 {
-    public class AuthLoginDTO
+    public class AuthLoginDto
     {
         public string UserName { get; set; }
         public string Password { get; set; }

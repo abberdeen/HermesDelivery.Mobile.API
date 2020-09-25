@@ -1,27 +1,18 @@
-﻿using System;
-using System.Configuration;
-using System.Threading.Tasks;
-using System.Web.Http;
-using HermesDelivery.Mobile.API.App_Extension;
-using HermesDelivery.Mobile.API.App_Extension.OAuth;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using HermesDMobAPI;
 using Microsoft.Owin;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Owin.Cors;
-using Microsoft.Owin.Security.OAuth;
 using Owin;
+using System.Web.Http;
 
-[assembly: OwinStartup(typeof(HermesDelivery.Mobile.API.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
-namespace HermesDelivery.Mobile.API
+namespace HermesDMobAPI
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
-            app.UseWebApi(config); 
-        } 
+            app.UseWebApi(config);
+        }
     }
 }

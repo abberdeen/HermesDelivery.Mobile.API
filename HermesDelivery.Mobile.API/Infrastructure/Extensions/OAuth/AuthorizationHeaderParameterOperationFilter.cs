@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http.Description;
 
-namespace HermesDelivery.Mobile.API.App_Extension.OAuth
+namespace HermesDMobAPI.Infrastructure.Extensions.OAuth
 {
     /// <summary>
     /// AuthorizationHeaderParameterOperationFilter para introducir JWT en dialogo Swagger

@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HermesDelivery.Mobile.API</RootNamespace>
+    <RootNamespace>HermesDMobAPI</RootNamespace>
     <AssemblyName>HermesDelivery.Mobile.API</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -65,9 +65,6 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -202,10 +199,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Extension\MemoryCacher.cs" />
-    <Compile Include="App_Extension\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
-    <Compile Include="App_Extension\OAuth\PreflightRequestsHandler.cs" />
-    <Compile Include="App_Extension\PasswordHasher.cs" />
+    <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Infrastructure\Extensions\Http\HttpResponse.cs" />
+    <Compile Include="Infrastructure\Extensions\Http\HttpResponseMessages.cs" />
+    <Compile Include="Infrastructure\Extensions\MemoryCacher.cs" />
+    <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
+    <Compile Include="Models\DTO\Account\AccountDto.cs" />
+    <Compile Include="Models\DTO\HttpErrorMessageDto.cs" />
+    <Compile Include="Services\Account\AccountService.cs" />
+    <Compile Include="Services\OAuth\AuthService.cs" />
+    <Compile Include="Infrastructure\Extensions\OAuth\PreflightRequestsHandler.cs" />
     <Compile Include="Controllers\OAuth\AuthController.cs" />
     <Compile Include="Infrastructure\Application.cs">
       <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
@@ -360,11 +363,11 @@
     <Compile Include="Infrastructure\VehicleType.cs">
       <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DTO\OAuth\JWTSettingsDTO.cs" />
-    <Compile Include="Models\DTO\OAuth\AuthDTO.cs" />
-    <Compile Include="Models\DTO\OAuth\RefreshTokenDTO.cs" />
-    <Compile Include="Services\Account\AccountService.cs" />
-    <Compile Include="Services\OAuth\JWTokenService.cs" />
+    <Compile Include="Models\DTO\OAuth\JwtSettingsDto.cs" />
+    <Compile Include="Models\DTO\OAuth\AuthDto.cs" />
+    <Compile Include="Models\DTO\OAuth\RefreshTokenDto.cs" />
+    <Compile Include="Services\Account\UserService.cs" />
+    <Compile Include="Services\OAuth\JwTokenService.cs" />
     <Compile Include="Services\OAuth\RefreshTokenService.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

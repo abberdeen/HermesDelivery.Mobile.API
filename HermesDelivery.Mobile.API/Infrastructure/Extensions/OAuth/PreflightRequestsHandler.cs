@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 
-namespace HermesDelivery.Mobile.API.App_Extension.OAuth
+namespace HermesDMobAPI.Infrastructure.Extensions.OAuth
 {
     public class PreflightRequestsHandler : DelegatingHandler
     {

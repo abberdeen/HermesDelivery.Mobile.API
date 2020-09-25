@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace ERP.API.Identity
+namespace HermesDMobAPI.Infrastructure.Extensions
 {
     public class MemoryCacher
     {

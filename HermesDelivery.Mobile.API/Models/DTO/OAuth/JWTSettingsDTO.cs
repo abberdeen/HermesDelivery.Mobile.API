@@ -1,6 +1,6 @@
-﻿namespace HermesDelivery.Mobile.API.Models.DTO.OAuth
+﻿namespace HermesDMobAPI.Models.DTO.OAuth
 {
-    public class JWTSettingsDTO
+    public class JwtSettingsDto
     {
         public string Secret { get; set; }
         public string Issuer { get; set; }

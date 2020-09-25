@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HermesDelivery.Mobile.API
+namespace HermesDMobAPI
 {
     public class FilterConfig
     {
