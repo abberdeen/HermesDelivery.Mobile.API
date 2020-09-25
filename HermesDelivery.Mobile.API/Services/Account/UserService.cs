@@ -15,11 +15,7 @@ namespace HermesDMobAPI.Services.Account
         public UserService(IMapper mapper)
         {
             _mapper = mapper;
-        }
-
-        public UserService()
-        {
-        }
+        } 
 
         public async Task<AspNetUser> GetUserByNameAsync(string userName)
         {

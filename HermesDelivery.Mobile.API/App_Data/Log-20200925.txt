@@ -1,0 +1,8 @@
+2020-09-25 15:58:17.813 +05:00 [Information] User 926661996 logged in.
+2020-09-25 15:58:20.952 +05:00 [Information] User 926661996 logged in.
+2020-09-25 18:49:39.565 +05:00 [Information] User 926661996 logged in.
+2020-09-25 18:52:03.372 +05:00 [Information] User 926661996 logged in.
+2020-09-25 18:55:33.834 +05:00 [Information] User 926661996 logged in.
+2020-09-25 18:55:53.727 +05:00 [Error] SmsService : Service returned exception code 114 for 926661996
+2020-09-25 19:01:23.716 +05:00 [Information] SmsService : Message for 926661996 accepted by service
+2020-09-25 19:02:05.092 +05:00 [Information] User 926661996 logged in.

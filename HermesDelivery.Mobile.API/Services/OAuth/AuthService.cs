@@ -17,10 +17,10 @@ namespace HermesDMobAPI.Services.OAuth
         private UserService _userService;
         private JwTokenService _jwTokenService;
 
-        public AuthService()
+        public AuthService(UserService userService, JwTokenService jwTokenService)
         {
-            _userService = new UserService();
-            _jwTokenService = new JwTokenService();
+            _userService = userService;
+            _jwTokenService = jwTokenService;
         }
 
         /// <summary>

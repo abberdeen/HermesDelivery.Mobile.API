@@ -15,10 +15,7 @@ namespace HermesDMobAPI.Services.OAuth
         {
             _mapper = mapper;
         }
-
-        public JwTokenService()
-        {
-        }
+         
 
         public async Task<string> GetTokenAsync(string userId)
         {

@@ -14,13 +14,8 @@ namespace HermesDMobAPI.Services.OAuth
 
         public RefreshTokenService(IMapper mapper)
         {
-            _mapper = mapper;
-            _dbContext = new HDEntities();
-        }
-
-        public RefreshTokenService()
-        {
-        }
+            _mapper = mapper; 
+        } 
 
         public async Task<AspNetUser> GetByUserByIdAsync(string id)
         {
