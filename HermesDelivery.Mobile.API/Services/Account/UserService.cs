@@ -10,14 +10,14 @@ namespace HermesDMobAPI.Services.Account
 {
     public class UserService
     {
-        private readonly DatabaseContext _dbContext;
+        private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
 
         public UserService(ILogger logger, IMapper mapper)
         {
-            _dbContext = new DatabaseContext();
+            _dbContext = new AppDbContext();
             _logger = logger;
             _mapper = mapper;
         }

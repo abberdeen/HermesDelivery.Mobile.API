@@ -360,6 +360,8 @@
   <ItemGroup>
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\PaymentSystemProfile.cs" />
+    <Compile Include="Infrastructure\Database\AppDbContext.cs" />
     <Compile Include="Infrastructure\Database\Application.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -414,7 +416,6 @@
     <Compile Include="Infrastructure\Database\C__MigrationHistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\DatabaseContext.cs" />
     <Compile Include="Infrastructure\Database\db.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -439,17 +440,6 @@
     <Compile Include="Infrastructure\Database\EmployeePosition.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
-    <Compile Include="Controllers\PeopleController.cs" />
-    <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
-    <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
-    <Compile Include="Infrastructure\AutoMapper\Profiles\SmsProfile.cs" />
-    <Compile Include="Infrastructure\Extensions\EnumExtension.cs" />
-    <Compile Include="Infrastructure\Extensions\Http\HttpResponse.cs" />
-    <Compile Include="Infrastructure\Extensions\Http\HttpResponseMessages.cs" />
-    <Compile Include="Infrastructure\Extensions\CustomMemoryCacher.cs" />
-    <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
-    <Compile Include="Infrastructure\Exceptions\AppException.cs" />
     <Compile Include="Infrastructure\Database\Gender.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -546,6 +536,17 @@
     <Compile Include="Infrastructure\Database\VehicleType.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
+    <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\SmsProfile.cs" />
+    <Compile Include="Infrastructure\Extensions\EnumExtension.cs" />
+    <Compile Include="Infrastructure\Extensions\Http\HttpResponse.cs" />
+    <Compile Include="Infrastructure\Extensions\Http\HttpResponseMessages.cs" />
+    <Compile Include="Infrastructure\Extensions\CustomMemoryCacher.cs" />
+    <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
+    <Compile Include="Infrastructure\Exceptions\AppException.cs" />
     <Compile Include="Models\DTO\PaymentSystems\PaymentSystemDto.cs" />
     <Compile Include="Models\DTO\Sms\SMSHandlers.cs" />
     <Compile Include="Models\DTO\Sms\SMSSendLogs.cs" />
@@ -587,8 +588,8 @@
     <Content Include="Global.asax" />
     <Content Include="Infrastructure\Database\db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>db.Context.cs</LastGenOutput>
       <DependentUpon>db.edmx</DependentUpon>
+      <LastGenOutput>db.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Infrastructure\Database\db.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -3,19 +3,19 @@ using HermesDMobAPI.Infrastructure.Database;
 using HermesDMobAPI.Models.DTO.Sms;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Owin.Logging;
+using Serilog;
 
 namespace HermesDMobAPI.Services.Sms
 {
     public class SmsSendLogService
     {
-        private readonly DatabaseContext _dbContext;
+        private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
         public SmsSendLogService(ILogger logger, IMapper mapper)
         {
-            _dbContext = new DatabaseContext();
+            _dbContext = new AppDbContext();
             _logger = logger;
             _mapper = mapper;
         }

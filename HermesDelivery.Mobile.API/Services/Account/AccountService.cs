@@ -9,14 +9,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.Owin.Logging;
+using Serilog;
 
 namespace HermesDMobAPI.Services.Account
 {
     [Authorize]
     public class AccountService
     {
-        private readonly DatabaseContext _dbContext;
+        private AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
         private readonly UserService _userService;
@@ -25,7 +25,7 @@ namespace HermesDMobAPI.Services.Account
 
         public AccountService(ILogger logger, IMapper mapper, UserService userService, MessageService messageService)
         {
-            _dbContext = new DatabaseContext();
+            _dbContext = new AppDbContext();
             _logger = logger;
             _mapper = mapper;
             _messageService = messageService;

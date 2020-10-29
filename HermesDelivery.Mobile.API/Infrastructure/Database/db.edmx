@@ -334,16 +334,20 @@
           <Property Name="Text" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="IsFinal" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "hermes_dev.dbo.PaymentSystems" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="PaymentSystems">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="128" />
-          <Property Name="Logo" Type="nchar" MaxLength="1024" />
-          <Property Name="QRCode" Type="nchar" MaxLength="1024" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Logo" Type="nchar" MaxLength="1024" Nullable="false" />
+          <Property Name="QRCode" Type="nchar" MaxLength="1024" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="PenaltyCategories">
           <Key>
@@ -1275,6 +1279,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PaymentSystems_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PaymentSystems" Type="Self.PaymentSystems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentSystems">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentSystems_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PaymentSystems" Type="Self.PaymentSystems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentSystems">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PenaltyCategories_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="PenaltyCategories" Type="Self.PenaltyCategories" Multiplicity="*" />
@@ -1939,6 +1967,7 @@
           <EntitySet Name="OrderEmailSendLogs" EntityType="Self.OrderEmailSendLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatusCodes" EntityType="Self.OrderStatusCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentSystems" EntityType="Self.PaymentSystems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PenaltyCategories" EntityType="Self.PenaltyCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Platforms" EntityType="Self.Platforms" Schema="dbo" store:Type="Tables" />
@@ -1964,14 +1993,6 @@
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclesGallery" EntityType="Self.VehiclesGallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PaymentSystems" EntityType="Self.PaymentSystems" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PaymentSystems].[Id] AS [Id], 
-    [PaymentSystems].[Name] AS [Name], 
-    [PaymentSystems].[Logo] AS [Logo], 
-    [PaymentSystems].[QRCode] AS [QRCode]
-    FROM [dbo].[PaymentSystems] AS [PaymentSystems]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Applications_AspNetUsers" Association="Self.FK_Applications_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Applications" EntitySet="Applications" />
@@ -2171,6 +2192,14 @@
           <AssociationSet Name="FK_Orders_Regions" Association="Self.FK_Orders_Regions">
             <End Role="Regions" EntitySet="Regions" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentSystems_AspNetUsers" Association="Self.FK_PaymentSystems_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PaymentSystems" EntitySet="PaymentSystems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentSystems_AspNetUsers1" Association="Self.FK_PaymentSystems_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PaymentSystems" EntitySet="PaymentSystems" />
           </AssociationSet>
           <AssociationSet Name="FK_PenaltyCategories_AspNetUsers" Association="Self.FK_PenaltyCategories_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2510,6 +2539,8 @@
           <NavigationProperty Name="OrderEmailSendLogs" Relationship="Self.FK_OrderEmailSendLogs_AspNetUsers" FromRole="AspNetUsers" ToRole="OrderEmailSendLogs" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_AspNetUsers" FromRole="AspNetUsers" ToRole="Orders" />
           <NavigationProperty Name="Orders1" Relationship="Self.FK_Orders_AspNetUsers1" FromRole="AspNetUsers" ToRole="Orders" />
+          <NavigationProperty Name="PaymentSystems" Relationship="Self.FK_PaymentSystems_AspNetUsers" FromRole="AspNetUsers" ToRole="PaymentSystems" />
+          <NavigationProperty Name="PaymentSystems1" Relationship="Self.FK_PaymentSystems_AspNetUsers1" FromRole="AspNetUsers" ToRole="PaymentSystems" />
           <NavigationProperty Name="PenaltyCategories" Relationship="Self.FK_PenaltyCategories_AspNetUsers" FromRole="AspNetUsers" ToRole="PenaltyCategories" />
           <NavigationProperty Name="PenaltyCategories1" Relationship="Self.FK_PenaltyCategories_AspNetUsers1" FromRole="AspNetUsers" ToRole="PenaltyCategories" />
           <NavigationProperty Name="RestaurantCategories" Relationship="Self.FK_RestaurantCategories_AspNetUsers" FromRole="AspNetUsers" ToRole="RestaurantCategories" />
@@ -2849,6 +2880,23 @@
           <Property Name="Text" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsFinal" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_OrderStatusCodes" FromRole="OrderStatusCodes" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="PaymentSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Logo" Type="String" MaxLength="1024" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="QRCode" Type="String" MaxLength="1024" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_PaymentSystems_AspNetUsers" FromRole="PaymentSystems" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_PaymentSystems_AspNetUsers1" FromRole="PaymentSystems" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="PenaltyCategory">
           <Key>
@@ -3247,15 +3295,6 @@
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_VehicleTypes_AspNetUsers1" FromRole="VehicleTypes" ToRole="AspNetUsers" />
           <NavigationProperty Name="Vehicles" Relationship="Self.FK_Vehicles_VehicleType" FromRole="VehicleTypes" ToRole="Vehicles" />
         </EntityType>
-        <EntityType Name="PaymentSystem">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Logo" Type="String" MaxLength="1024" FixedLength="true" Unicode="true" />
-          <Property Name="QRCode" Type="String" MaxLength="1024" FixedLength="true" Unicode="true" />
-        </EntityType>
         <Association Name="FK_Applications_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Applications" Type="Self.Application" Multiplicity="*" />
@@ -3621,6 +3660,30 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="SupplierCallBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentSystems_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="PaymentSystems" Type="Self.PaymentSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentSystems">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentSystems_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="PaymentSystems" Type="Self.PaymentSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentSystems">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4528,6 +4591,7 @@
           <EntitySet Name="OrderEmailSendLogs" EntityType="Self.OrderEmailSendLog" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderStatusCodes" EntityType="Self.OrderStatusCode" />
+          <EntitySet Name="PaymentSystems" EntityType="Self.PaymentSystem" />
           <EntitySet Name="PenaltyCategories" EntityType="Self.PenaltyCategory" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Platforms" EntityType="Self.Platform" />
@@ -4553,7 +4617,6 @@
           <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
           <EntitySet Name="VehiclesGalleries" EntityType="Self.VehiclesGallery" />
           <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
-          <EntitySet Name="PaymentSystems" EntityType="Self.PaymentSystem" />
           <AssociationSet Name="FK_Applications_AspNetUsers" Association="Self.FK_Applications_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Applications" EntitySet="Applications" />
@@ -4673,6 +4736,14 @@
           <AssociationSet Name="FK_Orders_AspNetUsers1" Association="Self.FK_Orders_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentSystems_AspNetUsers" Association="Self.FK_PaymentSystems_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PaymentSystems" EntitySet="PaymentSystems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentSystems_AspNetUsers1" Association="Self.FK_PaymentSystems_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PaymentSystems" EntitySet="PaymentSystems" />
           </AssociationSet>
           <AssociationSet Name="FK_PenaltyCategories_AspNetUsers" Association="Self.FK_PenaltyCategories_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5326,6 +5397,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PaymentSystems">
+            <EntityTypeMapping TypeName="hermes_devModel.PaymentSystem">
+              <MappingFragment StoreEntitySet="PaymentSystems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="QRCode" ColumnName="QRCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PenaltyCategories">
             <EntityTypeMapping TypeName="hermes_devModel.PenaltyCategory">
               <MappingFragment StoreEntitySet="PenaltyCategories">
@@ -5670,16 +5757,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentSystems">
-            <EntityTypeMapping TypeName="hermes_devModel.PaymentSystem">
-              <MappingFragment StoreEntitySet="PaymentSystems">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="QRCode" ColumnName="QRCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

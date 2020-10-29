@@ -4,60 +4,60 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="aeb9ae316a46439f868b0b10622da151" Name="Diagram1">
+      <Diagram DiagramId="7502f416600e4e79bb17a5cdd9c67ac8" Name="Diagram1">
         <EntityTypeShape EntityType="hermes_devModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Application" Width="1.5" PointX="7.5" PointY="33.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetRole" Width="1.5" PointX="5.25" PointY="52" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="37.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="40.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetUserRole" Width="1.5" PointX="10.5" PointY="62.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetUser" Width="1.5" PointX="5.25" PointY="55" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.AspNetUserType" Width="1.5" PointX="3" PointY="57.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Company" Width="1.5" PointX="7.5" PointY="45.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CompanyInSocialNetwork" Width="1.5" PointX="9.75" PointY="80" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CompanyPhone" Width="1.5" PointX="9.75" PointY="57.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CompanySchedule" Width="1.5" PointX="12.75" PointY="54.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierFile" Width="1.5" PointX="10.5" PointY="65.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierLockReason" Width="1.5" PointX="7.5" PointY="53.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierMovementMethod" Width="1.5" PointX="0.75" PointY="59.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierPenalty" Width="1.5" PointX="9.75" PointY="68.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Courier" Width="1.5" PointX="3" PointY="60.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Customer" Width="1.5" PointX="11.25" PointY="50.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.EmployeeLockReason" Width="1.5" PointX="7.5" PointY="61.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.EmployeePosition" Width="1.5" PointX="7.5" PointY="65.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Employee" Width="1.5" PointX="12.75" PointY="61.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Gender" Width="1.5" PointX="0.75" PointY="62.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Application" Width="1.5" PointX="7.5" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetRole" Width="1.5" PointX="10.25" PointY="56.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserRole" Width="1.5" PointX="10.5" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUser" Width="1.5" PointX="5.25" PointY="57" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserType" Width="1.5" PointX="3" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Company" Width="1.5" PointX="7.5" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanyInSocialNetwork" Width="1.5" PointX="9.75" PointY="82.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanyPhone" Width="1.5" PointX="9.75" PointY="58.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanySchedule" Width="1.5" PointX="12.75" PointY="55.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierFile" Width="1.5" PointX="10.5" PointY="67.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierLockReason" Width="1.5" PointX="7.5" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierMovementMethod" Width="1.5" PointX="0.75" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierPenalty" Width="1.5" PointX="9.75" PointY="70.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Courier" Width="1.5" PointX="3" PointY="62.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Customer" Width="1.5" PointX="11.25" PointY="75.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.EmployeeLockReason" Width="1.5" PointX="7.5" PointY="61.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.EmployeePosition" Width="1.5" PointX="7.5" PointY="65.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Employee" Width="1.5" PointX="12.75" PointY="63.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Gender" Width="1.5" PointX="0.75" PointY="64.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.MessageTemplate" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.OperationStatus" Width="1.5" PointX="7.5" PointY="73.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.OrderEmailSendLog" Width="1.5" PointX="7.5" PointY="69.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Order" Width="1.5" PointX="13.5" PointY="66.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.OrderStatusCode" Width="1.5" PointX="11.25" PointY="88.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.PenaltyCategory" Width="1.5" PointX="7.5" PointY="80.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Permission" Width="1.5" PointX="5.25" PointY="48.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Platform" Width="1.5" PointX="8.25" PointY="30.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Region" Width="1.5" PointX="11.25" PointY="48.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RestaurantCategory" Width="1.5" PointX="7.5" PointY="84.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RestaurantInCategory" Width="1.5" PointX="9.75" PointY="75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenu" Width="1.5" PointX="12.75" PointY="76.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem_Order" Width="1.5" PointX="15.75" PointY="69.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem" Width="1.5" PointX="16" PointY="64.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Restaurant" Width="1.5" PointX="7.5" PointY="92.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.RolePermission" Width="1.5" PointX="7.5" PointY="58.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Slider" Width="1.5" PointX="10.5" PointY="53.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.SMSHandler" Width="1.5" PointX="7.5" PointY="89.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.SMSSendLog" Width="1.5" PointX="9.75" PointY="84.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.SMSSetting" Width="1.5" PointX="7.5" PointY="109.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.SocialNetwork" Width="1.5" PointX="7.5" PointY="113.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.StoreCategory" Width="1.5" PointX="9.75" PointY="91.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.StoreProduct_Order" Width="1.5" PointX="15.75" PointY="81" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.StoreProductInCategory" Width="1.5" PointX="17.25" PointY="75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.StoreProduct" Width="1.5" PointX="12.75" PointY="93.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Store" Width="1.5" PointX="7.5" PointY="127" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.StoreSubCategory" Width="1.5" PointX="15" PointY="76.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.Vehicle" Width="1.5" PointX="9.75" PointY="96.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.VehiclesGallery" Width="1.5" PointX="12" PointY="80.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.VehicleType" Width="1.5" PointX="7.5" PointY="137.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.PaymentSystem" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OperationStatus" Width="1.5" PointX="7.5" PointY="73.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OrderEmailSendLog" Width="1.5" PointX="7.5" PointY="69.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Order" Width="1.5" PointX="13.5" PointY="69" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OrderStatusCode" Width="1.5" PointX="11.25" PointY="90.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.PaymentSystem" Width="1.5" PointX="7.5" PointY="80.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.PenaltyCategory" Width="1.5" PointX="7.5" PointY="85" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Permission" Width="1.5" PointX="10.25" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Platform" Width="1.5" PointX="5.25" PointY="53.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Region" Width="1.5" PointX="11.25" PointY="49.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantCategory" Width="1.5" PointX="7.5" PointY="88.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantInCategory" Width="1.5" PointX="9.75" PointY="78.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenu" Width="1.5" PointX="12.75" PointY="79.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem_Order" Width="1.5" PointX="15.75" PointY="71.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem" Width="1.5" PointX="16" PointY="66.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Restaurant" Width="1.5" PointX="7.5" PointY="97" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RolePermission" Width="1.5" PointX="12.5" PointY="59.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Slider" Width="1.5" PointX="7.5" PointY="58.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSHandler" Width="1.5" PointX="7.5" PointY="93.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSSendLog" Width="1.5" PointX="9.75" PointY="86.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSSetting" Width="1.5" PointX="7.5" PointY="113.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SocialNetwork" Width="1.5" PointX="7.5" PointY="118" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreCategory" Width="1.5" PointX="9.75" PointY="94.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProduct_Order" Width="1.5" PointX="15.75" PointY="83.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProductInCategory" Width="1.5" PointX="18.25" PointY="78.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProduct" Width="1.5" PointX="12.75" PointY="96.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Store" Width="1.5" PointX="7.5" PointY="131.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreSubCategory" Width="1.5" PointX="15" PointY="79" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Vehicle" Width="1.5" PointX="9.75" PointY="99.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.VehiclesGallery" Width="1.5" PointX="16" PointY="75.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.VehicleType" Width="1.5" PointX="7.5" PointY="142.125" IsExpanded="true" />
         <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
@@ -88,6 +88,8 @@
         <AssociationConnector Association="hermes_devModel.FK_OrderEmailSendLogs_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Orders_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Orders_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PaymentSystems_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PaymentSystems_AspNetUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_PenaltyCategories_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_PenaltyCategories_AspNetUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_RestaurantCategories_AspNetUsers" ManuallyRouted="false" />

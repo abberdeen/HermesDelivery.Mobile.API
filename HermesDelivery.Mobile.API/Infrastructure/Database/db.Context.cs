@@ -52,6 +52,7 @@ namespace HermesDMobAPI.Infrastructure.Database
         public virtual DbSet<OrderEmailSendLog> OrderEmailSendLogs { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderStatusCode> OrderStatusCodes { get; set; }
+        public virtual DbSet<PaymentSystem> PaymentSystems { get; set; }
         public virtual DbSet<PenaltyCategory> PenaltyCategories { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Platform> Platforms { get; set; }
@@ -77,6 +78,5 @@ namespace HermesDMobAPI.Infrastructure.Database
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehiclesGallery> VehiclesGalleries { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
-        public virtual DbSet<PaymentSystem> PaymentSystems { get; set; }
     }
 }

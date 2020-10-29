@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HermesDMobAPI.Infrastructure.Database;
 using HermesDMobAPI.Models.DTO.Sms;
 
 namespace HermesDMobAPI.Infrastructure.AutoMapper.Profiles

@@ -42,6 +42,8 @@ namespace HermesDMobAPI.Infrastructure.Database
             this.OrderEmailSendLogs = new HashSet<OrderEmailSendLog>();
             this.Orders = new HashSet<Order>();
             this.Orders1 = new HashSet<Order>();
+            this.PaymentSystems = new HashSet<PaymentSystem>();
+            this.PaymentSystems1 = new HashSet<PaymentSystem>();
             this.PenaltyCategories = new HashSet<PenaltyCategory>();
             this.PenaltyCategories1 = new HashSet<PenaltyCategory>();
             this.RestaurantCategories = new HashSet<RestaurantCategory>();
@@ -152,6 +154,10 @@ namespace HermesDMobAPI.Infrastructure.Database
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PaymentSystem> PaymentSystems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PaymentSystem> PaymentSystems1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PenaltyCategory> PenaltyCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -10,6 +10,7 @@ namespace HermesDMobAPI.Infrastructure.AutoMapper
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<SmsProfile>();
+                cfg.AddProfile<PaymentSystemProfile>();
             });
             return config;
         }

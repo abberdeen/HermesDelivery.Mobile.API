@@ -11,7 +11,7 @@ namespace HermesDMobAPI.Services.Sms
 {
     public class MessageService
     {
-        private readonly DatabaseContext _dbContext;
+        private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly SmsSettingService _smsSettingService;
@@ -19,7 +19,7 @@ namespace HermesDMobAPI.Services.Sms
 
         public MessageService(ILogger logger, IMapper mapper, SmsSettingService smsSettingService, SmsSendLogService smsSendLogService)
         {
-            _dbContext = new DatabaseContext();
+            _dbContext = new AppDbContext();
             _logger = logger;
             _mapper = mapper;
             _smsSettingService = smsSettingService;
