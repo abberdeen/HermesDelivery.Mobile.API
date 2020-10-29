@@ -1,4 +1,4 @@
-﻿namespace HermesDMobAPI.Models.DTO.OAuth
+﻿namespace HermesDMobAPI.Models.DTO.Account
 {
     public class ChangePasswordDto
     { 

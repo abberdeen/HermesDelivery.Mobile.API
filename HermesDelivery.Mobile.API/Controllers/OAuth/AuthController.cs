@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using HermesDMobAPI.Infrastructure;
 using HermesDMobAPI.Models.DTO;
@@ -17,7 +18,7 @@ namespace HermesDMobAPI.Controllers.OAuth
 {
     public class AuthController : ApiControllerExtension
     {
-        private ILogger _log;
+        private readonly ILogger _logger;
         private IMapper _mapper;
         private readonly UserService _userService;
         private readonly RefreshTokenService _refreshTokenService;
@@ -32,7 +33,7 @@ namespace HermesDMobAPI.Controllers.OAuth
             JwTokenService jwTokenService,
             AuthService authService)
         {
-            _log = logger;
+            _logger = logger;
             _mapper = mapper;
             _userService = userService;
             _refreshTokenService = refreshTokenService;
@@ -41,27 +42,28 @@ namespace HermesDMobAPI.Controllers.OAuth
         }
 
         [HttpPost]
-        [Route("Login")]
+        [Route("Auth")]
         [AllowAnonymous]
-        public async Task<object> Login([FromBody]AuthLoginDto model)
+        [ResponseType(typeof(LoginResponseDto))]
+        public async Task<IHttpActionResult> Login([FromBody]LoginRequestDto model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(AppMessage.InvalidModel);
+                return Response(AppMessage.InvalidModel);
             }
 
-            var user = await _userService.GetUserByNameAsync(model.UserName);
+            var user = await _userService.GetUserByNameAsync(model.Username);
 
             if (user == null)
             {
-                return NotFound(AppMessage.InvalidLoginOrPassword);
+                return Response(AppMessage.InvalidLoginOrPassword);
             }
 
             var hasher = new PasswordHasher();
 
             if (hasher.VerifyHashedPassword(user.PasswordHash, model.Password) != PasswordVerificationResult.Success)
             {
-                return NotFound(AppMessage.InvalidLoginOrPassword);
+                return Response(AppMessage.InvalidLoginOrPassword);
             }
 
             var newRefreshToken = GenerateTokenByRandomNumber();
@@ -92,13 +94,15 @@ namespace HermesDMobAPI.Controllers.OAuth
 
             await _jwTokenService.SetAsync(user.Id, newJWToken);
 
-            _log.Information($"User {model.UserName} logged in.");
+            _logger.Information($"User {model.Username} logged in.");
 
-            return new
+            var response = new LoginResponseDto()
             {
-                JWT = newJWToken,
-                RefreshToken = newRefreshToken
+                AccessToken = newJWToken,
+                RefreshToken =  newRefreshToken
             };
+
+            return Ok(response);
         }
 
         //[HttpGet]
@@ -131,7 +135,8 @@ namespace HermesDMobAPI.Controllers.OAuth
         [AllowAnonymous]
         [HttpPost]
         [Route("RefreshToken")]
-        public async Task<object> RefreshToken([FromBody]string jwToken, string refreshToken)
+        [ResponseType(typeof(LoginResponseDto))]
+        public async Task<IHttpActionResult> RefreshToken([FromBody]string jwToken, string refreshToken)
         {
             var userPrincipal = _authService.GetPrincipalFromToken(jwToken);
 
@@ -183,9 +188,13 @@ namespace HermesDMobAPI.Controllers.OAuth
                 memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
             }
 
-            return new { JWT = newJWToken, RefreshToken = newRefreshToken };
+            var response = new LoginResponseDto()
+            {
+                AccessToken = newJWToken,
+                RefreshToken = newRefreshToken
+            };
 
-
+            return Ok(response);
         }
 
         #region "Helpers"

@@ -1,18 +1,22 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Infrastructure.Database;
 using HermesDMobAPI.Models.DTO.Sms;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Owin.Logging;
 
 namespace HermesDMobAPI.Services.Sms
 {
     public class SmsSendLogService
     {
-        private readonly HDEntities _dbContext = new HDEntities();
+        private readonly DatabaseContext _dbContext;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public SmsSendLogService(IMapper mapper)
+        public SmsSendLogService(ILogger logger, IMapper mapper)
         {
+            _dbContext = new DatabaseContext();
+            _logger = logger;
             _mapper = mapper;
         }
 

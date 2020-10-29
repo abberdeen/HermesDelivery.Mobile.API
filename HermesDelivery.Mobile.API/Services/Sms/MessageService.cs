@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Infrastructure.Database;
 using HermesDMobAPI.Models.DTO.Sms;
 using HermesDMobAPI.Services.Sms.External;
 using Serilog;
@@ -11,15 +11,16 @@ namespace HermesDMobAPI.Services.Sms
 {
     public class MessageService
     {
-        private HDEntities _dbContext = new HDEntities();
-        private readonly ILogger _log;
+        private readonly DatabaseContext _dbContext;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly SmsSettingService _smsSettingService;
         private readonly SmsSendLogService _smsSendLogService;
 
-        public MessageService(ILogger log, IMapper mapper, SmsSettingService smsSettingService, SmsSendLogService smsSendLogService)
+        public MessageService(ILogger logger, IMapper mapper, SmsSettingService smsSettingService, SmsSendLogService smsSendLogService)
         {
-            _log = log;
+            _dbContext = new DatabaseContext();
+            _logger = logger;
             _mapper = mapper;
             _smsSettingService = smsSettingService;
             _smsSendLogService = smsSendLogService;
@@ -50,11 +51,11 @@ namespace HermesDMobAPI.Services.Sms
                 if (response["error"]?["code"] != null)
                 {
                     statusCode = int.Parse(response["error"]["code"].ToString());
-                    _log.Error($"SmsService : Service returned exception code {statusCode} for {phoneNumber}");
+                    _logger.Error($"SmsService : Service returned exception code {statusCode} for {phoneNumber}");
                 }
                 else
                 {
-                    _log.Information($"SmsService : Message for {phoneNumber} accepted by service");
+                    _logger.Information($"SmsService : Message for {phoneNumber} accepted by service");
                 }
             }
 

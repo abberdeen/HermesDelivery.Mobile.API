@@ -1,21 +1,24 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Infrastructure.Database;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace HermesDMobAPI.Services.OAuth
 {
     public class JwTokenService
     {
-        private HDEntities _dbContext = new HDEntities();
+        private readonly DatabaseContext _dbContext;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public JwTokenService(IMapper mapper)
+        public JwTokenService(ILogger logger, IMapper mapper)
         {
+            _dbContext = new DatabaseContext();
+            _logger = logger;
             _mapper = mapper;
         }
-         
 
         public async Task<string> GetTokenAsync(string userId)
         {

@@ -359,6 +359,86 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
+    <Compile Include="Infrastructure\Database\Application.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetRole.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetUser.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetUserClaim.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetUserLogin.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetUserRole.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\AspNetUserType.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Company.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CompanyInSocialNetwork.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CompanyPhone.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CompanySchedule.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Courier.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierFile.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierLockReason.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierMovementMethod.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierPenalty.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Customer.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\C__MigrationHistory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\DatabaseContext.cs" />
+    <Compile Include="Infrastructure\Database\db.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\db.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\db.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Employee.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\EmployeeLockReason.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\EmployeePosition.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
@@ -369,9 +449,109 @@
     <Compile Include="Infrastructure\Extensions\Http\HttpResponseMessages.cs" />
     <Compile Include="Infrastructure\Extensions\CustomMemoryCacher.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
+    <Compile Include="Infrastructure\Exceptions\AppException.cs" />
+    <Compile Include="Infrastructure\Database\Gender.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\MessageTemplate.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\OperationStatus.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Order.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\OrderEmailSendLog.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\OrderStatusCode.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\PaymentSystem.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\PenaltyCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Permission.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Platform.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Region.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Restaurant.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RestaurantCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RestaurantInCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RestaurantMenu.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RestaurantMenuItem.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RestaurantMenuItem_Order.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\RolePermission.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Slider.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\SMSHandler.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\SMSSendLog.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\SMSSetting.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\SocialNetwork.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Store.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\StoreCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\StoreProduct.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\StoreProductInCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\StoreProduct_Order.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\StoreSubCategory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\Vehicle.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\VehiclesGallery.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\VehicleType.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DTO\PaymentSystems\PaymentSystemDto.cs" />
     <Compile Include="Models\DTO\Sms\SMSHandlers.cs" />
     <Compile Include="Models\DTO\Sms\SMSSendLogs.cs" />
     <Compile Include="Models\DTO\Sms\SMSSettings.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\PaymentSystem\PaymentSystemService.cs" />
     <Compile Include="Services\Sms\External\ISmsService.cs" />
     <Compile Include="Services\Sms\External\OsonSmsService.cs" />
     <Compile Include="Services\Sms\External\SmsService.cs" />
@@ -379,165 +559,12 @@
     <Compile Include="Services\Sms\MessageService.cs" />
     <Compile Include="Services\Sms\SmsSettingService.cs" />
     <Compile Include="Models\DTO\Account\AccountDto.cs" />
-    <Compile Include="Models\DTO\AppMessage.cs" />
-    <Compile Include="Models\DTO\AppMessageDto.cs" />
+    <Compile Include="Infrastructure\AppMessage.cs" />
+    <Compile Include="Infrastructure\AppMessageDto.cs" />
     <Compile Include="Services\Account\AccountService.cs" />
     <Compile Include="Services\OAuth\AuthService.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\PreflightRequestsHandler.cs" />
     <Compile Include="Controllers\OAuth\AuthController.cs" />
-    <Compile Include="Infrastructure\Application.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\AspNetRole.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\AspNetUser.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\AspNetUserClaim.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\AspNetUserLogin.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\AspNetUserRole.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Company.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\CompanyInSocialNetwork.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\CompanyPhone.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\CompanySchedule.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Courier.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\CourierFile.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\CourierLockReason.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Customer.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\C__MigrationHistory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Employee.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\EmployeeLockReason.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\EmployeePosition.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Gender.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\HermesDeliveryDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HermesDeliveryDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\HermesDeliveryDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\HermesDeliveryDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HermesDeliveryDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\MessageTemplate.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Order.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\OrderEmailSendLog.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\OrderStatusCode.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Permission.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Platform.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Restaurant.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RestaurantCategory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RestaurantInCategory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RestaurantMenu.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RestaurantMenuItem.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RestaurantMenuItem_Order.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\RolePermission.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Slider.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\SMSHandler.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\SMSSendLog.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\SMSSetting.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\SocialNetwork.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Store.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\StoreCategory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\StoreProduct.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\StoreProductInCategory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\StoreProduct_Order.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\StoreSubCategory.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Vehicle.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\VehiclesGallery.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\VehicleType.cs">
-      <DependentUpon>HermesDeliveryDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DTO\OAuth\JwtSettingsDto.cs" />
     <Compile Include="Models\DTO\OAuth\AuthDto.cs" />
     <Compile Include="Models\DTO\OAuth\RefreshTokenDto.cs" />
@@ -558,15 +585,15 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Infrastructure\HermesDeliveryDB.Context.tt">
+    <Content Include="Infrastructure\Database\db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HermesDeliveryDB.edmx</DependentUpon>
-      <LastGenOutput>HermesDeliveryDB.Context.cs</LastGenOutput>
+      <LastGenOutput>db.Context.cs</LastGenOutput>
+      <DependentUpon>db.edmx</DependentUpon>
     </Content>
-    <Content Include="Infrastructure\HermesDeliveryDB.tt">
+    <Content Include="Infrastructure\Database\db.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HermesDeliveryDB.edmx</DependentUpon>
-      <LastGenOutput>HermesDeliveryDB.cs</LastGenOutput>
+      <DependentUpon>db.edmx</DependentUpon>
+      <LastGenOutput>db.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -580,12 +607,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Infrastructure\HermesDeliveryDB.edmx">
+    <EntityDeploy Include="Infrastructure\Database\db.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HermesDeliveryDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>db.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Infrastructure\HermesDeliveryDB.edmx.diagram">
-      <DependentUpon>HermesDeliveryDB.edmx</DependentUpon>
+    <Content Include="Infrastructure\Database\db.edmx.diagram">
+      <DependentUpon>db.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

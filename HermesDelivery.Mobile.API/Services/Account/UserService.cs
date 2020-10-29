@@ -1,21 +1,26 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Infrastructure.Database;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace HermesDMobAPI.Services.Account
 {
     public class UserService
     {
-        private HDEntities _dbContext = new HDEntities();
+        private readonly DatabaseContext _dbContext;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper)
+
+        public UserService(ILogger logger, IMapper mapper)
         {
+            _dbContext = new DatabaseContext();
+            _logger = logger;
             _mapper = mapper;
-        } 
+        }
 
         public async Task<AspNetUser> GetUserByNameAsync(string userName)
         {

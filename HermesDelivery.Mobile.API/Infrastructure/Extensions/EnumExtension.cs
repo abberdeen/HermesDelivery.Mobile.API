@@ -3,10 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-
 namespace HermesDMobAPI.Infrastructure.Extensions
 {
-
     public static class EnumExtensions
     {
         // get description from enum:
@@ -18,7 +16,7 @@ namespace HermesDMobAPI.Infrastructure.Extensions
                 First().
                 GetCustomAttribute<DescriptionAttribute>() is DescriptionAttribute attribute
                 ? attribute.Description
-                : throw new Exception($"Enum member '{value.GetType()}.{value}' doesn't have a [DescriptionAttribute]!");
+                : throw new System.Exception($"Enum member '{value.GetType()}.{value}' doesn't have a [DescriptionAttribute]!");
         }
 
         // get enum from description:
@@ -31,7 +29,7 @@ namespace HermesDMobAPI.Infrastructure.Extensions
                     return (T)fieldInfo.GetRawConstantValue();
             }
 
-            throw new Exception($"Enum '{typeof(T)}' doesn't have a member with a [DescriptionAttribute('{description}')]!");
+            throw new System.Exception($"Enum '{typeof(T)}' doesn't have a member with a [DescriptionAttribute('{description}')]!");
         }
     }
 }

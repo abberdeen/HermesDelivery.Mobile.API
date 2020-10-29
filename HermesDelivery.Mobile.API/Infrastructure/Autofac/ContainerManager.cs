@@ -1,15 +1,11 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Compilation;
 using Autofac.Integration.WebApi;
 using AutoMapper;
 using HermesDMobAPI.Infrastructure.AutoMapper;
 using Serilog;
-using Serilog.Sinks;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace HermesDMobAPI.Infrastructure.Autofac
 {
@@ -38,12 +34,11 @@ namespace HermesDMobAPI.Infrastructure.Autofac
             builder.Register<IMapper>(c => ConfigurationManager.CreateConfiguration().CreateMapper()).SingleInstance();
 
             //
-            builder.RegisterApiControllers(assembly); 
+            builder.RegisterApiControllers(assembly);
 
-            // 
+            //
             var container = builder.Build();
             return container;
-
         }
     }
 }

@@ -1,35 +1,37 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using HermesDMobAPI.Infrastructure;
-using System.Collections.Generic;
+using HermesDMobAPI.Infrastructure.Database;
+using HermesDMobAPI.Models.DTO.Account;
+using HermesDMobAPI.Services.Sms;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using HermesDMobAPI.Models.DTO;
-using HermesDMobAPI.Models.DTO.OAuth;
-using HermesDMobAPI.Services.Sms;
-using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Logging;
 
 namespace HermesDMobAPI.Services.Account
 {
     [Authorize]
     public class AccountService
     {
-        private readonly HDEntities _dbContext = new HDEntities();
+        private readonly DatabaseContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly UserService _userService; 
+        private readonly ILogger _logger;
+        private readonly UserService _userService;
         private readonly MessageService _messageService;
         private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
-        public AccountService(IMapper mapper, UserService userService, MessageService messageService)
+        public AccountService(ILogger logger, IMapper mapper, UserService userService, MessageService messageService)
         {
+            _dbContext = new DatabaseContext();
+            _logger = logger;
             _mapper = mapper;
             _messageService = messageService;
-            _userService = userService; 
+            _userService = userService;
         }
-          
+
         public async Task<AppMessage> ChangePasswordAsync(string userId, ChangePasswordDto model)
         {
             // Получает модель пользователя по ИД.
@@ -40,7 +42,7 @@ namespace HermesDMobAPI.Services.Account
             {
                 return AppMessage.InvalidUsername;
             }
-          
+
             // Сверяет старый пароль с новым.
             var verifyResult = _passwordHasher.VerifyHashedPassword(user.PasswordHash, model.CurrentPassword);
             if (verifyResult != PasswordVerificationResult.Success)
@@ -72,7 +74,7 @@ namespace HermesDMobAPI.Services.Account
 
             var random = new Random();
             var newPassword = random.Next(11111, 99999);
-             
+
             currentUser.PasswordHash = new PasswordHasher().HashPassword(newPassword.ToString());
 
             await _dbContext.SaveChangesAsync();

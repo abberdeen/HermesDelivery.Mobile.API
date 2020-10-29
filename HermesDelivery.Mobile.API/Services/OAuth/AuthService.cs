@@ -9,16 +9,19 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace HermesDMobAPI.Services.OAuth
 {
     public class AuthService
     {
+        private readonly ILogger _logger;
         private UserService _userService;
         private JwTokenService _jwTokenService;
 
-        public AuthService(UserService userService, JwTokenService jwTokenService)
+        public AuthService(ILogger logger, UserService userService, JwTokenService jwTokenService)
         {
+            _logger = logger;
             _userService = userService;
             _jwTokenService = jwTokenService;
         }
@@ -41,7 +44,7 @@ namespace HermesDMobAPI.Services.OAuth
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id), 
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim("id", user.Id),
             };
 

@@ -8,6 +8,7 @@ using System.Web.Http;
 using HermesDMobAPI.Infrastructure;
 using HermesDMobAPI.Infrastructure.Extensions;
 using HermesDMobAPI.Models.DTO;
+using HermesDMobAPI.Models.DTO.Account;
 using HermesDMobAPI.Models.DTO.OAuth;
 using HermesDMobAPI.Services.Account;
 using Microsoft.AspNet.Identity;
@@ -24,7 +25,7 @@ namespace HermesDMobAPI.Controllers.Account
             _accountService = accountService;
         }
 
-        [Route("ChangePassword")]
+        [Route("Account/ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword([FromBody]ChangePasswordDto model)
         {
             var userId = User.Identity.GetUserId();
@@ -35,10 +36,10 @@ namespace HermesDMobAPI.Controllers.Account
                 return Ok("Password changed");
             }
 
-            return BadRequest(msg);
+            return Response(msg);
         }
 
-        [Route("ResetPassword")]
+        [Route("Account/ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword()
         {
             var userId = User.Identity.GetUserId();
@@ -49,8 +50,7 @@ namespace HermesDMobAPI.Controllers.Account
                 return Ok("Password reset success");
             }
 
-            return BadRequest(msg);
-        }
-
+            return Response(msg);
+        } 
     }
 }

@@ -1,21 +1,25 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
+using HermesDMobAPI.Infrastructure.Database;
 using HermesDMobAPI.Models.DTO.OAuth;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Owin.Logging;
 
 namespace HermesDMobAPI.Services.OAuth
 {
     public class RefreshTokenService
     {
-        private HDEntities _dbContext = new HDEntities();
+        private readonly DatabaseContext _dbContext;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public RefreshTokenService(IMapper mapper)
+        public RefreshTokenService(ILogger logger, IMapper mapper)
         {
-            _mapper = mapper; 
-        } 
+            _dbContext = new DatabaseContext();
+            _logger = logger;
+            _mapper = mapper;
+        }
 
         public async Task<AspNetUser> GetByUserByIdAsync(string id)
         {

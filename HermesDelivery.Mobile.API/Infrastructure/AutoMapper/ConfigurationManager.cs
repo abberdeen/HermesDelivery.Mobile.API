@@ -7,8 +7,9 @@ namespace HermesDMobAPI.Infrastructure.AutoMapper
     {
         public static MapperConfiguration CreateConfiguration()
         {
-            var config = new MapperConfiguration(cfg => { 
-                 cfg.AddProfile<SmsProfile>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<SmsProfile>();
             });
             return config;
         }
