@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
 using CourierAPI.Models.DTO.Orders;
@@ -17,7 +16,7 @@ namespace CourierAPI.Controllers.Order
     {
         private ILogger _logger;
         private IMapper _mapper;
-        private readonly IncomingOrderService _incomingOrderService; 
+        private readonly IncomingOrderService _incomingOrderService;
 
         public IncomingOrderController(
             ILogger logger,
@@ -26,11 +25,12 @@ namespace CourierAPI.Controllers.Order
         {
             _logger = logger;
             _mapper = mapper;
-            _incomingOrderService = incomingOrderService; 
+            _incomingOrderService = incomingOrderService;
         }
 
         // Получить список заказов.
-        // GET: /Turn/Orders/
+        // GET: /IncomingOrders/
+        [Route("IncomingOrders")]
         [Route("Turn/Orders")]
         [ResponseType(typeof(IEnumerable<IncomingOrderDto>))]
         public async Task<IHttpActionResult> GetOrders()
@@ -47,10 +47,11 @@ namespace CourierAPI.Controllers.Order
         }
 
         // Проверить наличие входящего заказа.
-        // GET: /Turn/IncomingOrder
+        // GET: /IncomingOrders/New
+        [Route("IncomingOrders/Pending")]
         [Route("Turn/IncomingOrder")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetPending()
         {
             try
             {
@@ -64,10 +65,11 @@ namespace CourierAPI.Controllers.Order
         }
 
         // Получить детали заказа.
-        // GET: /Turn/Orders/{id}/
+        // GET: /IncomingOrders/1/Details
+        [Route("IncomingOrders/{id:int}/Details")]
         [Route("Turn/Orders/{id:int}")]
         [ResponseType(typeof(IncomingOrderDetailsDto))]
-        public async Task<IHttpActionResult> Details(int id)
+        public async Task<IHttpActionResult> GetDetails(int id)
         {
             try
             {
@@ -81,17 +83,13 @@ namespace CourierAPI.Controllers.Order
         }
 
         // Принять входящий заказ в работу.
-        // POST: /Turn/IncomingOrder/{id}/
-        [Route("Turn/IncomingOrder/{id:int}")]
+        // POST: /IncomingOrder/1/Accept
+        [Route("IncomingOrder/{id:int:min(1)}/Accept")]
+        [Route("Turn/IncomingOrder/{id:int:min(1)}")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
         [HttpPost]
-        public async Task<IHttpActionResult> Post(int id)
+        public async Task<IHttpActionResult> Accept(int id)
         {
-            if (id <= 0)
-            {
-                return Response(AppMessage.BadRequest);
-            }
-
             try
             {
                 var incomingOrderInfo = await _incomingOrderService.Accept(id);
@@ -104,11 +102,12 @@ namespace CourierAPI.Controllers.Order
         }
 
         // Сменить статус заказа.
-        // PUT: /Turn/Orders/{id}/UpdateStatus/{statusId}/
+        // PUT: /IncomingOrder/1/SetStatus/1
+        [Route("IncomingOrder/{orderId:int:min(1)}/SetStatus/{statusId:int:min(1)}")]
         [Route("Turn/Orders/{orderId:int}/UpdateStatus/{statusId:int}")]
         [ResponseType(typeof(IncomingOrderStatusChangeResponseDto))]
         [HttpPut]
-        public async Task<IHttpActionResult> Put(int orderId, int statusId)
+        public async Task<IHttpActionResult> SetStatus(int orderId, int statusId)
         {
             return Ok(new IncomingOrderStatusChangeResponseDto()
             {
@@ -118,16 +117,12 @@ namespace CourierAPI.Controllers.Order
         }
 
         // Отклонить входящий заказ.
-        // DELETE: /Turn/IncomingOrder/{id}/
+        // DELETE: /IncomingOrder/1/Reject
+        [Route("IncomingOrder/{id:int:min(1)}/Reject")]
         [Route("Turn/IncomingOrder/{id:int}")]
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IHttpActionResult> Reject(int id)
         {
-            if (id <= 0)
-            {
-                return Response(AppMessage.BadRequest);
-            }
-
             try
             {
                 await _incomingOrderService.Reject(id);

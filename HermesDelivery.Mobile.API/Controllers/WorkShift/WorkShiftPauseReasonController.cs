@@ -28,7 +28,8 @@ namespace CourierAPI.Controllers.WorkShift
             _workShiftPauseReasonService = workShiftPauseReasonService;
         }
 
-        // GET: /Turn/PauseReasons
+        // GET: /WorkShifts/PauseReasons
+        [Route("WorkShifts/PauseReasons")]
         [Route("Turn/PauseReasons")]
         [ResponseType(typeof(IEnumerable<WorkShiftPauseReasonDto>))]
         public async Task<IHttpActionResult> Get()

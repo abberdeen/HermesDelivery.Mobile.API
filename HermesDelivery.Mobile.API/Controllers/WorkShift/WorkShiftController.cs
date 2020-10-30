@@ -30,7 +30,8 @@ namespace CourierAPI.Controllers.WorkShift
         }
 
         // Получить историю смен
-        // GET: /Turn/History
+        // GET: /WorkShifts/History
+        [Route("WorkShifts/History")]
         [Route("Turn/History")]
         [ResponseType(typeof(IEnumerable<WorkShiftHistoryDto>))]
         public async Task<IHttpActionResult> GetHistory()
@@ -47,10 +48,11 @@ namespace CourierAPI.Controllers.WorkShift
         }
 
         // Получить текущую смену
-        // GET: /Turn
+        // GET: /WorkShifts/Current
+        [Route("WorkShifts/Current")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetCurrent()
         {
             try
             {
@@ -64,11 +66,12 @@ namespace CourierAPI.Controllers.WorkShift
         }
 
         // Запустить смену
-        // POST: /Turn
+        // POST: /WorkShifts/Current/Start
+        [Route("WorkShifts/Current/Start")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
         [HttpPost]
-        public async Task<IHttpActionResult> Post()
+        public async Task<IHttpActionResult> Start()
         {
             try
             {
@@ -82,11 +85,12 @@ namespace CourierAPI.Controllers.WorkShift
         }
 
         // Поставить смену на паузу
-        // PUT: /Turn
+        // PUT: /WorkShifts/Current/Pause
+        [Route("WorkShifts/Current/Pause")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftPauseResponseDto))]
         [HttpPut]
-        public async Task<IHttpActionResult> Put(WorkShiftPauseRequestDto model)
+        public async Task<IHttpActionResult> Pause(WorkShiftPauseRequestDto model)
         {
             if (ModelState.IsValid == false)
             {
@@ -105,11 +109,12 @@ namespace CourierAPI.Controllers.WorkShift
         }
 
         // Завершить смену
-        // DELETE: /Turn
+        // DELETE: /WorkShifts/Current/End
+        [Route("WorkShifts/Current/End")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete()
+        public async Task<IHttpActionResult> End()
         {
             try
             {

@@ -40,6 +40,7 @@ namespace CourierAPI
                         //
                         c.SingleApiVersion("v1", "HermesDelivery.Mobile.API");
                         c.OperationFilter<AuthorizationHeaderParameterOperationFilter>();
+                        c.DocumentFilter<CustomDocumentFilter>();
 
                         // Taking to long to load the swagger docs? Enable this option to start caching it
                         //

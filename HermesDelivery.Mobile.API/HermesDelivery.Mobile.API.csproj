@@ -358,6 +358,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CustomDocumentFilter.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />

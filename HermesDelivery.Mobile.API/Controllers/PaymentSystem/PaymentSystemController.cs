@@ -28,7 +28,8 @@ namespace CourierAPI.Controllers.PaymentSystem
             _paymentSystemService = paymentSystemService;
         }
 
-        // GET: /QrPayProviders
+        // GET: /PaymentSystems/QR/Codes
+        [Route("PaymentSystems/QR/Codes")]
         [Route("QrPayProviders")]
         [ResponseType(typeof(IEnumerable<PaymentSystemDto>))]
         public async Task<IHttpActionResult> Get()
