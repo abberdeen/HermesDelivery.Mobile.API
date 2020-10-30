@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HermesDMobAPI.Infrastructure.Database
+namespace CourierAPI.Infrastructure.Database
 {
     using System;
     using System.Collections.Generic;

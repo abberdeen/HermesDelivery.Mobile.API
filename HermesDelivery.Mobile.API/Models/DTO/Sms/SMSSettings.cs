@@ -1,4 +1,4 @@
-﻿namespace HermesDMobAPI.Models.DTO.Sms
+﻿namespace CourierAPI.Models.DTO.Sms
 {
     // Элемент списка.
     public class SMSSettingsListItemDto

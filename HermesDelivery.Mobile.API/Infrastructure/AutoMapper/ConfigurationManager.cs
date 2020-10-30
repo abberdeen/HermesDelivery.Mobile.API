@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.AutoMapper.Profiles;
+using CourierAPI.Infrastructure.AutoMapper.Profiles;
 
-namespace HermesDMobAPI.Infrastructure.AutoMapper
+namespace CourierAPI.Infrastructure.AutoMapper
 {
     public class ConfigurationManager
     {

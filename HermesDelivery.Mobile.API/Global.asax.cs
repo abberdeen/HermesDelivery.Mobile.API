@@ -1,11 +1,11 @@
-using Autofac.Integration.Mvc;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using HermesDMobAPI.Infrastructure.Autofac;
+using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using CourierAPI.Infrastructure.Autofac; 
 
-namespace HermesDMobAPI
+namespace CourierAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

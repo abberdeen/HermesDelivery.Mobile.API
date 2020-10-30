@@ -1,4 +1,4 @@
-﻿namespace HermesDMobAPI.Infrastructure
+﻿namespace CourierAPI.Infrastructure
 {
     public class AppMessageDto
     {

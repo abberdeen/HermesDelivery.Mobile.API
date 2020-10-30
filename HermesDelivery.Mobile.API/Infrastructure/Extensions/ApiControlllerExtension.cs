@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
 
-namespace HermesDMobAPI.Infrastructure.Extensions
+namespace CourierAPI.Infrastructure.Extensions
 {
     public class ApiControllerExtension : ApiController
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Services.Account;
-using HermesDMobAPI.Services.Sms;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Services.Account;
+using CourierAPI.Services.Sms;
 using Serilog;
 using System.Web.Mvc;
 
-namespace HermesDMobAPI.Services
+namespace CourierAPI.Services
 {
     [Authorize]
     public class xService

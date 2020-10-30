@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Models.DTO.PaymentSystems;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.PaymentSystems;
 
-namespace HermesDMobAPI.Infrastructure.AutoMapper.Profiles
+namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {
     public class PaymentSystemProfile : Profile
     {

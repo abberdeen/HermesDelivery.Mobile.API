@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HermesDMobAPI.Infrastructure.Exceptions
+namespace CourierAPI.Infrastructure.Exceptions
 {
     [Serializable]
     public class AppException : Exception

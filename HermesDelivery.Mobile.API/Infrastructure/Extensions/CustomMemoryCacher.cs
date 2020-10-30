@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace HermesDMobAPI.Infrastructure.Extensions
+namespace CourierAPI.Infrastructure.Extensions
 {
     public class CustomMemoryCacher
     {

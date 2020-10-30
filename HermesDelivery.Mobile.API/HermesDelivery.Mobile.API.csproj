@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HermesDMobAPI</RootNamespace>
-    <AssemblyName>HermesDelivery.Mobile.API</AssemblyName>
+    <RootNamespace>CourierAPI</RootNamespace>
+    <AssemblyName>HermesDelivery.CourierMobile.API</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -359,7 +359,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
+    <Compile Include="Controllers\WorkShift\WorkShiftPauseReasonController.cs" />
+    <Compile Include="Controllers\WorkShift\WorkShiftController.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\PaymentSystemProfile.cs" />
     <Compile Include="Infrastructure\Database\AppDbContext.cs" />
     <Compile Include="Infrastructure\Database\Application.cs">
@@ -537,7 +540,6 @@
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
-    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\SmsProfile.cs" />
@@ -547,10 +549,18 @@
     <Compile Include="Infrastructure\Extensions\CustomMemoryCacher.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
     <Compile Include="Infrastructure\Exceptions\AppException.cs" />
+    <Compile Include="Models\DTO\Customer\CustomerDto.cs" />
+    <Compile Include="Models\DTO\Orders\IncomingOrderDto.cs" />
+    <Compile Include="Models\DTO\Orders\OrderDto.cs" />
+    <Compile Include="Models\DTO\Orders\OrderStatusDto.cs" />
     <Compile Include="Models\DTO\PaymentSystems\PaymentSystemDto.cs" />
     <Compile Include="Models\DTO\Sms\SMSHandlers.cs" />
     <Compile Include="Models\DTO\Sms\SMSSendLogs.cs" />
     <Compile Include="Models\DTO\Sms\SMSSettings.cs" />
+    <Compile Include="Models\DTO\Supplier\ProductDto.cs" />
+    <Compile Include="Models\DTO\Supplier\SupplierDto.cs" />
+    <Compile Include="Models\DTO\WorkShifts\WorkShiftPauseReasonDto.cs" />
+    <Compile Include="Services\Order\IncomingOrderService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\PaymentSystem\PaymentSystemService.cs" />
     <Compile Include="Services\Sms\External\ISmsService.cs" />
@@ -581,6 +591,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\DTO\WorkShifts\WorkShiftDto.cs" />
+    <Compile Include="Services\WorkShift\WorkShiftPauseReasonService.cs" />
+    <Compile Include="Services\WorkShift\WorkShiftService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

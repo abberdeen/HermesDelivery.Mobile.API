@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Exceptions;
-using HermesDMobAPI.Infrastructure.Extensions;
-using HermesDMobAPI.Models.DTO.PaymentSystems;
-using HermesDMobAPI.Services.PaymentSystem;
+using CourierAPI.Infrastructure.Exceptions;
+using CourierAPI.Infrastructure.Extensions;
+using CourierAPI.Models.DTO.PaymentSystems;
+using CourierAPI.Services.PaymentSystem;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace HermesDMobAPI.Controllers.PaymentSystem
+namespace CourierAPI.Controllers.PaymentSystem
 {
     [Authorize]
     public class PaymentSystemController : ApiControllerExtension

@@ -1,11 +1,11 @@
-﻿using HermesDMobAPI.Infrastructure.Extensions.OAuth;
+﻿using CourierAPI.Infrastructure.Extensions.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace HermesDMobAPI
+namespace CourierAPI
 {
     public static class WebApiConfig
     {

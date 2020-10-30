@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HermesDMobAPI.Models.DTO.Sms
+namespace CourierAPI.Models.DTO.Sms
 {
     // Запрос на оптпраление СМС.
     public class SMSSendRequestDto

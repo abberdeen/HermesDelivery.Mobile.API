@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HermesDMobAPI.Controllers
+namespace CourierAPI.Controllers
 {
     public class HomeController : Controller
     {

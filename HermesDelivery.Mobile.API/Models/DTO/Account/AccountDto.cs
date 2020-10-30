@@ -1,8 +1,8 @@
-﻿namespace HermesDMobAPI.Models.DTO.Account
+﻿namespace CourierAPI.Models.DTO.Account
 {
     public class ChangePasswordDto
-    { 
+    {
         public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; } 
+        public string NewPassword { get; set; }
     }
 }

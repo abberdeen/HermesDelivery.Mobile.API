@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HermesDMobAPI.Models.DTO.OAuth
+namespace CourierAPI.Models.DTO.OAuth
 {
     public class RefreshTokenDto
     {

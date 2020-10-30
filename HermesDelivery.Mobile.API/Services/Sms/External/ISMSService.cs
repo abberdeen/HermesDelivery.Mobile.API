@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
-namespace HermesDMobAPI.Services.Sms.External
+namespace CourierAPI.Services.Sms.External
 {
     internal interface ISmsService
     {

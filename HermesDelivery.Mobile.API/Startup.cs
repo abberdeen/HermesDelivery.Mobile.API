@@ -1,11 +1,11 @@
-﻿using HermesDMobAPI;
+﻿using System.Web.Http;
+using CourierAPI;
 using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
 
 [assembly: OwinStartup(typeof(Startup))]
 
-namespace HermesDMobAPI
+namespace CourierAPI
 {
     public class Startup
     {

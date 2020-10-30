@@ -1,19 +1,18 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
+using CourierAPI.Infrastructure.Database;
+using Serilog;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Serilog;
 
-namespace HermesDMobAPI.Services.Account
+namespace CourierAPI.Services.Account
 {
     public class UserService
     {
         private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-
 
         public UserService(ILogger logger, IMapper mapper)
         {

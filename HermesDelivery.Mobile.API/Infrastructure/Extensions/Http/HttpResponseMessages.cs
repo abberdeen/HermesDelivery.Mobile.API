@@ -1,4 +1,4 @@
-﻿namespace HermesDMobAPI.Infrastructure.Extensions.Http
+﻿namespace CourierAPI.Infrastructure.Extensions.Http
 {
     public class HttpResponseMessages
     {

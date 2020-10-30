@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HermesDMobAPI
+namespace CourierAPI
 {
     public class FilterConfig
     {

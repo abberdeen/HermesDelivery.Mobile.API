@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace HermesDMobAPI.Models.DTO.PaymentSystems
+﻿namespace CourierAPI.Models.DTO.PaymentSystems
 {
     public class PaymentSystemDto
     {

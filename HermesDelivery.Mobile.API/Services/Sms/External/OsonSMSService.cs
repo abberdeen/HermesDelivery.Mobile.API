@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HermesDMobAPI.Services.Sms.External
+namespace CourierAPI.Services.Sms.External
 {
     public class OsonSmsService : SmsService
     {

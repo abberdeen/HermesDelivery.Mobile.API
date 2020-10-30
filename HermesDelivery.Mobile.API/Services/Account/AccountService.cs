@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Models.DTO.Account;
-using HermesDMobAPI.Services.Sms;
+using CourierAPI.Infrastructure;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.Account;
+using CourierAPI.Services.Sms;
 using Microsoft.AspNet.Identity;
+using Serilog;
 using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Serilog;
 
-namespace HermesDMobAPI.Services.Account
+namespace CourierAPI.Services.Account
 {
     [Authorize]
     public class AccountService

@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
-using HermesDMobAPI.Infrastructure.AutoMapper;
+using CourierAPI.Infrastructure.AutoMapper;
 using Serilog;
 using System;
-using System.Linq;
 using System.Reflection;
 
-namespace HermesDMobAPI.Infrastructure.Autofac
+namespace CourierAPI.Infrastructure.Autofac
 {
     public class ContainerManager
     {
@@ -23,7 +22,7 @@ namespace HermesDMobAPI.Infrastructure.Autofac
             builder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.Name.EndsWith("Service"));
 
-            // Register Seriog.
+            // Register Serilog.
             var dataDirectoryPath = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             builder.Register<ILogger>((c, p) => new LoggerConfiguration()
                 .WriteTo.RollingFile(

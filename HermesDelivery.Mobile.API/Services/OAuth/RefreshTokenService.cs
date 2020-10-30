@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Models.DTO.OAuth;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.OAuth;
+using Serilog;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Serilog;
 
-namespace HermesDMobAPI.Services.OAuth
+namespace CourierAPI.Services.OAuth
 {
     public class RefreshTokenService
     {

@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http; 
-using HermesDMobAPI.Infrastructure;
-using HermesDMobAPI.Infrastructure.Extensions;
-using HermesDMobAPI.Models.DTO;
-using HermesDMobAPI.Models.DTO.Account;
-using HermesDMobAPI.Models.DTO.OAuth;
-using HermesDMobAPI.Services.Account;
+﻿using CourierAPI.Infrastructure;
+using CourierAPI.Infrastructure.Extensions;
+using CourierAPI.Models.DTO.Account;
+using CourierAPI.Services.Account;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Web.Http;
 
-namespace HermesDMobAPI.Controllers.Account
+namespace CourierAPI.Controllers.Account
 {
     [Authorize]
     public class AccountController : ApiControllerExtension
@@ -30,7 +23,7 @@ namespace HermesDMobAPI.Controllers.Account
         {
             var userId = User.Identity.GetUserId();
             var msg = await _accountService.ChangePasswordAsync(userId, model);
-            
+
             if (msg == AppMessage.Ok)
             {
                 return Ok("Password changed");
@@ -51,6 +44,6 @@ namespace HermesDMobAPI.Controllers.Account
             }
 
             return Response(msg);
-        } 
+        }
     }
 }

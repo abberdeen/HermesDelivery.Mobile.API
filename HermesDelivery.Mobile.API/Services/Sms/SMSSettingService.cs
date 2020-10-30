@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Models.DTO.Sms;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.Sms;
+using Serilog;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Serilog;
 
-namespace HermesDMobAPI.Services.Sms
+namespace CourierAPI.Services.Sms
 {
     public class SmsSettingService
     {

@@ -1,6 +1,7 @@
-﻿using HermesDMobAPI.Models.DTO.OAuth;
-using HermesDMobAPI.Services.Account;
+﻿using CourierAPI.Models.DTO.OAuth;
+using CourierAPI.Services.Account;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,9 +10,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Serilog;
 
-namespace HermesDMobAPI.Services.OAuth
+namespace CourierAPI.Services.OAuth
 {
     public class AuthService
     {

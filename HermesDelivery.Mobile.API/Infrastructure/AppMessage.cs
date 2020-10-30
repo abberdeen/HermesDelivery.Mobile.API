@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace HermesDMobAPI.Infrastructure
+namespace CourierAPI.Infrastructure
 {
     public class AppMessage
     {

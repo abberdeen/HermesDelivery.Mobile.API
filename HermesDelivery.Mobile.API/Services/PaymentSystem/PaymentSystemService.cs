@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Infrastructure.Exceptions;
-using HermesDMobAPI.Models.DTO.PaymentSystems;
-using HermesDMobAPI.Services.Account;
-using HermesDMobAPI.Services.Sms;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.PaymentSystems;
+using CourierAPI.Services.Account;
+using CourierAPI.Services.Sms;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace HermesDMobAPI.Services.PaymentSystem
+namespace CourierAPI.Services.PaymentSystem
 {
     [Authorize]
     public class PaymentSystemService
@@ -20,8 +18,8 @@ namespace HermesDMobAPI.Services.PaymentSystem
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public PaymentSystemService(ILogger logger, 
-            IMapper mapper, 
+        public PaymentSystemService(ILogger logger,
+            IMapper mapper,
             UserService userService,
             MessageService messageService)
         {
@@ -32,10 +30,10 @@ namespace HermesDMobAPI.Services.PaymentSystem
 
         public async Task<IEnumerable<PaymentSystemDto>> List()
         {
-            var items= 
+            var items =
                 _dbContext.PaymentSystems
                 .Where(x => x.IsActive == true)
-                .OrderBy(x=>x.OrderId)
+                .OrderBy(x => x.OrderId)
                 .ToList();
 
             return _mapper.Map<IEnumerable<PaymentSystemDto>>(items);

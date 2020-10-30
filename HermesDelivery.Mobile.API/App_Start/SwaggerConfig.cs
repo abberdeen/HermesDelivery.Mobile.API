@@ -1,5 +1,5 @@
-using HermesDMobAPI;
-using HermesDMobAPI.Infrastructure.Extensions.OAuth;
+using CourierAPI;
+using CourierAPI.Infrastructure.Extensions.OAuth;
 using Swagger.Net;
 using Swagger.Net.Application;
 using System;
@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace HermesDMobAPI
+namespace CourierAPI
 {
     public class SwaggerConfig
     {

@@ -1,20 +1,19 @@
-﻿using HermesDMobAPI.Infrastructure.Extensions;
-using HermesDMobAPI.Models.DTO.OAuth;
-using HermesDMobAPI.Services.Account;
-using HermesDMobAPI.Services.OAuth;
+﻿using AutoMapper;
+using CourierAPI.Infrastructure;
+using CourierAPI.Infrastructure.Extensions;
+using CourierAPI.Models.DTO.OAuth;
+using CourierAPI.Services.Account;
+using CourierAPI.Services.OAuth;
+using Microsoft.AspNet.Identity;
+using Serilog;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using AutoMapper;
-using HermesDMobAPI.Infrastructure;
-using HermesDMobAPI.Models.DTO;
-using Microsoft.AspNet.Identity;
-using Serilog;
 
-namespace HermesDMobAPI.Controllers.OAuth
+namespace CourierAPI.Controllers.OAuth
 {
     public class AuthController : ApiControllerExtension
     {
@@ -99,7 +98,7 @@ namespace HermesDMobAPI.Controllers.OAuth
             var response = new LoginResponseDto()
             {
                 AccessToken = newJWToken,
-                RefreshToken =  newRefreshToken
+                RefreshToken = newRefreshToken
             };
 
             return Ok(response);

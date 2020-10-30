@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
-using HermesDMobAPI.Models.DTO.Sms;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.Sms;
 
-namespace HermesDMobAPI.Infrastructure.AutoMapper.Profiles
+namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {
     public class SmsProfile : Profile
     {

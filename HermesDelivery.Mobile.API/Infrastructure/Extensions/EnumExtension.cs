@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace HermesDMobAPI.Infrastructure.Extensions
+namespace CourierAPI.Infrastructure.Extensions
 {
     public static class EnumExtensions
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace HermesDMobAPI.Services.Sms.External
+namespace CourierAPI.Services.Sms.External
 {
     public abstract class SmsService : ISmsService
     {

@@ -1,4 +1,4 @@
-﻿namespace HermesDMobAPI.Infrastructure.Database
+﻿namespace CourierAPI.Infrastructure.Database
 {
     public class AppDbContext : HDEntities
     {

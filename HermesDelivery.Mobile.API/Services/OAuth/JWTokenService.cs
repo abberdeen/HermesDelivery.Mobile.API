@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using HermesDMobAPI.Infrastructure.Database;
+using CourierAPI.Infrastructure.Database;
+using Serilog;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Serilog;
 
-namespace HermesDMobAPI.Services.OAuth
+namespace CourierAPI.Services.OAuth
 {
     public class JwTokenService
     {
