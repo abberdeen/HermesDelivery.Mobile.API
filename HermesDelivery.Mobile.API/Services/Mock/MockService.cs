@@ -9,7 +9,8 @@ namespace CourierAPI.Services.Mock
 {
     public static class MockService
     {
-        private static readonly string _mockDataParentPath = HttpContext.Current.Server.MapPath("~//Infrastructure/Database/MockData/");
+        private static readonly string _mockDataParentPath =
+            Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "MockData");
 
         #region IncomingOrderResponse
 

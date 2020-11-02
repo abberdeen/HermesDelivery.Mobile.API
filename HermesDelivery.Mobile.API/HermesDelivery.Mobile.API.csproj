@@ -611,13 +611,13 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
-    <None Include="Infrastructure\Database\MockData\IncomingOrderResponse\getDetails.json" />
-    <Content Include="Infrastructure\Database\MockData\IncomingOrderResponse\getOrders.json" />
-    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\end.json" />
-    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\start.json" />
-    <None Include="Infrastructure\Database\MockData\IncomingOrderResponse\getPending.json" />
-    <None Include="Infrastructure\Database\MockData\WorkShiftPauseReasonResponse\getReasons.json" />
-    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\getHistory.json" />
+    <None Include="App_Data\MockData\IncomingOrderResponse\getDetails.json" />
+    <Content Include="App_Data\MockData\IncomingOrderResponse\getOrders.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\end.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\start.json" />
+    <None Include="App_Data\MockData\IncomingOrderResponse\getPending.json" />
+    <None Include="App_Data\MockData\WorkShiftPauseReasonResponse\getReasons.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\getHistory.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -626,9 +626,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="Infrastructure\Database\db.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -637,7 +635,7 @@
     <Content Include="Infrastructure\Database\db.edmx.diagram">
       <DependentUpon>db.edmx</DependentUpon>
     </Content>
-    <Content Include="Infrastructure\Database\MockData\WorkShiftResponse\getCurrent.json" />
+    <Content Include="App_Data\MockData\WorkShiftResponse\getCurrent.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

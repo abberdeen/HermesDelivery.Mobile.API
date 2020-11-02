@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Customer;
 using CourierAPI.Models.DTO.Orders;
-using CourierAPI.Models.DTO.Supplier;
 using CourierAPI.Services.Account;
+using CourierAPI.Services.Mock;
 using CourierAPI.Services.Sms;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using CourierAPI.Services.Mock;
 
 namespace CourierAPI.Services.Order
 {

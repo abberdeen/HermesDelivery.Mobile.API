@@ -134,7 +134,7 @@ namespace CourierAPI.Controllers.OAuth
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("Auth/RefreshToken")] 
+        [Route("Auth/RefreshToken")]
         [ResponseType(typeof(LoginResponseDto))]
         public async Task<IHttpActionResult> RefreshToken([FromBody]string jwToken, string refreshToken)
         {

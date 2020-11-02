@@ -2,15 +2,14 @@
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Models.DTO.WorkShifts;
 using CourierAPI.Services.Account;
+using CourierAPI.Services.Mock;
 using CourierAPI.Services.Sms;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using CourierAPI.Services.Mock;
 
 namespace CourierAPI.Services.WorkShift
-{ 
+{
     public class WorkShiftPauseReasonService
     {
         private AppDbContext _dbContext;

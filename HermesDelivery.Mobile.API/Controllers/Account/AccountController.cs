@@ -32,7 +32,7 @@ namespace CourierAPI.Controllers.Account
             return Response(msg);
         }
 
-        [Route("Account/ResetPassword")] 
+        [Route("Account/ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword()
         {
             var userId = User.Identity.GetUserId();

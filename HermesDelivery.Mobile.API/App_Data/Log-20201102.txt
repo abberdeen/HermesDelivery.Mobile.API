@@ -1,2 +1,0 @@
-2020-11-02 17:50:47.264 +05:00 [Information] User 934114400 logged in.
-2020-11-02 17:52:43.129 +05:00 [Information] User 934114400 logged in.

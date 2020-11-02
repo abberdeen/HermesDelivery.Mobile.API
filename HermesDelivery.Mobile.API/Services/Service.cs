@@ -3,10 +3,9 @@ using CourierAPI.Infrastructure.Database;
 using CourierAPI.Services.Account;
 using CourierAPI.Services.Sms;
 using Serilog;
-using System.Web.Mvc;
 
 namespace CourierAPI.Services
-{ 
+{
     public class xService
     {
         private AppDbContext _dbContext;
