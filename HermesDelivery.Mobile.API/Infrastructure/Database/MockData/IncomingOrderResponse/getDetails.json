@@ -1,0 +1,39 @@
+﻿{
+  "id": 1,
+  "createdAt": "2020-10-10T09:22:00Z",
+  "totalCost": 123.00,
+  "deliveryCost": 12.00,
+  "comment": "Быстрее,  ****",
+  "nextStatus": {
+    "id": 2,
+    "name": "Next status"
+  },
+  "vendor": {
+    "logo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+    "banner": "https://admin.kenguru.tj/files/F7MGOiizjEqVMBbPiqqR5Q.jpg",
+    "name": "28 Monkeys",
+    "address": "пр-т И. Сомони, д. 62"
+  },
+  "client": {
+    "name": "Азамат",
+    "phone": "934114400",
+    "deliveryAddress": "ул. Валоматзаде, д. 32, к. 33"
+  },
+  "products": [
+    {
+      "name": "Колбаски из баранины с картофельными шариками",
+      "price": 12.01,
+      "amount": 1
+    },
+    {
+      "name": "Лопатка ягненка с пюре из брокколи",
+      "price": 12.00,
+      "amount": 1
+    },
+    {
+      "name": "Стейк из языка с томленой капустой",
+      "price": 114.00,
+      "amount": 2
+    }
+  ]
+}

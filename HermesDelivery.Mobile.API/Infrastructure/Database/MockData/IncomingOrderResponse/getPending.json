@@ -1,0 +1,14 @@
+﻿{
+  "vendor": {
+    "logo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+    "name": "Vendor name",
+    "address": "Some street, some house, apt. 20"
+  },
+  "client": {
+    "name": "Azamat",
+    "deliveryAddress": "Some street, some house, apt. 21"
+  },
+  "id": 24123,
+  "pickupTime": "15 мин.",
+  "totalCost": 84.02
+}

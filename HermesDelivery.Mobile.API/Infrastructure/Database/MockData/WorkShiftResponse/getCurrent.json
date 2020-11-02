@@ -1,0 +1,126 @@
+﻿{
+  "isStarted": false,
+  "startAt": "2020-10-09T09:00:00Z",
+  "closeAt": "2020-10-09T18:00:00Z",
+  "pausedAt": null,
+  "orderCount": {
+    "active": 5,
+    "delivered": 12,
+    "rejected": 1,
+    "total": 18
+  },
+  "orders": [
+    {
+      "id": 1,
+      "vendorLogo": "https://admin.kenguru.tj/files/nKv1ahUMjE2XcxgCVr6yHA.jpg",
+      "clientName": "Азамат",
+      "status": "Готовится",
+      "totalCost": 234.00
+    },
+    {
+      "id": 2,
+      "vendorLogo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+      "clientName": "Алексей",
+      "status": "Готов",
+      "totalCost": 98.05
+    },
+    {
+      "id": 3,
+      "vendorLogo": "https://admin.kenguru.tj/files/ewns70XnOEy1V7vvEd9urA.jpg",
+      "clientName": "Комил",
+      "status": "На доставке",
+      "totalCost": 132.20
+    },
+    {
+      "id": 4,
+      "vendorLogo": "https://admin.kenguru.tj/files/zlaP6gjvI0eur2eLwNkUVQ.jpg",
+      "clientName": "Зоир",
+      "status": "На доставке",
+      "totalCost": 45.00
+    },
+    {
+      "id": 5,
+      "vendorLogo": "https://admin.kenguru.tj/files/nKv1ahUMjE2XcxgCVr6yHA.jpg",
+      "clientName": "Азамат",
+      "status": "Готовится",
+      "totalCost": 234.00
+    },
+    {
+      "id": 6,
+      "vendorLogo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+      "clientName": "Алексей",
+      "status": "Готов",
+      "totalCost": 98.05
+    },
+    {
+      "id": 7,
+      "vendorLogo": "https://admin.kenguru.tj/files/ewns70XnOEy1V7vvEd9urA.jpg",
+      "clientName": "Комил",
+      "status": "На доставке",
+      "totalCost": 132.20
+    },
+    {
+      "id": 8,
+      "vendorLogo": "https://admin.kenguru.tj/files/zlaP6gjvI0eur2eLwNkUVQ.jpg",
+      "clientName": "Зоир",
+      "status": "На доставке",
+      "totalCost": 45.00
+    },
+    {
+      "id": 9,
+      "vendorLogo": "https://admin.kenguru.tj/files/nKv1ahUMjE2XcxgCVr6yHA.jpg",
+      "clientName": "Азамат",
+      "status": "Готовится",
+      "totalCost": 234.00
+    },
+    {
+      "id": 10,
+      "vendorLogo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+      "clientName": "Алексей",
+      "status": "Готов",
+      "totalCost": 98.05
+    },
+    {
+      "id": 11,
+      "vendorLogo": "https://admin.kenguru.tj/files/ewns70XnOEy1V7vvEd9urA.jpg",
+      "clientName": "Комил",
+      "status": "На доставке",
+      "totalCost": 132.20
+    },
+    {
+      "id": 12,
+      "vendorLogo": "https://admin.kenguru.tj/files/zlaP6gjvI0eur2eLwNkUVQ.jpg",
+      "clientName": "Зоир",
+      "status": "На доставке",
+      "totalCost": 45.00
+    },
+    {
+      "id": 13,
+      "vendorLogo": "https://admin.kenguru.tj/files/nKv1ahUMjE2XcxgCVr6yHA.jpg",
+      "clientName": "Азамат",
+      "status": "Готовится",
+      "totalCost": 234.00
+    },
+    {
+      "id": 14,
+      "vendorLogo": "https://admin.kenguru.tj/files/EFVUJtJcuEGrXh7yJrxljw.jpg",
+      "clientName": "Алексей",
+      "status": "Готов",
+      "totalCost": 98.05
+    },
+    {
+      "id": 15,
+      "vendorLogo": "https://admin.kenguru.tj/files/ewns70XnOEy1V7vvEd9urA.jpg",
+      "clientName": "Комил",
+      "status": "На доставке",
+      "totalCost": 132.20
+    },
+    {
+      "id": 16,
+      "vendorLogo": "https://admin.kenguru.tj/files/zlaP6gjvI0eur2eLwNkUVQ.jpg",
+      "clientName": "Зоир",
+      "status": "На доставке",
+      "totalCost": 45.00
+    }
+  ]
+}

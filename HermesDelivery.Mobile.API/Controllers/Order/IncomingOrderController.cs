@@ -37,7 +37,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderList = await _incomingOrderService.GetList();
+                var incomingOrderList = await _incomingOrderService.GetOrders();
                 return Ok(incomingOrderList);
             }
             catch (AppException e)
@@ -55,7 +55,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderInfo = await _incomingOrderService.GetIncomingOrder();
+                var incomingOrderInfo = await _incomingOrderService.GetPending();
                 return Ok(incomingOrderInfo);
             }
             catch (AppException e)

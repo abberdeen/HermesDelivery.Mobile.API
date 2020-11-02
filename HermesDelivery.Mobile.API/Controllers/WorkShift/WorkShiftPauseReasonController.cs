@@ -32,11 +32,11 @@ namespace CourierAPI.Controllers.WorkShift
         [Route("WorkShifts/PauseReasons")]
         [Route("Turn/PauseReasons")]
         [ResponseType(typeof(IEnumerable<WorkShiftPauseReasonDto>))]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetReasons()
         {
             try
             {
-                var workShiftPauseReasons = await _workShiftPauseReasonService.List();
+                var workShiftPauseReasons = await _workShiftPauseReasonService.GetReasons();
                 return Ok(workShiftPauseReasons);
             }
             catch (AppException e)

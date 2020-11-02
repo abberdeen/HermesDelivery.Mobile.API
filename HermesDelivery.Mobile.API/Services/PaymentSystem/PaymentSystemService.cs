@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CourierAPI.Services.PaymentSystem
-{
-    [Authorize]
+{ 
     public class PaymentSystemService
     {
         private AppDbContext _dbContext;

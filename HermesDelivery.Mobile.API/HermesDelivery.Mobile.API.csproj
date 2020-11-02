@@ -561,6 +561,7 @@
     <Compile Include="Models\DTO\Supplier\ProductDto.cs" />
     <Compile Include="Models\DTO\Supplier\SupplierDto.cs" />
     <Compile Include="Models\DTO\WorkShifts\WorkShiftPauseReasonDto.cs" />
+    <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\PaymentSystem\PaymentSystemService.cs" />
@@ -610,6 +611,13 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
+    <None Include="Infrastructure\Database\MockData\IncomingOrderResponse\getDetails.json" />
+    <Content Include="Infrastructure\Database\MockData\IncomingOrderResponse\getOrders.json" />
+    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\end.json" />
+    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\start.json" />
+    <None Include="Infrastructure\Database\MockData\IncomingOrderResponse\getPending.json" />
+    <None Include="Infrastructure\Database\MockData\WorkShiftPauseReasonResponse\getReasons.json" />
+    <None Include="Infrastructure\Database\MockData\WorkShiftResponse\getHistory.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -629,6 +637,7 @@
     <Content Include="Infrastructure\Database\db.edmx.diagram">
       <DependentUpon>db.edmx</DependentUpon>
     </Content>
+    <Content Include="Infrastructure\Database\MockData\WorkShiftResponse\getCurrent.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

@@ -7,10 +7,10 @@ using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using CourierAPI.Services.Mock;
 
 namespace CourierAPI.Services.WorkShift
-{
-    [Authorize]
+{ 
     public class WorkShiftPauseReasonService
     {
         private AppDbContext _dbContext;
@@ -28,21 +28,9 @@ namespace CourierAPI.Services.WorkShift
         ///
         /// </summary>
         /// <returns>Возвращает список причин приостановки рабочей смены.</returns>
-        public async Task<IEnumerable<WorkShiftPauseReasonDto>> List()
+        public async Task<IEnumerable<WorkShiftPauseReasonDto>> GetReasons()
         {
-            var items = new List<WorkShiftPauseReasonDto>()
-            {
-                new WorkShiftPauseReasonDto()
-                {
-                    Id = 1,
-                    Name= "Поломка транспорта"
-                },
-                new WorkShiftPauseReasonDto()
-                {
-                    Id = 2,
-                    Name= "Поломка транспорта 2"
-                }
-            };
+            var items = MockService.WorkShiftPauseReasonResponse_getReasons();
 
             return _mapper.Map<IEnumerable<WorkShiftPauseReasonDto>>(items);
         }

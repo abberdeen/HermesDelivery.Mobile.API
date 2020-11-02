@@ -6,8 +6,7 @@ using Serilog;
 using System.Web.Mvc;
 
 namespace CourierAPI.Services
-{
-    [Authorize]
+{ 
     public class xService
     {
         private AppDbContext _dbContext;
