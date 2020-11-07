@@ -7,10 +7,13 @@ namespace CourierAPI.Infrastructure.Exceptions
     {
         public AppMessage AppMessage { get; }
 
-        public AppException(AppMessage appMessage)
-            : base(appMessage.ToString())
+        public string Description { get; } 
+
+        public AppException(AppMessage appMessage, string description = null)
+            : base(appMessage.ToString()  )
         {
             AppMessage = appMessage;
+            Description = description;
         }
     }
 }

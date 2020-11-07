@@ -1,12 +1,12 @@
-﻿using CourierAPI.Models.DTO.Orders;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CourierAPI.Models.DTO.Orders;
 
 namespace CourierAPI.Models.DTO.WorkShifts
 {
     /// <summary>
     /// Информация о рабочей смене.
     /// </summary>
-    public class WorkShiftDto
+    public class CourierWorkShiftsItemDto
     {
         public bool IsStarted { get; set; }
         public string StartAt { get; set; }
@@ -19,7 +19,7 @@ namespace CourierAPI.Models.DTO.WorkShifts
     /// <summary>
     /// Элемент списка. Информация о рабочей смене.
     /// </summary>
-    public class WorkShiftHistoryDto
+    public class CourierWorkShiftsItemHistoryDto
     {
         public string StartedAt { get; set; }
         public string StoppedAt { get; set; }
@@ -30,7 +30,7 @@ namespace CourierAPI.Models.DTO.WorkShifts
     /// <summary>
     /// Для запроса на приостановку рабочей смены.
     /// </summary>
-    public class WorkShiftPauseRequestDto
+    public class CourierWorkShiftsItemPauseRequestDto
     {
         public int ReasonId { get; set; }
         public string Comment { get; set; }
@@ -39,7 +39,7 @@ namespace CourierAPI.Models.DTO.WorkShifts
     /// <summary>
     /// Для ответа на запрос о приостановке смены.
     /// </summary>
-    public class WorkShiftPauseResponseDto
+    public class CourierWorkShiftsItemPauseResponseDto
     {
         public string PausedAt { get; set; }
     }

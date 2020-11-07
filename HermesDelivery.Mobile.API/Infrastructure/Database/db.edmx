@@ -213,7 +213,25 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="pass_tmp" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="CourierWorkShifts">
+        <EntityType Name="CourierWorkShiftsItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourierWorkShiftShceduleId" Type="int" Nullable="false" />
+          <Property Name="IsStarted" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="IsEnded" Type="bit" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="IsPaused" Type="bit" Nullable="false" />
+          <Property Name="PauseReasonId" Type="int" />
+          <Property Name="PauseTime" Type="datetime" />
+          <Property Name="PauseDescription" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourierWorkShiftsSchedules">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -222,24 +240,6 @@
           <Property Name="WorkShiftId" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="256" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CourierWorkShiftsHistories">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourierWorkShiftId" Type="int" Nullable="false" />
-          <Property Name="IsStarted" Type="bit" Nullable="false" />
-          <Property Name="StartTime" Type="datetime" />
-          <Property Name="IsEnded" Type="bit" Nullable="false" />
-          <Property Name="EndTime" Type="datetime" />
-          <Property Name="IsPaused" Type="bit" Nullable="false" />
-          <Property Name="PauseReasonId" Type="int" />
-          <Property Name="PauseTime" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -924,13 +924,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierOAuthData_CourierOAuthData">
-          <End Role="CourierOAuthData" Type="Self.CourierOAuthData" Multiplicity="1" />
-          <End Role="CourierOAuthData1" Type="Self.CourierOAuthData" Multiplicity="*" />
+          <End Role="Couriers" Type="Self.Couriers" Multiplicity="1" />
+          <End Role="CourierOAuthData" Type="Self.CourierOAuthData" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourierOAuthData">
+            <Principal Role="Couriers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierOAuthData1">
+            <Dependent Role="CourierOAuthData">
               <PropertyRef Name="CourierId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1045,85 +1045,85 @@
         </Association>
         <Association Name="FK_CourierWorkShifts_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShifts" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedules" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierWorkShifts_AspNetUsers1">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShifts" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedules" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierWorkShifts_Couriers">
           <End Role="Couriers" Type="Self.Couriers" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShifts" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedules" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Couriers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="CourierId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierWorkShifts_WorkShifts">
           <End Role="WorkShifts" Type="Self.WorkShifts" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShifts" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedules" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkShifts">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="WorkShiftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CourierWorkShiftsHistory_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CourierWorkShiftsHistory_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistories" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
+            <Dependent Role="CourierWorkShiftsItems">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierWorkShiftsHistory_WorkShiftPauseReasons">
           <End Role="WorkShiftPauseReasons" Type="Self.WorkShiftPauseReasons" Multiplicity="0..1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistories" Multiplicity="*" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkShiftPauseReasons">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
+            <Dependent Role="CourierWorkShiftsItems">
               <PropertyRef Name="PauseReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules">
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedules" Multiplicity="1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourierWorkShiftsSchedules">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourierWorkShiftsItems">
+              <PropertyRef Name="CourierWorkShiftShceduleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1352,10 +1352,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_CourierWorkShiftsHistory">
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistories" Multiplicity="0..1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItems" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourierWorkShiftsHistories">
+            <Principal Role="CourierWorkShiftsItems">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
@@ -2149,8 +2149,8 @@
           <EntitySet Name="CourierOAuthData" EntityType="Self.CourierOAuthData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourierPenalties" EntityType="Self.CourierPenalties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Couriers" EntityType="Self.Couriers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourierWorkShifts" EntityType="Self.CourierWorkShifts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourierWorkShiftsHistories" EntityType="Self.CourierWorkShiftsHistories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourierWorkShiftsItems" EntityType="Self.CourierWorkShiftsItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourierWorkShiftsSchedules" EntityType="Self.CourierWorkShiftsSchedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLockReasons" EntityType="Self.EmployeeLockReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePositions" Schema="dbo" store:Type="Tables" />
@@ -2254,8 +2254,8 @@
             <End Role="CourierLockReasons" EntitySet="CourierLockReasons" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierOAuthData_CourierOAuthData" Association="Self.FK_CourierOAuthData_CourierOAuthData">
+            <End Role="Couriers" EntitySet="Couriers" />
             <End Role="CourierOAuthData" EntitySet="CourierOAuthData" />
-            <End Role="CourierOAuthData1" EntitySet="CourierOAuthData" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierPenalties_AspNetUsers" Association="Self.FK_CourierPenalties_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2295,31 +2295,31 @@
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_AspNetUsers" Association="Self.FK_CourierWorkShifts_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_AspNetUsers1" Association="Self.FK_CourierWorkShifts_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_Couriers" Association="Self.FK_CourierWorkShifts_Couriers">
             <End Role="Couriers" EntitySet="Couriers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_WorkShifts" Association="Self.FK_CourierWorkShifts_WorkShifts">
             <End Role="WorkShifts" EntitySet="WorkShifts" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CourierWorkShiftsHistory_AspNetUsers" Association="Self.FK_CourierWorkShiftsHistory_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShiftsHistory_AspNetUsers1" Association="Self.FK_CourierWorkShiftsHistory_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" Association="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons">
             <End Role="WorkShiftPauseReasons" EntitySet="WorkShiftPauseReasons" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" Association="Self.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules">
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2394,7 +2394,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_CourierWorkShiftsHistory" Association="Self.FK_Orders_CourierWorkShiftsHistory">
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
@@ -2761,10 +2761,9 @@
           <NavigationProperty Name="CourierPenalties" Relationship="Self.FK_CourierPenalties_AspNetUsers" FromRole="AspNetUsers" ToRole="CourierPenalties" />
           <NavigationProperty Name="Couriers" Relationship="Self.FK_Couriers_AspNetUsers" FromRole="AspNetUsers" ToRole="Couriers" />
           <NavigationProperty Name="Couriers1" Relationship="Self.FK_Couriers_AspNetUsers1" FromRole="AspNetUsers" ToRole="Couriers" />
-          <NavigationProperty Name="CourierWorkShifts" Relationship="Self.FK_CourierWorkShifts_AspNetUsers" FromRole="AspNetUsers" ToRole="CourierWorkShifts" />
-          <NavigationProperty Name="CourierWorkShifts1" Relationship="Self.FK_CourierWorkShifts_AspNetUsers1" FromRole="AspNetUsers" ToRole="CourierWorkShifts" />
-          <NavigationProperty Name="CourierWorkShiftsHistories" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="CourierWorkShiftsHistories" />
-          <NavigationProperty Name="CourierWorkShiftsHistories1" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers1" FromRole="AspNetUsers" ToRole="CourierWorkShiftsHistories" />
+          <NavigationProperty Name="CourierWorkShiftsSchedules" Relationship="Self.FK_CourierWorkShifts_AspNetUsers" FromRole="AspNetUsers" ToRole="CourierWorkShiftsSchedules" />
+          <NavigationProperty Name="CourierWorkShiftsSchedules1" Relationship="Self.FK_CourierWorkShifts_AspNetUsers1" FromRole="AspNetUsers" ToRole="CourierWorkShiftsSchedules" />
+          <NavigationProperty Name="CourierWorkShiftsItems" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers1" FromRole="AspNetUsers" ToRole="CourierWorkShiftsItems" />
           <NavigationProperty Name="EmployeeLockReasons" Relationship="Self.FK_EmployeeLockReasons_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeeLockReasons" />
           <NavigationProperty Name="EmployeeLockReasons1" Relationship="Self.FK_EmployeeLockReasons_AspNetUsers1" FromRole="AspNetUsers" ToRole="EmployeeLockReasons" />
           <NavigationProperty Name="EmployeePositions" Relationship="Self.FK_EmployeePositions_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeePositions" />
@@ -2921,8 +2920,7 @@
           <Property Name="RefreshTokenExpires" Type="DateTime" Precision="3" />
           <Property Name="RefreshTokenIsActive" Type="Boolean" />
           <Property Name="RefreshTokenIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CourierOAuthData1" Relationship="Self.FK_CourierOAuthData_CourierOAuthData" FromRole="CourierOAuthData" ToRole="CourierOAuthData1" />
-          <NavigationProperty Name="CourierOAuthData2" Relationship="Self.FK_CourierOAuthData_CourierOAuthData" FromRole="CourierOAuthData1" ToRole="CourierOAuthData" />
+          <NavigationProperty Name="Courier" Relationship="Self.FK_CourierOAuthData_CourierOAuthData" FromRole="CourierOAuthData" ToRole="Couriers" />
         </EntityType>
         <EntityType Name="CourierPenalty">
           <Key>
@@ -2972,12 +2970,35 @@
           <NavigationProperty Name="CourierFiles" Relationship="Self.FK_CourierFiles_Couriers" FromRole="Couriers" ToRole="CourierFiles" />
           <NavigationProperty Name="CourierLockReason" Relationship="Self.FK_Couriers_EmployeeLockReasons" FromRole="Couriers" ToRole="CourierLockReasons" />
           <NavigationProperty Name="CourierMovementMethod" Relationship="Self.FK_Couriers_CourierMovementMethod" FromRole="Couriers" ToRole="CourierMovementMethod" />
+          <NavigationProperty Name="CourierOAuthDatas" Relationship="Self.FK_CourierOAuthData_CourierOAuthData" FromRole="Couriers" ToRole="CourierOAuthData" />
           <NavigationProperty Name="CourierPenalties" Relationship="Self.FK_CourierPenalties_Couriers" FromRole="Couriers" ToRole="CourierPenalties" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Couriers_Gender" FromRole="Couriers" ToRole="Gender" />
-          <NavigationProperty Name="CourierWorkShifts" Relationship="Self.FK_CourierWorkShifts_Couriers" FromRole="Couriers" ToRole="CourierWorkShifts" />
+          <NavigationProperty Name="CourierWorkShiftsSchedules" Relationship="Self.FK_CourierWorkShifts_Couriers" FromRole="Couriers" ToRole="CourierWorkShiftsSchedules" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Couriers" FromRole="Couriers" ToRole="Orders" />
         </EntityType>
-        <EntityType Name="CourierWorkShift">
+        <EntityType Name="CourierWorkShiftsItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourierWorkShiftShceduleId" Type="Int32" Nullable="false" />
+          <Property Name="IsStarted" Type="Boolean" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="IsEnded" Type="Boolean" Nullable="false" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="IsPaused" Type="Boolean" Nullable="false" />
+          <Property Name="PauseReasonId" Type="Int32" />
+          <Property Name="PauseTime" Type="DateTime" Precision="3" />
+          <Property Name="PauseDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers1" FromRole="CourierWorkShiftsItems" ToRole="AspNetUsers" />
+          <NavigationProperty Name="WorkShiftPauseReason" Relationship="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" FromRole="CourierWorkShiftsItems" ToRole="WorkShiftPauseReasons" />
+          <NavigationProperty Name="CourierWorkShiftsSchedule" Relationship="Self.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" FromRole="CourierWorkShiftsItems" ToRole="CourierWorkShiftsSchedules" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_CourierWorkShiftsHistory" FromRole="CourierWorkShiftsItems" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="CourierWorkShiftsSchedule">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -2990,32 +3011,11 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourierWorkShifts_AspNetUsers" FromRole="CourierWorkShifts" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_CourierWorkShifts_AspNetUsers1" FromRole="CourierWorkShifts" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Courier" Relationship="Self.FK_CourierWorkShifts_Couriers" FromRole="CourierWorkShifts" ToRole="Couriers" />
-          <NavigationProperty Name="WorkShift" Relationship="Self.FK_CourierWorkShifts_WorkShifts" FromRole="CourierWorkShifts" ToRole="WorkShifts" />
-        </EntityType>
-        <EntityType Name="CourierWorkShiftsHistory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourierWorkShiftId" Type="Int32" Nullable="false" />
-          <Property Name="IsStarted" Type="Boolean" Nullable="false" />
-          <Property Name="StartTime" Type="DateTime" Precision="3" />
-          <Property Name="IsEnded" Type="Boolean" Nullable="false" />
-          <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="IsPaused" Type="Boolean" Nullable="false" />
-          <Property Name="PauseReasonId" Type="Int32" />
-          <Property Name="PauseTime" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers" FromRole="CourierWorkShiftsHistories" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers1" FromRole="CourierWorkShiftsHistories" ToRole="AspNetUsers" />
-          <NavigationProperty Name="WorkShiftPauseReason" Relationship="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" FromRole="CourierWorkShiftsHistories" ToRole="WorkShiftPauseReasons" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_CourierWorkShiftsHistory" FromRole="CourierWorkShiftsHistories" ToRole="Orders" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourierWorkShifts_AspNetUsers" FromRole="CourierWorkShiftsSchedules" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_CourierWorkShifts_AspNetUsers1" FromRole="CourierWorkShiftsSchedules" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Courier" Relationship="Self.FK_CourierWorkShifts_Couriers" FromRole="CourierWorkShiftsSchedules" ToRole="Couriers" />
+          <NavigationProperty Name="CourierWorkShiftsItems" Relationship="Self.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" FromRole="CourierWorkShiftsSchedules" ToRole="CourierWorkShiftsItems" />
+          <NavigationProperty Name="WorkShift" Relationship="Self.FK_CourierWorkShifts_WorkShifts" FromRole="CourierWorkShiftsSchedules" ToRole="WorkShifts" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -3151,7 +3151,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Orders_AspNetUsers" FromRole="Orders" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_Orders_AspNetUsers1" FromRole="Orders" ToRole="AspNetUsers" />
           <NavigationProperty Name="Courier" Relationship="Self.FK_Orders_Couriers" FromRole="Orders" ToRole="Couriers" />
-          <NavigationProperty Name="CourierWorkShiftsHistory" Relationship="Self.FK_Orders_CourierWorkShiftsHistory" FromRole="Orders" ToRole="CourierWorkShiftsHistories" />
+          <NavigationProperty Name="CourierWorkShiftsItem" Relationship="Self.FK_Orders_CourierWorkShiftsHistory" FromRole="Orders" ToRole="CourierWorkShiftsItems" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customers" FromRole="Orders" ToRole="Customers" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Orders_Orders" FromRole="Orders" ToRole="Gender" />
           <NavigationProperty Name="OrderStatusCode" Relationship="Self.FK_Orders_OrderStatusCodes" FromRole="Orders" ToRole="OrderStatusCodes" />
@@ -3597,7 +3597,7 @@
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_WorkShiftPauseReasons_AspNetUsers" FromRole="WorkShiftPauseReasons" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_WorkShiftPauseReasons_AspNetUsers1" FromRole="WorkShiftPauseReasons" ToRole="AspNetUsers" />
-          <NavigationProperty Name="CourierWorkShiftsHistories" Relationship="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" FromRole="WorkShiftPauseReasons" ToRole="CourierWorkShiftsHistories" />
+          <NavigationProperty Name="CourierWorkShiftsItems" Relationship="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" FromRole="WorkShiftPauseReasons" ToRole="CourierWorkShiftsItems" />
         </EntityType>
         <EntityType Name="WorkShift">
           <Key>
@@ -3615,7 +3615,7 @@
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_WorkShifts_AspNetUsers" FromRole="WorkShifts" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_WorkShifts_AspNetUsers1" FromRole="WorkShifts" ToRole="AspNetUsers" />
-          <NavigationProperty Name="CourierWorkShifts" Relationship="Self.FK_CourierWorkShifts_WorkShifts" FromRole="WorkShifts" ToRole="CourierWorkShifts" />
+          <NavigationProperty Name="CourierWorkShiftsSchedules" Relationship="Self.FK_CourierWorkShifts_WorkShifts" FromRole="WorkShifts" ToRole="CourierWorkShiftsSchedules" />
         </EntityType>
         <Association Name="FK_Applications_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
@@ -3855,48 +3855,36 @@
         </Association>
         <Association Name="FK_CourierWorkShifts_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShift" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierWorkShifts_AspNetUsers1">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShift" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CourierWorkShiftsHistory_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CourierWorkShiftsHistory_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistory" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
+            <Dependent Role="CourierWorkShiftsItems">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -4550,13 +4538,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierOAuthData_CourierOAuthData">
-          <End Role="CourierOAuthData" Type="Self.CourierOAuthData" Multiplicity="1" />
-          <End Role="CourierOAuthData1" Type="Self.CourierOAuthData" Multiplicity="*" />
+          <End Role="Couriers" Type="Self.Courier" Multiplicity="1" />
+          <End Role="CourierOAuthData" Type="Self.CourierOAuthData" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourierOAuthData">
+            <Principal Role="Couriers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierOAuthData1">
+            <Dependent Role="CourierOAuthData">
               <PropertyRef Name="CourierId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4611,12 +4599,12 @@
         </Association>
         <Association Name="FK_CourierWorkShifts_Couriers">
           <End Role="Couriers" Type="Self.Courier" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShift" Multiplicity="*" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Couriers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShifts">
+            <Dependent Role="CourierWorkShiftsSchedules">
               <PropertyRef Name="CourierId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4633,39 +4621,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CourierWorkShifts_WorkShifts">
-          <End Role="WorkShifts" Type="Self.WorkShift" Multiplicity="1" />
-          <End Role="CourierWorkShifts" Type="Self.CourierWorkShift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WorkShifts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CourierWorkShifts">
-              <PropertyRef Name="WorkShiftId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CourierWorkShiftsHistory_WorkShiftPauseReasons">
           <End Role="WorkShiftPauseReasons" Type="Self.WorkShiftPauseReason" Multiplicity="0..1" />
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistory" Multiplicity="*" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkShiftPauseReasons">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierWorkShiftsHistories">
+            <Dependent Role="CourierWorkShiftsItems">
               <PropertyRef Name="PauseReasonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules">
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedule" Multiplicity="1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourierWorkShiftsSchedules">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourierWorkShiftsItems">
+              <PropertyRef Name="CourierWorkShiftShceduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Orders_CourierWorkShiftsHistory">
-          <End Role="CourierWorkShiftsHistories" Type="Self.CourierWorkShiftsHistory" Multiplicity="0..1" />
+          <End Role="CourierWorkShiftsItems" Type="Self.CourierWorkShiftsItem" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourierWorkShiftsHistories">
+            <Principal Role="CourierWorkShiftsItems">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="CourierWorkShiftHistoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourierWorkShifts_WorkShifts">
+          <End Role="WorkShifts" Type="Self.WorkShift" Multiplicity="1" />
+          <End Role="CourierWorkShiftsSchedules" Type="Self.CourierWorkShiftsSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShifts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourierWorkShiftsSchedules">
+              <PropertyRef Name="WorkShiftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5035,8 +5035,8 @@
           <EntitySet Name="CourierOAuthDatas" EntityType="Self.CourierOAuthData" />
           <EntitySet Name="CourierPenalties" EntityType="Self.CourierPenalty" />
           <EntitySet Name="Couriers" EntityType="Self.Courier" />
-          <EntitySet Name="CourierWorkShifts" EntityType="Self.CourierWorkShift" />
-          <EntitySet Name="CourierWorkShiftsHistories" EntityType="Self.CourierWorkShiftsHistory" />
+          <EntitySet Name="CourierWorkShiftsItems" EntityType="Self.CourierWorkShiftsItem" />
+          <EntitySet Name="CourierWorkShiftsSchedules" EntityType="Self.CourierWorkShiftsSchedule" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="EmployeeLockReasons" EntityType="Self.EmployeeLockReason" />
           <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePosition" />
@@ -5153,19 +5153,15 @@
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_AspNetUsers" Association="Self.FK_CourierWorkShifts_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_AspNetUsers1" Association="Self.FK_CourierWorkShifts_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CourierWorkShiftsHistory_AspNetUsers" Association="Self.FK_CourierWorkShiftsHistory_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShiftsHistory_AspNetUsers1" Association="Self.FK_CourierWorkShiftsHistory_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeLockReasons_AspNetUsers" Association="Self.FK_EmployeeLockReasons_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5384,8 +5380,8 @@
             <End Role="Couriers" EntitySet="Couriers" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierOAuthData_CourierOAuthData" Association="Self.FK_CourierOAuthData_CourierOAuthData">
+            <End Role="Couriers" EntitySet="Couriers" />
             <End Role="CourierOAuthData" EntitySet="CourierOAuthDatas" />
-            <End Role="CourierOAuthData1" EntitySet="CourierOAuthDatas" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierPenalties_Couriers" Association="Self.FK_CourierPenalties_Couriers">
             <End Role="Couriers" EntitySet="Couriers" />
@@ -5405,23 +5401,27 @@
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_Couriers" Association="Self.FK_CourierWorkShifts_Couriers">
             <End Role="Couriers" EntitySet="Couriers" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Couriers" Association="Self.FK_Orders_Couriers">
             <End Role="Couriers" EntitySet="Couriers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_CourierWorkShifts_WorkShifts" Association="Self.FK_CourierWorkShifts_WorkShifts">
-            <End Role="WorkShifts" EntitySet="WorkShifts" />
-            <End Role="CourierWorkShifts" EntitySet="CourierWorkShifts" />
-          </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" Association="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons">
             <End Role="WorkShiftPauseReasons" EntitySet="WorkShiftPauseReasons" />
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" Association="Self.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules">
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_CourierWorkShiftsHistory" Association="Self.FK_Orders_CourierWorkShiftsHistory">
-            <End Role="CourierWorkShiftsHistories" EntitySet="CourierWorkShiftsHistories" />
+            <End Role="CourierWorkShiftsItems" EntitySet="CourierWorkShiftsItems" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourierWorkShifts_WorkShifts" Association="Self.FK_CourierWorkShifts_WorkShifts">
+            <End Role="WorkShifts" EntitySet="WorkShifts" />
+            <End Role="CourierWorkShiftsSchedules" EntitySet="CourierWorkShiftsSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
             <End Role="Customers" EntitySet="Customers" />
@@ -5768,26 +5768,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CourierWorkShifts">
-            <EntityTypeMapping TypeName="hermes_devModel.CourierWorkShift">
-              <MappingFragment StoreEntitySet="CourierWorkShifts">
+          <EntitySetMapping Name="CourierWorkShiftsItems">
+            <EntityTypeMapping TypeName="hermes_devModel.CourierWorkShiftsItem">
+              <MappingFragment StoreEntitySet="CourierWorkShiftsItems">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CourierId" ColumnName="CourierId" />
-                <ScalarProperty Name="WorkShiftId" ColumnName="WorkShiftId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CourierWorkShiftsHistories">
-            <EntityTypeMapping TypeName="hermes_devModel.CourierWorkShiftsHistory">
-              <MappingFragment StoreEntitySet="CourierWorkShiftsHistories">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CourierWorkShiftId" ColumnName="CourierWorkShiftId" />
+                <ScalarProperty Name="CourierWorkShiftShceduleId" ColumnName="CourierWorkShiftShceduleId" />
                 <ScalarProperty Name="IsStarted" ColumnName="IsStarted" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="IsEnded" ColumnName="IsEnded" />
@@ -5795,6 +5780,21 @@
                 <ScalarProperty Name="IsPaused" ColumnName="IsPaused" />
                 <ScalarProperty Name="PauseReasonId" ColumnName="PauseReasonId" />
                 <ScalarProperty Name="PauseTime" ColumnName="PauseTime" />
+                <ScalarProperty Name="PauseDescription" ColumnName="PauseDescription" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourierWorkShiftsSchedules">
+            <EntityTypeMapping TypeName="hermes_devModel.CourierWorkShiftsSchedule">
+              <MappingFragment StoreEntitySet="CourierWorkShiftsSchedules">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourierId" ColumnName="CourierId" />
+                <ScalarProperty Name="WorkShiftId" ColumnName="WorkShiftId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />

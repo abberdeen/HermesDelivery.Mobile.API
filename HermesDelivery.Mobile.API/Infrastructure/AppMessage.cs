@@ -15,7 +15,7 @@ namespace CourierAPI.Infrastructure
             HttpStatusCode = httpStatusCode;
         }
 
-        #region App
+        #region App - 1000
 
         /// <summary>
         ///
@@ -51,7 +51,7 @@ namespace CourierAPI.Infrastructure
 
         #endregion App
 
-        #region "AuthService"
+        #region AuthService - 1500
 
         /// <summary>
         /// Invalid username.
@@ -75,5 +75,31 @@ namespace CourierAPI.Infrastructure
         public static AppMessage InvalidLoginOrPassword = new AppMessage(1503, "Invalid username or password", HttpStatusCode.BadRequest);
 
         #endregion "AuthService"
+
+        #region WorkShift - 1600
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage NowNotShiftTime = new AppMessage(1601, "Now is not the time of the current shift", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage WorkShiftNotAssigned = new AppMessage(1602, "There is not a single active assignment to the shift courier.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage WorkShiftNotStarted = new AppMessage(1603, "No running shift to end or pause.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage WorkShiftEnded = new AppMessage(1603, "Work shift is ended.", HttpStatusCode.BadRequest);
+
+
+
+        #endregion
     }
 }

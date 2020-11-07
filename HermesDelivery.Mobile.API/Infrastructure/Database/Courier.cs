@@ -18,8 +18,9 @@ namespace CourierAPI.Infrastructure.Database
         public Courier()
         {
             this.CourierFiles = new HashSet<CourierFile>();
+            this.CourierOAuthDatas = new HashSet<CourierOAuthData>();
             this.CourierPenalties = new HashSet<CourierPenalty>();
-            this.CourierWorkShifts = new HashSet<CourierWorkShift>();
+            this.CourierWorkShiftsSchedules = new HashSet<CourierWorkShiftsSchedule>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -53,10 +54,12 @@ namespace CourierAPI.Infrastructure.Database
         public virtual CourierLockReason CourierLockReason { get; set; }
         public virtual CourierMovementMethod CourierMovementMethod { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierOAuthData> CourierOAuthDatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourierPenalty> CourierPenalties { get; set; }
         public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShift> CourierWorkShifts { get; set; }
+        public virtual ICollection<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

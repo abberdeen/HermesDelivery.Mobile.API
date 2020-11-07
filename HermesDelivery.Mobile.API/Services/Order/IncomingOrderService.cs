@@ -17,7 +17,7 @@ namespace CourierAPI.Services.Order
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public IncomingOrderService(ILogger logger, IMapper mapper, MessageService messageService)
+        public IncomingOrderService(ILogger logger, IMapper mapper)
         {
             _dbContext = new AppDbContext();
             _logger = logger;

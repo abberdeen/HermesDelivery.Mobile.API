@@ -17,7 +17,7 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WorkShiftPauseReason()
         {
-            this.CourierWorkShiftsHistories = new HashSet<CourierWorkShiftsHistory>();
+            this.CourierWorkShiftsItems = new HashSet<CourierWorkShiftsItem>();
         }
     
         public int Id { get; set; }
@@ -31,6 +31,6 @@ namespace CourierAPI.Infrastructure.Database
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsHistory> CourierWorkShiftsHistories { get; set; }
+        public virtual ICollection<CourierWorkShiftsItem> CourierWorkShiftsItems { get; set; }
     }
 }

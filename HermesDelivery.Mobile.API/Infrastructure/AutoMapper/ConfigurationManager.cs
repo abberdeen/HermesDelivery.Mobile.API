@@ -9,8 +9,16 @@ namespace CourierAPI.Infrastructure.AutoMapper
         {
             var config = new MapperConfiguration(cfg =>
             {
+                // SMS 
                 cfg.AddProfile<SmsProfile>();
+
+                // Payment systems
                 cfg.AddProfile<PaymentSystemProfile>();
+
+                // Work shifts
+                cfg.AddProfile<CourierWorkShiftsScheduleProfile>();
+                cfg.AddProfile<CourierWorkShiftsItemProfile>();
+                cfg.AddProfile<WorkShiftPauseReasonProfile>();
             });
             return config;
         }

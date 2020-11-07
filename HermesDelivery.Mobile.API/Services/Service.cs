@@ -11,7 +11,7 @@ namespace CourierAPI.Services
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public xService(ILogger logger, IMapper mapper, MessageService messageService)
+        public xService(ILogger logger, IMapper mapper)
         {
             _dbContext = new AppDbContext();
             _logger = logger;

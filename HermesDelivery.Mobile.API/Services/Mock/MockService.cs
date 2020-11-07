@@ -39,31 +39,31 @@ namespace CourierAPI.Services.Mock
 
         #region WorkShiftResponse
 
-        public static WorkShiftDto WorkShiftResponse_start()
+        public static CourierWorkShiftsItemDto WorkShiftResponse_start()
         {
             var json = GetFileContent("WorkShiftResponse/start.json");
-            var obj = JsonConvert.DeserializeObject<WorkShiftDto>(json);
+            var obj = JsonConvert.DeserializeObject<CourierWorkShiftsItemDto>(json);
             return obj;
         }
 
-        public static WorkShiftDto WorkShiftResponse_end()
+        public static CourierWorkShiftsItemDto WorkShiftResponse_end()
         {
             var json = GetFileContent("WorkShiftResponse/end.json");
-            var obj = JsonConvert.DeserializeObject<WorkShiftDto>(json);
+            var obj = JsonConvert.DeserializeObject<CourierWorkShiftsItemDto>(json);
             return obj;
         }
 
-        public static WorkShiftDto WorkShiftResponse_getCurrent()
+        public static CourierWorkShiftsItemDto WorkShiftResponse_getCurrent()
         {
             var json = GetFileContent("WorkShiftResponse/getCurrent.json");
-            var obj = JsonConvert.DeserializeObject<WorkShiftDto>(json);
+            var obj = JsonConvert.DeserializeObject<CourierWorkShiftsItemDto>(json);
             return obj;
         }
 
-        public static IEnumerable<WorkShiftHistoryDto> WorkShiftResponse_getHistory()
+        public static IEnumerable<CourierWorkShiftsItemHistoryDto> WorkShiftResponse_getHistory()
         {
             var json = GetFileContent("WorkShiftResponse/getHistory.json");
-            var obj = JsonConvert.DeserializeObject<IEnumerable<WorkShiftHistoryDto>>(json);
+            var obj = JsonConvert.DeserializeObject<IEnumerable<CourierWorkShiftsItemHistoryDto>>(json);
             return obj;
         }
 

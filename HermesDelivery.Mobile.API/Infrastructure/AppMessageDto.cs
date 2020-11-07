@@ -17,5 +17,11 @@
             Code = message.Code;
             Text = message.Description;
         }
+
+        public AppMessageDto(AppMessage message, string details)
+        {
+            Code = message.Code;
+            Text = message.Description + System.Environment.NewLine + details;
+        }
     }
 }

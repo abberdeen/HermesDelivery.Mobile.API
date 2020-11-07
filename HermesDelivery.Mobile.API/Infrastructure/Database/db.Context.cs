@@ -42,8 +42,8 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<CourierOAuthData> CourierOAuthDatas { get; set; }
         public virtual DbSet<CourierPenalty> CourierPenalties { get; set; }
         public virtual DbSet<Courier> Couriers { get; set; }
-        public virtual DbSet<CourierWorkShift> CourierWorkShifts { get; set; }
-        public virtual DbSet<CourierWorkShiftsHistory> CourierWorkShiftsHistories { get; set; }
+        public virtual DbSet<CourierWorkShiftsItem> CourierWorkShiftsItems { get; set; }
+        public virtual DbSet<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<EmployeeLockReason> EmployeeLockReasons { get; set; }
         public virtual DbSet<EmployeePosition> EmployeePositions { get; set; }

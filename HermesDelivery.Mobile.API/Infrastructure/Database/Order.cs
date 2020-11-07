@@ -48,7 +48,7 @@ namespace CourierAPI.Infrastructure.Database
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
         public virtual Courier Courier { get; set; }
-        public virtual CourierWorkShiftsHistory CourierWorkShiftsHistory { get; set; }
+        public virtual CourierWorkShiftsItem CourierWorkShiftsItem { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Gender Gender { get; set; }
         public virtual OrderStatusCode OrderStatusCode { get; set; }

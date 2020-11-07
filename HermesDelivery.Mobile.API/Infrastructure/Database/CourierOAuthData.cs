@@ -14,12 +14,6 @@ namespace CourierAPI.Infrastructure.Database
     
     public partial class CourierOAuthData
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CourierOAuthData()
-        {
-            this.CourierOAuthData1 = new HashSet<CourierOAuthData>();
-        }
-    
         public int Id { get; set; }
         public int CourierId { get; set; }
         public string JWToken { get; set; }
@@ -28,8 +22,6 @@ namespace CourierAPI.Infrastructure.Database
         public Nullable<bool> RefreshTokenIsActive { get; set; }
         public string RefreshTokenIp { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierOAuthData> CourierOAuthData1 { get; set; }
-        public virtual CourierOAuthData CourierOAuthData2 { get; set; }
+        public virtual Courier Courier { get; set; }
     }
 }

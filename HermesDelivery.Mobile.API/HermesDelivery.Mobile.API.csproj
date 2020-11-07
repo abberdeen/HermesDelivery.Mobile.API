@@ -364,7 +364,10 @@
     <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
     <Compile Include="Controllers\WorkShift\WorkShiftPauseReasonController.cs" />
-    <Compile Include="Controllers\WorkShift\WorkShiftController.cs" />
+    <Compile Include="Controllers\WorkShift\CourierWorkShiftsItemsController.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\WorkShiftPauseReasonProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierWorkShiftsItemProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierWorkShiftsScheduleProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\PaymentSystemProfile.cs" />
     <Compile Include="Infrastructure\Database\AppDbContext.cs" />
     <Compile Include="Infrastructure\Database\Application.cs">
@@ -415,10 +418,10 @@
     <Compile Include="Infrastructure\Database\CourierPenalty.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\CourierWorkShift.cs">
+    <Compile Include="Infrastructure\Database\CourierWorkShiftsItem.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\CourierWorkShiftsHistory.cs">
+    <Compile Include="Infrastructure\Database\CourierWorkShiftsSchedule.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\Customer.cs">
@@ -557,6 +560,7 @@
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\SmsProfile.cs" />
+    <Compile Include="Infrastructure\Extensions\DateTimeExtension.cs" />
     <Compile Include="Infrastructure\Extensions\EnumExtension.cs" />
     <Compile Include="Infrastructure\Extensions\Http\HttpResponse.cs" />
     <Compile Include="Infrastructure\Extensions\Http\HttpResponseMessages.cs" />
@@ -573,6 +577,7 @@
     <Compile Include="Models\DTO\Sms\SMSSettings.cs" />
     <Compile Include="Models\DTO\Supplier\ProductDto.cs" />
     <Compile Include="Models\DTO\Supplier\SupplierDto.cs" />
+    <Compile Include="Models\DTO\WorkShifts\CourierWorkShiftsShceduleDto.cs" />
     <Compile Include="Models\DTO\WorkShifts\WorkShiftPauseReasonDto.cs" />
     <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
@@ -605,9 +610,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DTO\WorkShifts\WorkShiftDto.cs" />
+    <Compile Include="Models\DTO\WorkShifts\CourierWorkShiftsItemsDto.cs" />
+    <Compile Include="Services\WorkShift\CourierWorkShiftsScheduleService.cs" />
     <Compile Include="Services\WorkShift\WorkShiftPauseReasonService.cs" />
-    <Compile Include="Services\WorkShift\WorkShiftService.cs" />
+    <Compile Include="Services\WorkShift\CourierWorkShiftsItemService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Web.Http;
+using CourierAPI.Infrastructure.Exceptions;
 using Microsoft.AspNet.Identity;
 
 namespace CourierAPI.Infrastructure.Extensions
@@ -15,9 +16,21 @@ namespace CourierAPI.Infrastructure.Extensions
             return ResponseMessage(responseMsg);
         }
 
-        protected int CourierId()
+        protected IHttpActionResult Response(AppException ex)
         {
-            return Int32.Parse(User.Identity.GetUserId());
+            var dto = new AppMessageDto(ex.AppMessage, ex.Description);
+            var responseMsg = Request.CreateResponse(ex.AppMessage.HttpStatusCode, dto);
+
+            return ResponseMessage(responseMsg);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary> 
+        protected int GetCourierId()
+        {
+            Int32.TryParse(User.Identity.GetUserId(), out int courierId);
+            return courierId;
         }
     }
 }

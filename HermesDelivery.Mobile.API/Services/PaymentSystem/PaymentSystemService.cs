@@ -15,9 +15,9 @@ namespace CourierAPI.Services.PaymentSystem
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public PaymentSystemService(ILogger logger,
-            IMapper mapper,
-            MessageService messageService)
+        public PaymentSystemService(
+            ILogger logger,
+            IMapper mapper)
         {
             _dbContext = new AppDbContext();
             _logger = logger;

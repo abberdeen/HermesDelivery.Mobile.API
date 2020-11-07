@@ -16,20 +16,20 @@ namespace CourierAPI.Controllers.WorkShift
     /// Смены курьеров.
     /// </summary>
     [Authorize]
-    public class WorkShiftController : ApiControllerExtension
+    public class CourierWorkShiftsItemsController : ApiControllerExtension
     {
         private ILogger _logger;
         private IMapper _mapper;
-        private readonly WorkShiftService _workShiftService;
+        private readonly CourierWorkShiftsItemService _courierWorkShiftService;
 
-        public WorkShiftController(
+        public CourierWorkShiftsItemsController(
             ILogger logger,
             IMapper mapper,
-            WorkShiftService workShiftService)
+            CourierWorkShiftsItemService courierWorkShiftService)
         {
             _logger = logger;
             _mapper = mapper;
-            _workShiftService = workShiftService;
+            _courierWorkShiftService = courierWorkShiftService;
         }
 
         /// <summary>
@@ -39,17 +39,17 @@ namespace CourierAPI.Controllers.WorkShift
         // GET: /WorkShifts/History
         // [Route("WorkShifts/History")]
         [Route("Turn/History")]
-        [ResponseType(typeof(IEnumerable<WorkShiftHistoryDto>))]
+        [ResponseType(typeof(IEnumerable<CourierWorkShiftsItemHistoryDto>))]
         public async Task<IHttpActionResult> GetHistory()
         {
             try
             {
-                var workShiftHistory = await _workShiftService.GetHistory();
+                var workShiftHistory = await _courierWorkShiftService.GetHistoryAsync();
                 return Ok(workShiftHistory);
             }
             catch (AppException e)
             {
-                return Response(e.AppMessage);
+                return Response(e);
             }
         }
 
@@ -60,17 +60,17 @@ namespace CourierAPI.Controllers.WorkShift
         // GET: /WorkShifts/Current
         // [Route("WorkShifts/Current")]
         [Route("Turn")]
-        [ResponseType(typeof(WorkShiftDto))]
+        [ResponseType(typeof(CourierWorkShiftsItemDto))]
         public async Task<IHttpActionResult> GetCurrent()
         {
             try
             {
-                var currentWorkShift = await _workShiftService.GetCurrent();
+                var currentWorkShift = await _courierWorkShiftService.GetCurrentAsync(GetCourierId());
                 return Ok(currentWorkShift);
             }
             catch (AppException e)
             {
-                return Response(e.AppMessage);
+                return Response(e);
             }
         }
 
@@ -81,18 +81,18 @@ namespace CourierAPI.Controllers.WorkShift
         // POST: /WorkShifts/Current/Start
         // [Route("WorkShifts/Current/Start")]
         [Route("Turn")]
-        [ResponseType(typeof(WorkShiftDto))]
+        [ResponseType(typeof(CourierWorkShiftsItemDto))]
         [HttpPost]
         public async Task<IHttpActionResult> Start()
         {
             try
             {
-                var startedWorkShift = await _workShiftService.Start();
+                var startedWorkShift = await _courierWorkShiftService.StartAsync(GetCourierId());
                 return Ok(startedWorkShift);
             }
             catch (AppException e)
             {
-                return Response(e.AppMessage);
+                return Response(e);
             }
         }
 
@@ -104,9 +104,9 @@ namespace CourierAPI.Controllers.WorkShift
         // PUT: /WorkShifts/Current/Pause
         // [Route("WorkShifts/Current/Pause")]
         [Route("Turn")]
-        [ResponseType(typeof(WorkShiftPauseResponseDto))]
+        [ResponseType(typeof(CourierWorkShiftsItemPauseResponseDto))]
         [HttpPut]
-        public async Task<IHttpActionResult> Pause(WorkShiftPauseRequestDto model)
+        public async Task<IHttpActionResult> Pause(CourierWorkShiftsItemPauseRequestDto model)
         {
             if (ModelState.IsValid == false)
             {
@@ -115,12 +115,12 @@ namespace CourierAPI.Controllers.WorkShift
 
             try
             {
-                var pauseResponse = await _workShiftService.Pause(model);
+                var pauseResponse = await _courierWorkShiftService.PauseAsync(model, GetCourierId());
                 return Ok(pauseResponse);
             }
             catch (AppException e)
             {
-                return Response(e.AppMessage);
+                return Response(e);
             }
         }
 
@@ -131,18 +131,18 @@ namespace CourierAPI.Controllers.WorkShift
         // DELETE: /WorkShifts/Current/End
         // [Route("WorkShifts/Current/End")]
         [Route("Turn")]
-        [ResponseType(typeof(WorkShiftDto))]
+        [ResponseType(typeof(CourierWorkShiftsItemDto))]
         [HttpDelete]
         public async Task<IHttpActionResult> End()
         {
             try
             {
-                var nextWorkShift = await _workShiftService.End();
+                var nextWorkShift = await _courierWorkShiftService.EndAsync(GetCourierId());
                 return Ok(nextWorkShift);
             }
             catch (AppException e)
             {
-                return Response(e.AppMessage);
+                return Response(e);
             }
         }
     }

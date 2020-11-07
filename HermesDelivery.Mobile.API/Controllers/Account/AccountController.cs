@@ -27,9 +27,8 @@ namespace CourierAPI.Controllers.Account
         /// <returns></returns>
         [Route("Account/ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword([FromBody]ChangePasswordDto model)
-        {
-            var courierId = CourierId();
-            var msg = await _accountService.ChangePasswordAsync(courierId, model);
+        { 
+            var msg = await _accountService.ChangePasswordAsync(GetCourierId(), model);
 
             if (msg == AppMessage.Ok)
             {
@@ -45,9 +44,8 @@ namespace CourierAPI.Controllers.Account
         /// <returns></returns>
         [Route("Account/ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword()
-        {
-            var courierId = CourierId();
-            var msg = await _accountService.ResetPasswordAsync(courierId);
+        { 
+            var msg = await _accountService.ResetPasswordAsync(GetCourierId());
 
             if (msg == AppMessage.Ok)
             {
