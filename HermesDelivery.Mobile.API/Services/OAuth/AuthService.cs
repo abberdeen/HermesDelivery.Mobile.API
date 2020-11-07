@@ -1,10 +1,11 @@
-﻿using CourierAPI.Models.DTO.OAuth;
-using CourierAPI.Services.Account;
+﻿using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -15,44 +16,50 @@ namespace CourierAPI.Services.OAuth
 {
     public class AuthService
     {
+        private AppDbContext _dbContext;
         private readonly ILogger _logger;
-        private UserService _userService;
         private JwTokenService _jwTokenService;
 
-        public AuthService(ILogger logger, UserService userService, JwTokenService jwTokenService)
+        public AuthService(ILogger logger, JwTokenService jwTokenService)
         {
+            _dbContext = new AppDbContext();
             _logger = logger;
-            _userService = userService;
             _jwTokenService = jwTokenService;
+        }
+
+        public async Task<Courier> GetCourierByPhoneAsync(string phoneNumber)
+        {
+            return await _dbContext.Couriers.Where(e => e.Phone == phoneNumber).FirstOrDefaultAsync();
+        }
+
+        public async Task<Courier> GetCourierByIdAsync(int courierId)
+        {
+            return await _dbContext.Couriers.Where(e => e.Id == courierId).FirstOrDefaultAsync();
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="courierId"></param>
         /// <param name="remember"></param>
         /// <returns></returns>
-        public async Task<string> GenerateJWTokenAsync(string userId, bool remember = false)
+        public async Task<string> GenerateJWTokenAsync(int courierId, bool remember = false)
         {
-            var user = await _userService.GetUserByIdAsync(userId);
+            var courier = await this.GetCourierByIdAsync(courierId);
 
-            if (user == null)
+            if (courier == null)
             {
                 return null;
             }
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim("id", user.Id),
+                new Claim(ClaimTypes.Name, courier.Phone),
+                new Claim(ClaimTypes.NameIdentifier, courier.Id.ToString()),
+                new Claim("id", courier.Id.ToString()),
             };
 
             //
-            var roles = await _userService.GetUserRolesByIdAsync(userId);
-
-            claims.AddRange(roles.Select(p => new Claim(type: ClaimTypes.Role, p)));
-
             JwtSettingsDto jwtSettings = GetSettings();
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
@@ -78,8 +85,8 @@ namespace CourierAPI.Services.OAuth
         /// <returns></returns>
         public async Task<bool> IsTokenExistsAsync(string token)
         {
-            var userId = await _jwTokenService.GetUserIdAsync(token);
-            return userId != null;
+            var courierId = await _jwTokenService.GetCourierIdAsync(token);
+            return courierId != null;
         }
 
         /// <summary>

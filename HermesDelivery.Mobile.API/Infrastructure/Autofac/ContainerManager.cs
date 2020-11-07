@@ -26,7 +26,7 @@ namespace CourierAPI.Infrastructure.Autofac
             var dataDirectoryPath = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             builder.Register<ILogger>((c, p) => new LoggerConfiguration()
                 .WriteTo.RollingFile(
-                    dataDirectoryPath + "/Log-{Date}.txt")
+                    dataDirectoryPath + "/Logs/Log-{Date}.txt")
                 .CreateLogger()).SingleInstance();
 
             // Register AutoMapper.

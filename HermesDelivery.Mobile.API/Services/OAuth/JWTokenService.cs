@@ -20,38 +20,47 @@ namespace CourierAPI.Services.OAuth
             _mapper = mapper;
         }
 
-        public async Task<string> GetTokenAsync(string userId)
+        public async Task<string> GetTokenAsync(int courierId)
         {
-            var user = await _dbContext.AspNetUsers.Where(e => e.Id == userId).FirstOrDefaultAsync();
+            var courier = await _dbContext.CourierOAuthDatas.Where(e => e.CourierId == courierId).FirstOrDefaultAsync();
 
-            return user?.JWToken;
+            return courier?.JWToken;
         }
 
-        public async Task<string> GetUserIdAsync(string jwToken)
+        public async Task<int?> GetCourierIdAsync(string jwToken)
         {
-            var user = await _dbContext.AspNetUsers.Where(e => e.JWToken == jwToken).FirstOrDefaultAsync();
+            var courier = await _dbContext.CourierOAuthDatas.Where(e => e.JWToken == jwToken).FirstOrDefaultAsync();
 
-            return user?.Id;
+            return courier?.CourierId;
         }
 
-        public async Task SetAsync(string userId, string jwToken)
+        public async Task SetAsync(int courierId, string jwToken)
         {
-            var user = await _dbContext.AspNetUsers.FindAsync(userId);
+            var courierOAuthData = await _dbContext.CourierOAuthDatas.FirstOrDefaultAsync(x => x.CourierId == courierId);
 
-            if (user != null)
+            if (courierOAuthData != null)
             {
-                user.JWToken = jwToken;
+                courierOAuthData.JWToken = jwToken;
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                _dbContext.CourierOAuthDatas.Add(new CourierOAuthData
+                {
+                    CourierId = courierId,
+                    JWToken = jwToken
+                });
                 await _dbContext.SaveChangesAsync();
             }
         }
 
-        public async Task ClearAsync(string userId)
+        public async Task ClearAsync(int courierId)
         {
-            var user = await _dbContext.AspNetUsers.FindAsync(userId);
+            var courierOAuthData = await _dbContext.CourierOAuthDatas.FirstOrDefaultAsync(x => x.CourierId == courierId);
 
-            if (user != null)
+            if (courierOAuthData != null)
             {
-                user.JWToken = null;
+                _dbContext.CourierOAuthDatas.Remove(courierOAuthData);
                 await _dbContext.SaveChangesAsync();
             }
         }

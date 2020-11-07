@@ -2,12 +2,14 @@
 using CourierAPI.Infrastructure.Extensions;
 using CourierAPI.Models.DTO.Account;
 using CourierAPI.Services.Account;
-using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CourierAPI.Controllers.Account
 {
+    /// <summary>
+    /// Учетные записи.
+    /// </summary>
     [Authorize]
     public class AccountController : ApiControllerExtension
     {
@@ -18,11 +20,16 @@ namespace CourierAPI.Controllers.Account
             _accountService = accountService;
         }
 
+        /// <summary>
+        /// Смена пароля.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route("Account/ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword([FromBody]ChangePasswordDto model)
         {
-            var userId = User.Identity.GetUserId();
-            var msg = await _accountService.ChangePasswordAsync(userId, model);
+            var courierId = CourierId();
+            var msg = await _accountService.ChangePasswordAsync(courierId, model);
 
             if (msg == AppMessage.Ok)
             {
@@ -32,11 +39,15 @@ namespace CourierAPI.Controllers.Account
             return Response(msg);
         }
 
+        /// <summary>
+        /// Сброс пароля.
+        /// </summary>
+        /// <returns></returns>
         [Route("Account/ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword()
         {
-            var userId = User.Identity.GetUserId();
-            var msg = await _accountService.ResetPasswordAsync(userId);
+            var courierId = CourierId();
+            var msg = await _accountService.ResetPasswordAsync(courierId);
 
             if (msg == AppMessage.Ok)
             {

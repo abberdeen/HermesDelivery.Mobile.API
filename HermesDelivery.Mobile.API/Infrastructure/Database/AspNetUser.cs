@@ -33,6 +33,10 @@ namespace CourierAPI.Infrastructure.Database
             this.CourierPenalties = new HashSet<CourierPenalty>();
             this.Couriers = new HashSet<Courier>();
             this.Couriers1 = new HashSet<Courier>();
+            this.CourierWorkShifts = new HashSet<CourierWorkShift>();
+            this.CourierWorkShifts1 = new HashSet<CourierWorkShift>();
+            this.CourierWorkShiftsHistories = new HashSet<CourierWorkShiftsHistory>();
+            this.CourierWorkShiftsHistories1 = new HashSet<CourierWorkShiftsHistory>();
             this.EmployeeLockReasons = new HashSet<EmployeeLockReason>();
             this.EmployeeLockReasons1 = new HashSet<EmployeeLockReason>();
             this.EmployeePositions = new HashSet<EmployeePosition>();
@@ -76,6 +80,10 @@ namespace CourierAPI.Infrastructure.Database
             this.VehiclesGalleries = new HashSet<VehiclesGallery>();
             this.VehicleTypes = new HashSet<VehicleType>();
             this.VehicleTypes1 = new HashSet<VehicleType>();
+            this.WorkShiftPauseReasons = new HashSet<WorkShiftPauseReason>();
+            this.WorkShiftPauseReasons1 = new HashSet<WorkShiftPauseReason>();
+            this.WorkShifts = new HashSet<WorkShift>();
+            this.WorkShifts1 = new HashSet<WorkShift>();
         }
     
         public string Id { get; set; }
@@ -91,14 +99,7 @@ namespace CourierAPI.Infrastructure.Database
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public string Photo { get; set; }
-        public string JWToken { get; set; }
-        public string RefreshToken { get; set; }
-        public Nullable<System.DateTime> RefreshTokenExpires { get; set; }
-        public Nullable<bool> RefreshTokenIsActive { get; set; }
-        public string RefreshTokenIp { get; set; }
-        public Nullable<int> TypeId { get; set; }
         public Nullable<int> EmployeeId { get; set; }
-        public Nullable<int> CourierId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
@@ -112,8 +113,6 @@ namespace CourierAPI.Infrastructure.Database
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual AspNetUser AspNetUsers1 { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
-        public virtual AspNetUserType AspNetUserType { get; set; }
-        public virtual Courier Courier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Company> Companies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -136,6 +135,14 @@ namespace CourierAPI.Infrastructure.Database
         public virtual ICollection<Courier> Couriers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Courier> Couriers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierWorkShift> CourierWorkShifts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierWorkShift> CourierWorkShifts1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierWorkShiftsHistory> CourierWorkShiftsHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierWorkShiftsHistory> CourierWorkShiftsHistories1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeLockReason> EmployeeLockReasons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -222,5 +229,13 @@ namespace CourierAPI.Infrastructure.Database
         public virtual ICollection<VehicleType> VehicleTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehicleType> VehicleTypes1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkShiftPauseReason> WorkShiftPauseReasons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkShiftPauseReason> WorkShiftPauseReasons1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkShift> WorkShifts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkShift> WorkShifts1 { get; set; }
     }
 }

@@ -19,32 +19,30 @@ namespace CourierAPI.Services.Account
         private AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
-        private readonly UserService _userService;
         private readonly MessageService _messageService;
         private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
-        public AccountService(ILogger logger, IMapper mapper, UserService userService, MessageService messageService)
+        public AccountService(ILogger logger, IMapper mapper, MessageService messageService)
         {
             _dbContext = new AppDbContext();
             _logger = logger;
             _mapper = mapper;
             _messageService = messageService;
-            _userService = userService;
         }
 
-        public async Task<AppMessage> ChangePasswordAsync(string userId, ChangePasswordDto model)
+        public async Task<AppMessage> ChangePasswordAsync(int courierId, ChangePasswordDto model)
         {
             // Получает модель пользователя по ИД.
-            var user = await _dbContext.AspNetUsers.Where(x => x.Id == userId).FirstOrDefaultAsync();
+            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x => x.Id == courierId);
 
             // Если пользователь не найден, то завершает работу.
-            if (user == null)
+            if (courier == null)
             {
                 return AppMessage.InvalidUsername;
             }
 
             // Сверяет старый пароль с новым.
-            var verifyResult = _passwordHasher.VerifyHashedPassword(user.PasswordHash, model.CurrentPassword);
+            var verifyResult = _passwordHasher.VerifyHashedPassword(courier.PasswordHash, model.CurrentPassword);
             if (verifyResult != PasswordVerificationResult.Success)
             {
                 return AppMessage.InvalidPassword;
@@ -57,16 +55,16 @@ namespace CourierAPI.Services.Account
             }
 
             // Обновляет пароль на новый.
-            user.PasswordHash = _passwordHasher.HashPassword(model.NewPassword);
+            courier.PasswordHash = _passwordHasher.HashPassword(model.NewPassword);
 
             // Отправляет запрос на сохранение изменений.
             await _dbContext.SaveChangesAsync();
             return AppMessage.Ok;
         }
 
-        public async Task<AppMessage> ResetPasswordAsync(string userId)
+        public async Task<AppMessage> ResetPasswordAsync(int courierId)
         {
-            var currentUser = await _dbContext.AspNetUsers.Where(e => e.Id == userId).FirstOrDefaultAsync();
+            var currentUser = await _dbContext.Couriers.Where(e => e.Id == courierId).FirstOrDefaultAsync();
             if (currentUser == null)
             {
                 return AppMessage.InvalidUsername;
@@ -79,13 +77,16 @@ namespace CourierAPI.Services.Account
 
             await _dbContext.SaveChangesAsync();
 
-            var isSuccess = await _messageService.SendMessage(currentUser.PhoneNumber,
+            var isSuccess = await _messageService.SendMessage(currentUser.Phone,
                 "Вы сбросили свой пароль. Ваш новый пароль: " + newPassword);
 
             if (isSuccess)
             {
+                _logger.Information("AccountSrv: Password for courier " + courierId + " reset-ed");
                 return AppMessage.Ok;
             }
+
+            _logger.Fatal("AccountSrv: " + AppMessage.SmsServiceError);
 
             return AppMessage.SmsServiceError;
         }

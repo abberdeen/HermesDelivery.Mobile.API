@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Models.DTO.Orders;
-using CourierAPI.Services.Account;
 using CourierAPI.Services.Mock;
 using CourierAPI.Services.Sms;
 using Serilog;
@@ -18,7 +17,7 @@ namespace CourierAPI.Services.Order
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public IncomingOrderService(ILogger logger, IMapper mapper, UserService userService, MessageService messageService)
+        public IncomingOrderService(ILogger logger, IMapper mapper, MessageService messageService)
         {
             _dbContext = new AppDbContext();
             _logger = logger;

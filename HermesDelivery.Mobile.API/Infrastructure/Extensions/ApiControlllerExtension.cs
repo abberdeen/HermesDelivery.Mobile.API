@@ -1,5 +1,7 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace CourierAPI.Infrastructure.Extensions
 {
@@ -11,6 +13,11 @@ namespace CourierAPI.Infrastructure.Extensions
             var responseMsg = Request.CreateResponse(message.HttpStatusCode, dto);
 
             return ResponseMessage(responseMsg);
+        }
+
+        protected int CourierId()
+        {
+            return Int32.Parse(User.Identity.GetUserId());
         }
     }
 }

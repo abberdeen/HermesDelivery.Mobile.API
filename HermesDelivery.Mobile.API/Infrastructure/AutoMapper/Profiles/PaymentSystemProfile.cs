@@ -9,7 +9,9 @@ namespace CourierAPI.Infrastructure.AutoMapper.Profiles
         public PaymentSystemProfile()
         {
             // PaymentSystem.
-            CreateMap<PaymentSystem, PaymentSystemDto>();
+            CreateMap<PaymentSystem, PaymentSystemDto>()
+                .ForMember(d => d.Qr,
+                    m => m.MapFrom(s => s.QRCode));
         }
     }
 }

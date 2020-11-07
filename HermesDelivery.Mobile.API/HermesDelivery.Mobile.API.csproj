@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\HermesDelivery.CourierMobile.API.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -384,9 +385,6 @@
     <Compile Include="Infrastructure\Database\AspNetUserRole.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\AspNetUserType.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Database\Company.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -411,7 +409,16 @@
     <Compile Include="Infrastructure\Database\CourierMovementMethod.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Database\CourierOAuthData.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Database\CourierPenalty.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierWorkShift.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierWorkShiftsHistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\Customer.cs">
@@ -540,6 +547,12 @@
     <Compile Include="Infrastructure\Database\VehicleType.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Database\WorkShift.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\WorkShiftPauseReason.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
@@ -581,7 +594,6 @@
     <Compile Include="Models\DTO\OAuth\JwtSettingsDto.cs" />
     <Compile Include="Models\DTO\OAuth\AuthDto.cs" />
     <Compile Include="Models\DTO\OAuth\RefreshTokenDto.cs" />
-    <Compile Include="Services\Account\UserService.cs" />
     <Compile Include="Services\OAuth\JwTokenService.cs" />
     <Compile Include="Services\OAuth\RefreshTokenService.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -601,6 +613,13 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="App_Data\MockData\IncomingOrderResponse\getDetails.json" />
+    <Content Include="App_Data\MockData\IncomingOrderResponse\getOrders.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\end.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\start.json" />
+    <None Include="App_Data\MockData\IncomingOrderResponse\getPending.json" />
+    <None Include="App_Data\MockData\WorkShiftPauseReasonResponse\getReasons.json" />
+    <None Include="App_Data\MockData\WorkShiftResponse\getHistory.json" />
     <Content Include="Infrastructure\Database\db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>db.edmx</DependentUpon>
@@ -611,13 +630,6 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
-    <None Include="App_Data\MockData\IncomingOrderResponse\getDetails.json" />
-    <Content Include="App_Data\MockData\IncomingOrderResponse\getOrders.json" />
-    <None Include="App_Data\MockData\WorkShiftResponse\end.json" />
-    <None Include="App_Data\MockData\WorkShiftResponse\start.json" />
-    <None Include="App_Data\MockData\IncomingOrderResponse\getPending.json" />
-    <None Include="App_Data\MockData\WorkShiftPauseReasonResponse\getReasons.json" />
-    <None Include="App_Data\MockData\WorkShiftResponse\getHistory.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -628,6 +640,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="App_Data\MockData\WorkShiftResponse\getCurrent.json" />
     <EntityDeploy Include="Infrastructure\Database\db.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>db.Designer.cs</LastGenOutput>
@@ -635,7 +648,6 @@
     <Content Include="Infrastructure\Database\db.edmx.diagram">
       <DependentUpon>db.edmx</DependentUpon>
     </Content>
-    <Content Include="App_Data\MockData\WorkShiftResponse\getCurrent.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

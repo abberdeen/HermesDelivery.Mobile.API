@@ -32,7 +32,6 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetUserType> AspNetUserTypes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CompanyInSocialNetwork> CompanyInSocialNetworks { get; set; }
         public virtual DbSet<CompanyPhone> CompanyPhones { get; set; }
@@ -40,8 +39,11 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<CourierFile> CourierFiles { get; set; }
         public virtual DbSet<CourierLockReason> CourierLockReasons { get; set; }
         public virtual DbSet<CourierMovementMethod> CourierMovementMethods { get; set; }
+        public virtual DbSet<CourierOAuthData> CourierOAuthDatas { get; set; }
         public virtual DbSet<CourierPenalty> CourierPenalties { get; set; }
         public virtual DbSet<Courier> Couriers { get; set; }
+        public virtual DbSet<CourierWorkShift> CourierWorkShifts { get; set; }
+        public virtual DbSet<CourierWorkShiftsHistory> CourierWorkShiftsHistories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<EmployeeLockReason> EmployeeLockReasons { get; set; }
         public virtual DbSet<EmployeePosition> EmployeePositions { get; set; }
@@ -78,5 +80,7 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehiclesGallery> VehiclesGalleries { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
+        public virtual DbSet<WorkShiftPauseReason> WorkShiftPauseReasons { get; set; }
+        public virtual DbSet<WorkShift> WorkShifts { get; set; }
     }
 }

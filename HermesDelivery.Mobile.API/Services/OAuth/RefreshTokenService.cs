@@ -3,7 +3,6 @@ using CourierAPI.Infrastructure.Database;
 using CourierAPI.Models.DTO.OAuth;
 using Serilog;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CourierAPI.Services.OAuth
@@ -21,35 +20,32 @@ namespace CourierAPI.Services.OAuth
             _mapper = mapper;
         }
 
-        public async Task<AspNetUser> GetByUserByIdAsync(string id)
+        public async Task<CourierOAuthData> GetByCourierAuthDataByIdAsync(int courierId)
         {
-            return await _dbContext.AspNetUsers.Where(e => e.Id == id).FirstOrDefaultAsync();
+            return await _dbContext.CourierOAuthDatas.FirstOrDefaultAsync(e => e.CourierId == courierId);
         }
 
-        public async Task SetAsync(RefreshTokenDto model, string userId)
+        public async Task SetAsync(RefreshTokenDto model, int courierId)
         {
-            var user = await _dbContext.AspNetUsers.FindAsync(userId);
+            var courierOAuthData = await _dbContext.CourierOAuthDatas.FirstOrDefaultAsync(x => x.CourierId == courierId);
 
-            if (user != null)
+            if (courierOAuthData != null)
             {
-                user.RefreshToken = model.Token;
-                user.RefreshTokenIp = model.RemoteIp;
-                user.RefreshTokenExpires = model.Expires;
-                user.RefreshTokenIsActive = model.IsActive;
+                courierOAuthData.RefreshToken = model.Token;
+                courierOAuthData.RefreshTokenIp = model.RemoteIp;
+                courierOAuthData.RefreshTokenExpires = model.Expires;
+                courierOAuthData.RefreshTokenIsActive = model.IsActive;
                 await _dbContext.SaveChangesAsync();
             }
         }
 
-        public async Task ClearAsync(string userId)
+        public async Task ClearAsync(int courierId)
         {
-            var user = await _dbContext.AspNetUsers.FindAsync(userId);
+            var courierOAuthData = await _dbContext.CourierOAuthDatas.FirstOrDefaultAsync(x => x.CourierId == courierId);
 
-            if (user != null)
+            if (courierOAuthData != null)
             {
-                user.RefreshToken = null;
-                user.RefreshTokenIp = null;
-                user.RefreshTokenExpires = null;
-                user.RefreshTokenIsActive = null;
+                _dbContext.CourierOAuthDatas.Remove(courierOAuthData);
                 await _dbContext.SaveChangesAsync();
             }
         }

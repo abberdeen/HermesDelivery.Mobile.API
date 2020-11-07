@@ -12,6 +12,9 @@ using System.Web.Http.Description;
 
 namespace CourierAPI.Controllers.WorkShift
 {
+    /// <summary>
+    /// Смены курьеров.
+    /// </summary>
     [Authorize]
     public class WorkShiftController : ApiControllerExtension
     {
@@ -29,9 +32,12 @@ namespace CourierAPI.Controllers.WorkShift
             _workShiftService = workShiftService;
         }
 
-        // Получить историю смен
+        /// <summary>
+        /// Получить историю смен.
+        /// </summary>
+        /// <returns></returns>
         // GET: /WorkShifts/History
-        [Route("WorkShifts/History")]
+        // [Route("WorkShifts/History")]
         [Route("Turn/History")]
         [ResponseType(typeof(IEnumerable<WorkShiftHistoryDto>))]
         public async Task<IHttpActionResult> GetHistory()
@@ -47,9 +53,12 @@ namespace CourierAPI.Controllers.WorkShift
             }
         }
 
-        // Получить текущую смену
+        /// <summary>
+        /// Получить текущую смену.
+        /// </summary>
+        /// <returns></returns>
         // GET: /WorkShifts/Current
-        [Route("WorkShifts/Current")]
+        // [Route("WorkShifts/Current")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
         public async Task<IHttpActionResult> GetCurrent()
@@ -65,9 +74,12 @@ namespace CourierAPI.Controllers.WorkShift
             }
         }
 
-        // Запустить смену
+        /// <summary>
+        /// Запустить смену.
+        /// </summary>
+        /// <returns></returns>
         // POST: /WorkShifts/Current/Start
-        [Route("WorkShifts/Current/Start")]
+        // [Route("WorkShifts/Current/Start")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
         [HttpPost]
@@ -84,9 +96,13 @@ namespace CourierAPI.Controllers.WorkShift
             }
         }
 
-        // Поставить смену на паузу
+        /// <summary>
+        /// Поставить смену на паузу.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         // PUT: /WorkShifts/Current/Pause
-        [Route("WorkShifts/Current/Pause")]
+        // [Route("WorkShifts/Current/Pause")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftPauseResponseDto))]
         [HttpPut]
@@ -108,9 +124,12 @@ namespace CourierAPI.Controllers.WorkShift
             }
         }
 
-        // Завершить смену
+        /// <summary>
+        /// Завершить смену.
+        /// </summary>
+        /// <returns></returns>
         // DELETE: /WorkShifts/Current/End
-        [Route("WorkShifts/Current/End")]
+        // [Route("WorkShifts/Current/End")]
         [Route("Turn")]
         [ResponseType(typeof(WorkShiftDto))]
         [HttpDelete]

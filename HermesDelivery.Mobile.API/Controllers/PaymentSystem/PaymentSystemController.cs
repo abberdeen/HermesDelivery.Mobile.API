@@ -11,6 +11,9 @@ using System.Web.Http.Description;
 
 namespace CourierAPI.Controllers.PaymentSystem
 {
+    /// <summary>
+    /// Платежные системы (QR).
+    /// </summary>
     [Authorize]
     public class PaymentSystemController : ApiControllerExtension
     {
@@ -28,8 +31,12 @@ namespace CourierAPI.Controllers.PaymentSystem
             _paymentSystemService = paymentSystemService;
         }
 
+        /// <summary>
+        /// Получить список платежный систем (QR-ов)
+        /// </summary>
+        /// <returns></returns>
         // GET: /PaymentSystems/QR/Codes
-        [Route("PaymentSystems/QR/Codes")]
+        // [Route("PaymentSystems/QR/Codes")]
         [Route("QrPayProviders")]
         [ResponseType(typeof(IEnumerable<PaymentSystemDto>))]
         public async Task<IHttpActionResult> Get()

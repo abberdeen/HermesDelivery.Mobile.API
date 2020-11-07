@@ -17,15 +17,16 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Courier()
         {
-            this.AspNetUsers = new HashSet<AspNetUser>();
             this.CourierFiles = new HashSet<CourierFile>();
             this.CourierPenalties = new HashSet<CourierPenalty>();
+            this.CourierWorkShifts = new HashSet<CourierWorkShift>();
             this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
+        public string PasswordHash { get; set; }
         public string Photo { get; set; }
         public int GenderId { get; set; }
         public string Address { get; set; }
@@ -43,9 +44,8 @@ namespace CourierAPI.Infrastructure.Database
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
+        public string pass_tmp { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -55,6 +55,8 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourierPenalty> CourierPenalties { get; set; }
         public virtual Gender Gender { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourierWorkShift> CourierWorkShifts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

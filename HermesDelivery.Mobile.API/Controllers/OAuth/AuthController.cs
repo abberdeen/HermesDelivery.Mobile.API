@@ -1,25 +1,29 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure;
+using CourierAPI.Infrastructure.Database;
 using CourierAPI.Infrastructure.Extensions;
 using CourierAPI.Models.DTO.OAuth;
-using CourierAPI.Services.Account;
 using CourierAPI.Services.OAuth;
 using Microsoft.AspNet.Identity;
 using Serilog;
 using System;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using WebGrease.Css.Extensions;
 
 namespace CourierAPI.Controllers.OAuth
 {
+    /// <summary>
+    /// Авторизация.
+    /// </summary>
     public class AuthController : ApiControllerExtension
     {
         private readonly ILogger _logger;
         private IMapper _mapper;
-        private readonly UserService _userService;
         private readonly RefreshTokenService _refreshTokenService;
         private readonly JwTokenService _jwTokenService;
         private readonly AuthService _authService;
@@ -27,24 +31,27 @@ namespace CourierAPI.Controllers.OAuth
         public AuthController(
             ILogger logger,
             IMapper mapper,
-            UserService userService,
             RefreshTokenService refreshTokenService,
             JwTokenService jwTokenService,
             AuthService authService)
         {
             _logger = logger;
             _mapper = mapper;
-            _userService = userService;
             _refreshTokenService = refreshTokenService;
             _jwTokenService = jwTokenService;
             _authService = authService;
         }
-
-        [HttpPost]
-        [Route("Auth/Login")]
+          
+        /// <summary>
+        /// Вход в систему. Получить OAuth токен.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        //[Route("Auth/Login")]
         [Route("Auth")]
         [AllowAnonymous]
         [ResponseType(typeof(LoginResponseDto))]
+        [HttpPost]
         public async Task<IHttpActionResult> Login([FromBody]LoginRequestDto model)
         {
             if (!ModelState.IsValid)
@@ -52,16 +59,25 @@ namespace CourierAPI.Controllers.OAuth
                 return Response(AppMessage.InvalidModel);
             }
 
-            var user = await _userService.GetUserByNameAsync(model.Username);
+            var courier = await _authService.GetCourierByPhoneAsync(model.Username);
 
-            if (user == null)
+            //
+            if (courier == null)
             {
                 return Response(AppMessage.InvalidLoginOrPassword);
             }
 
-            var hasher = new PasswordHasher();
+            
+            //
+            if (string.IsNullOrEmpty(courier.PasswordHash) || string.IsNullOrEmpty(model.Password.Trim()))
+            {
+                throw new Exception("Courier password is empty");
+            }
 
-            if (hasher.VerifyHashedPassword(user.PasswordHash, model.Password) != PasswordVerificationResult.Success)
+            //
+            var hasher = new PasswordHasher();
+            
+            if (hasher.VerifyHashedPassword(courier.PasswordHash, model.Password.Trim()) != PasswordVerificationResult.Success)
             {
                 return Response(AppMessage.InvalidLoginOrPassword);
             }
@@ -76,11 +92,11 @@ namespace CourierAPI.Controllers.OAuth
                 RemoteIp = GetRemoteIp()
             };
 
-            await _refreshTokenService.SetAsync(refreshTokenDto, user.Id);
+            await _refreshTokenService.SetAsync(refreshTokenDto, courier.Id);
 
-            var jwToken = await _jwTokenService.GetTokenAsync(user.Id);
+            var jwToken = await _jwTokenService.GetTokenAsync(courier.Id);
 
-            var newJWToken = await _authService.GenerateJWTokenAsync(user.Id);
+            var newJWToken = await _authService.GenerateJWTokenAsync(courier.Id);
 
             var memCacher = new CustomMemoryCacher();
             if (jwToken != null)
@@ -90,11 +106,11 @@ namespace CourierAPI.Controllers.OAuth
                     memCacher.Delete(jwToken);
                 }
             }
-            memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
+            memCacher.Add(newJWToken, courier.Id, DateTimeOffset.UtcNow.AddHours(12));
 
-            await _jwTokenService.SetAsync(user.Id, newJWToken);
+            await _jwTokenService.SetAsync(courier.Id, newJWToken);
 
-            _logger.Information($"User {model.Username} logged in.");
+            _logger.Information($"Courier {model.Username} logged in.");
 
             var response = new LoginResponseDto()
             {
@@ -105,64 +121,43 @@ namespace CourierAPI.Controllers.OAuth
             return Ok(response);
         }
 
-        //[HttpGet]
-        //[Route("LogOut")]
-        //public async Task<string> LogOut()
-        //{
-        //    string token = "";
-        //    if (HttpContext.Current.Request.Headers.Get("Authorization") != null)
-        //    {
-        //        token = Convert.ToString(HttpContext.Current.Request.Headers.Get("Authorization"));
-        //    }
-
-        //    var activeUserToken = await _jwTokenService.GetByTokenAsync(token);
-
-        //    var refreshToken = await _refreshTokenService.GetByUserIdAsync(activeUserToken.UserId);
-        //    if (refreshToken != null)
-        //        await _refreshTokenService.DeleteAsync(refreshToken);
-
-        //    await _jwTokenService.DeleteAsync(activeUserToken);
-
-        //    var memCacher = new MemoryCacher();
-        //    if (memCacher.GetValue(token) != null)
-        //    {
-        //        memCacher.Delete(token);
-        //    }
-
-        //    return "Logged out";
-        //}
-
+        /// <summary>
+        /// Получить RefreshToken.
+        /// </summary>
+        /// <param name="jwToken"></param>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("Auth/RefreshToken")]
         [ResponseType(typeof(LoginResponseDto))]
         public async Task<IHttpActionResult> RefreshToken([FromBody]string jwToken, string refreshToken)
         {
-            var userPrincipal = _authService.GetPrincipalFromToken(jwToken);
+            var courierPrincipal = _authService.GetPrincipalFromToken(jwToken);
 
             var tokenActive = await _authService.IsTokenExistsAsync(jwToken);
 
-            // invalid token/signing key was passed and we can't extract user claims
-            if (userPrincipal == null || !tokenActive)
+            // invalid token/signing key was passed and we can't extract courier claims
+            if (courierPrincipal == null || !tokenActive)
             {
                 return NotFound();
             }
 
-            var userId = userPrincipal.Claims.First(c => c.Type == "id").Value;
+            var id = courierPrincipal.Claims.First(c => c.Type == "id").Value;
 
-            var user = await _refreshTokenService.GetByUserByIdAsync(userId);
+            var courierId = Convert.ToInt32(id);
 
-            if (user == null ||
-                user.RefreshTokenIsActive != true ||
-                user.RefreshTokenIp != GetRemoteIp() ||
-                user.RefreshToken != refreshToken)
+            var courier = await _refreshTokenService.GetByCourierAuthDataByIdAsync(courierId);
+
+            if (courier == null ||
+                courier.RefreshTokenIsActive != true ||
+                courier.RefreshTokenIp != GetRemoteIp() ||
+                courier.RefreshToken != refreshToken)
             {
                 return NotFound();
             }
 
-            var _userId = userPrincipal.Claims.FirstOrDefault(c => c.Type == "id")?.Value.ToString();
-
-            await _refreshTokenService.ClearAsync(userId);
+            await _refreshTokenService.ClearAsync(courierId);
 
             // RefreshToken
             var newRefreshToken = GenerateTokenByRandomNumber();
@@ -175,17 +170,17 @@ namespace CourierAPI.Controllers.OAuth
                 RemoteIp = GetRemoteIp()
             };
 
-            await _refreshTokenService.SetAsync(refreshTokenDto, userId);
+            await _refreshTokenService.SetAsync(refreshTokenDto, courierId);
 
             // JWToken
-            var newJWToken = await _authService.GenerateJWTokenAsync(userId);
+            var newJWToken = await _authService.GenerateJWTokenAsync(courierId);
 
-            await _jwTokenService.SetAsync(userId, newJWToken);
+            await _jwTokenService.SetAsync(courierId, newJWToken);
 
             var memCacher = new CustomMemoryCacher();
             if (memCacher.GetValue(jwToken) == null)
             {
-                memCacher.Add(newJWToken, user.Id, DateTimeOffset.UtcNow.AddHours(12));
+                memCacher.Add(newJWToken, courier.Id, DateTimeOffset.UtcNow.AddHours(12));
             }
 
             var response = new LoginResponseDto()

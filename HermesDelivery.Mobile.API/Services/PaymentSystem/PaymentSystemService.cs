@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Models.DTO.PaymentSystems;
-using CourierAPI.Services.Account;
 using CourierAPI.Services.Sms;
 using Serilog;
 using System.Collections.Generic;
@@ -18,7 +17,6 @@ namespace CourierAPI.Services.PaymentSystem
 
         public PaymentSystemService(ILogger logger,
             IMapper mapper,
-            UserService userService,
             MessageService messageService)
         {
             _dbContext = new AppDbContext();

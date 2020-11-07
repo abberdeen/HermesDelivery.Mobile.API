@@ -11,6 +11,9 @@ using System.Web.Http.Description;
 
 namespace CourierAPI.Controllers.WorkShift
 {
+    /// <summary>
+    /// Причины приостановки смен.
+    /// </summary>
     [Authorize]
     public class WorkShiftPauseReasonController : ApiControllerExtension
     {
@@ -28,8 +31,12 @@ namespace CourierAPI.Controllers.WorkShift
             _workShiftPauseReasonService = workShiftPauseReasonService;
         }
 
+        /// <summary>
+        /// Получить список причин остановки смен.
+        /// </summary>
+        /// <returns></returns>
         // GET: /WorkShifts/PauseReasons
-        [Route("WorkShifts/PauseReasons")]
+        // [Route("WorkShifts/PauseReasons")]
         [Route("Turn/PauseReasons")]
         [ResponseType(typeof(IEnumerable<WorkShiftPauseReasonDto>))]
         public async Task<IHttpActionResult> GetReasons()

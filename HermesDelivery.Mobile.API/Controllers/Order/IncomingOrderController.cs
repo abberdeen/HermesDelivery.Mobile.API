@@ -11,6 +11,9 @@ using System.Web.Http.Description;
 
 namespace CourierAPI.Controllers.Order
 {
+    /// <summary>
+    /// Заказы курьеров.
+    /// </summary>
     [Authorize]
     public class IncomingOrderController : ApiControllerExtension
     {
@@ -28,9 +31,12 @@ namespace CourierAPI.Controllers.Order
             _incomingOrderService = incomingOrderService;
         }
 
-        // Получить список заказов.
+        /// <summary>
+        /// Получить список заказов.
+        /// </summary>
+        /// <returns></returns>
         // GET: /IncomingOrders/
-        [Route("IncomingOrders")]
+        // [Route("IncomingOrders")]
         [Route("Turn/Orders")]
         [ResponseType(typeof(IEnumerable<IncomingOrderDto>))]
         public async Task<IHttpActionResult> GetOrders()
@@ -46,9 +52,12 @@ namespace CourierAPI.Controllers.Order
             }
         }
 
-        // Проверить наличие входящего заказа.
+        /// <summary>
+        /// Проверить наличие входящего заказа.
+        /// </summary>
+        /// <returns></returns>
         // GET: /IncomingOrders/New
-        [Route("IncomingOrders/Pending")]
+        // [Route("IncomingOrders/Pending")]
         [Route("Turn/IncomingOrder")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
         public async Task<IHttpActionResult> GetPending()
@@ -64,9 +73,13 @@ namespace CourierAPI.Controllers.Order
             }
         }
 
-        // Получить детали заказа.
+        /// <summary>
+        /// Проверить наличие входящего заказа.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: /IncomingOrders/1/Details
-        [Route("IncomingOrders/{id:int}/Details")]
+        // [Route("IncomingOrders/{id:int}/Details")]
         [Route("Turn/Orders/{id:int}")]
         [ResponseType(typeof(IncomingOrderDetailsDto))]
         public async Task<IHttpActionResult> GetDetails(int id)
@@ -82,9 +95,13 @@ namespace CourierAPI.Controllers.Order
             }
         }
 
-        // Принять входящий заказ в работу.
+        /// <summary>
+        /// Принять входящий заказ в работу.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // POST: /IncomingOrder/1/Accept
-        [Route("IncomingOrder/{id:int:min(1)}/Accept")]
+        // [Route("IncomingOrder/{id:int:min(1)}/Accept")]
         [Route("Turn/IncomingOrder/{id:int:min(1)}")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
         [HttpPost]
@@ -101,9 +118,14 @@ namespace CourierAPI.Controllers.Order
             }
         }
 
-        // Сменить статус заказа.
+        /// <summary>
+        /// Сменить статус заказа.
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="statusId"></param>
+        /// <returns></returns>
         // PUT: /IncomingOrder/1/SetStatus/1
-        [Route("IncomingOrder/{orderId:int:min(1)}/SetStatus/{statusId:int:min(1)}")]
+        // [Route("IncomingOrder/{orderId:int:min(1)}/SetStatus/{statusId:int:min(1)}")]
         [Route("Turn/Orders/{orderId:int}/UpdateStatus/{statusId:int}")]
         [ResponseType(typeof(IncomingOrderStatusChangeResponseDto))]
         [HttpPut]
@@ -116,9 +138,13 @@ namespace CourierAPI.Controllers.Order
             });
         }
 
-        // Отклонить входящий заказ.
+        /// <summary>
+        /// Отклонить входящий заказ.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: /IncomingOrder/1/Reject
-        [Route("IncomingOrder/{id:int:min(1)}/Reject")]
+        // [Route("IncomingOrder/{id:int:min(1)}/Reject")]
         [Route("Turn/IncomingOrder/{id:int}")]
         [HttpDelete]
         public async Task<IHttpActionResult> Reject(int id)
