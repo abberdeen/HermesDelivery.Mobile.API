@@ -1,9 +1,9 @@
-﻿namespace CourierAPI.Models.DTO.WorkShifts
+﻿namespace CourierAPI.Models.DTO.Shift
 {
     /// <summary>
     /// Информация о текущем активном расписании рабочей смены.
     /// </summary>
-    public class CourierWorkShiftsCurrentActiveScheduleDto
+    public class CurrentActiveCourierShiftDto
     {
         public int Id { get; set; }
         public int CourierId { get; set; }

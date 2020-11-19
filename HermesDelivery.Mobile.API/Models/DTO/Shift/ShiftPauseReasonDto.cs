@@ -1,9 +1,9 @@
-﻿namespace CourierAPI.Models.DTO.WorkShifts
+﻿namespace CourierAPI.Models.DTO.Shift
 {
     /// <summary>
     /// Элемент списка. Причина приостановки рабочей смены.
     /// </summary>
-    public class WorkShiftPauseReasonDto
+    public class ShiftPauseReasonDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

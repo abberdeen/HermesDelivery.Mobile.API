@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models.DTO.WorkShifts;
-using CourierAPI.Services.WorkShift;
+using CourierAPI.Models;
+using CourierAPI.Models.DTO.Shift;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CourierAPI.Services.Shift;
 
 namespace CourierAPI.Controllers.WorkShift
 {
@@ -16,16 +16,16 @@ namespace CourierAPI.Controllers.WorkShift
     /// Смены курьеров.
     /// </summary>
     [Authorize]
-    public class CourierWorkShiftsItemsController : ApiControllerExtension
+    public class CourierShiftHistoryController : ApiControllerExtension
     {
         private ILogger _logger;
         private IMapper _mapper;
-        private readonly CourierWorkShiftsItemService _courierWorkShiftService;
+        private readonly CourierShiftHistoryService _courierWorkShiftService;
 
-        public CourierWorkShiftsItemsController(
+        public CourierShiftHistoryController(
             ILogger logger,
             IMapper mapper,
-            CourierWorkShiftsItemService courierWorkShiftService)
+            CourierShiftHistoryService courierWorkShiftService)
         {
             _logger = logger;
             _mapper = mapper;
@@ -36,10 +36,8 @@ namespace CourierAPI.Controllers.WorkShift
         /// Получить историю смен.
         /// </summary>
         /// <returns></returns>
-        // GET: /WorkShifts/History
-        // [Route("WorkShifts/History")]
         [Route("Turn/History")]
-        [ResponseType(typeof(IEnumerable<CourierWorkShiftsItemHistoryDto>))]
+        [ResponseType(typeof(IEnumerable<CourierShiftHistoryListItemDto>))]
         public async Task<IHttpActionResult> GetHistory()
         {
             try
@@ -57,15 +55,13 @@ namespace CourierAPI.Controllers.WorkShift
         /// Получить текущую смену.
         /// </summary>
         /// <returns></returns>
-        // GET: /WorkShifts/Current
-        // [Route("WorkShifts/Current")]
         [Route("Turn")]
-        [ResponseType(typeof(CourierWorkShiftsItemDto))]
+        [ResponseType(typeof(CourierShiftHistoryDto))]
         public async Task<IHttpActionResult> GetCurrent()
         {
             try
             {
-                var currentWorkShift = await _courierWorkShiftService.GetCurrentAsync(GetCourierId());
+                var currentWorkShift = await _courierWorkShiftService.GetCurrentOrNextAsync(GetCourierId());
                 return Ok(currentWorkShift);
             }
             catch (AppException e)
@@ -78,10 +74,8 @@ namespace CourierAPI.Controllers.WorkShift
         /// Запустить смену.
         /// </summary>
         /// <returns></returns>
-        // POST: /WorkShifts/Current/Start
-        // [Route("WorkShifts/Current/Start")]
         [Route("Turn")]
-        [ResponseType(typeof(CourierWorkShiftsItemDto))]
+        [ResponseType(typeof(CourierShiftHistoryDto))]
         [HttpPost]
         public async Task<IHttpActionResult> Start()
         {
@@ -101,12 +95,10 @@ namespace CourierAPI.Controllers.WorkShift
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        // PUT: /WorkShifts/Current/Pause
-        // [Route("WorkShifts/Current/Pause")]
         [Route("Turn")]
-        [ResponseType(typeof(CourierWorkShiftsItemPauseResponseDto))]
+        [ResponseType(typeof(CourierShiftHistoryPauseResponseDto))]
         [HttpPut]
-        public async Task<IHttpActionResult> Pause(CourierWorkShiftsItemPauseRequestDto model)
+        public async Task<IHttpActionResult> Pause(CourierShiftHistoryPauseRequestDto model)
         {
             if (ModelState.IsValid == false)
             {
@@ -128,10 +120,8 @@ namespace CourierAPI.Controllers.WorkShift
         /// Завершить смену.
         /// </summary>
         /// <returns></returns>
-        // DELETE: /WorkShifts/Current/End
-        // [Route("WorkShifts/Current/End")]
         [Route("Turn")]
-        [ResponseType(typeof(CourierWorkShiftsItemDto))]
+        [ResponseType(typeof(CourierShiftHistoryDto))]
         [HttpDelete]
         public async Task<IHttpActionResult> End()
         {

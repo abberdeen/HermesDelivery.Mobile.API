@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.WorkShifts;
+using CourierAPI.Models.DTO.Shift;
 
 namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {
@@ -9,7 +9,7 @@ namespace CourierAPI.Infrastructure.AutoMapper.Profiles
         public WorkShiftPauseReasonProfile()
         {
             // WorkShiftPauseReason.
-            CreateMap<WorkShiftPauseReason, WorkShiftPauseReasonDto>();
+            CreateMap<ShiftPauseReason, ShiftPauseReasonDto>();
         }
     }
 }

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using CourierAPI.Infrastructure.Exceptions;
+using CourierAPI.Models;
 using Microsoft.AspNet.Identity;
 
 namespace CourierAPI.Infrastructure.Extensions
@@ -11,17 +16,27 @@ namespace CourierAPI.Infrastructure.Extensions
         protected IHttpActionResult Response(AppMessage message)
         {
             var dto = new AppMessageDto(message);
-            var responseMsg = Request.CreateResponse(message.HttpStatusCode, dto);
-
+            var responseMsg = CreateErrorResponse(message); 
+  
             return ResponseMessage(responseMsg);
         }
 
         protected IHttpActionResult Response(AppException ex)
         {
-            var dto = new AppMessageDto(ex.AppMessage, ex.Description);
-            var responseMsg = Request.CreateResponse(ex.AppMessage.HttpStatusCode, dto);
-
+            var responseMsg = CreateErrorResponse(ex.AppMessage);
             return ResponseMessage(responseMsg);
+        }
+
+        private HttpResponseMessage CreateErrorResponse(  AppMessage appMessage)
+        {
+            var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+            var dto = new AppMessageDto(appMessage);
+            return new HttpResponseMessage(appMessage.HttpStatusCode)
+            {
+                ReasonPhrase = appMessage.Description,
+                RequestMessage = request,
+                Content = new ObjectContent(dto.GetType(), dto, new JsonMediaTypeFormatter())
+            };
         }
 
         /// <summary>

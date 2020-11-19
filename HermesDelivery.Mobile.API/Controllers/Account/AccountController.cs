@@ -4,6 +4,7 @@ using CourierAPI.Models.DTO.Account;
 using CourierAPI.Services.Account;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourierAPI.Models;
 
 namespace CourierAPI.Controllers.Account
 {

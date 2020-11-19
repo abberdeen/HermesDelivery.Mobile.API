@@ -12,18 +12,17 @@ namespace CourierAPI.Infrastructure.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkShift
+    public partial class CourierShift
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WorkShift()
+        public CourierShift()
         {
-            this.CourierWorkShiftsSchedules = new HashSet<CourierWorkShiftsSchedule>();
+            this.CourierShiftHistories = new HashSet<CourierShiftHistory>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public System.TimeSpan StartTime { get; set; }
-        public System.TimeSpan EndTime { get; set; }
+        public int CourierId { get; set; }
+        public int ShiftId { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
@@ -33,7 +32,9 @@ namespace CourierAPI.Infrastructure.Database
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual Courier Courier { get; set; }
+        public virtual Shift Shift { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
+        public virtual ICollection<CourierShiftHistory> CourierShiftHistories { get; set; }
     }
 }

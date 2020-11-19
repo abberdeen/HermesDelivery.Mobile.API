@@ -32,11 +32,9 @@ namespace CourierAPI.Controllers.Order
         }
 
         /// <summary>
-        /// Получить список заказов.
+        /// Получить список заказов текущей смены.
         /// </summary>
-        /// <returns></returns>
-        // GET: /IncomingOrders/
-        // [Route("IncomingOrders")]
+        /// <returns></returns> 
         [Route("Turn/Orders")]
         [ResponseType(typeof(IEnumerable<IncomingOrderDto>))]
         public async Task<IHttpActionResult> GetOrders()
@@ -55,9 +53,7 @@ namespace CourierAPI.Controllers.Order
         /// <summary>
         /// Проверить наличие входящего заказа.
         /// </summary>
-        /// <returns></returns>
-        // GET: /IncomingOrders/New
-        // [Route("IncomingOrders/Pending")]
+        /// <returns></returns> 
         [Route("Turn/IncomingOrder")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
         public async Task<IHttpActionResult> GetPending()
@@ -74,12 +70,10 @@ namespace CourierAPI.Controllers.Order
         }
 
         /// <summary>
-        /// Проверить наличие входящего заказа.
+        /// Получить детали заказа.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: /IncomingOrders/1/Details
-        // [Route("IncomingOrders/{id:int}/Details")]
+        /// <returns></returns> 
         [Route("Turn/Orders/{id:int}")]
         [ResponseType(typeof(IncomingOrderDetailsDto))]
         public async Task<IHttpActionResult> GetDetails(int id)
@@ -99,9 +93,7 @@ namespace CourierAPI.Controllers.Order
         /// Принять входящий заказ в работу.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        // POST: /IncomingOrder/1/Accept
-        // [Route("IncomingOrder/{id:int:min(1)}/Accept")]
+        /// <returns></returns> 
         [Route("Turn/IncomingOrder/{id:int:min(1)}")]
         [ResponseType(typeof(IncomingOrderInfoDto))]
         [HttpPost]
@@ -123,9 +115,7 @@ namespace CourierAPI.Controllers.Order
         /// </summary>
         /// <param name="orderId"></param>
         /// <param name="statusId"></param>
-        /// <returns></returns>
-        // PUT: /IncomingOrder/1/SetStatus/1
-        // [Route("IncomingOrder/{orderId:int:min(1)}/SetStatus/{statusId:int:min(1)}")]
+        /// <returns></returns> 
         [Route("Turn/Orders/{orderId:int}/UpdateStatus/{statusId:int}")]
         [ResponseType(typeof(IncomingOrderStatusChangeResponseDto))]
         [HttpPut]
@@ -142,9 +132,7 @@ namespace CourierAPI.Controllers.Order
         /// Отклонить входящий заказ.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        // DELETE: /IncomingOrder/1/Reject
-        // [Route("IncomingOrder/{id:int:min(1)}/Reject")]
+        /// <returns></returns> 
         [Route("Turn/IncomingOrder/{id:int}")]
         [HttpDelete]
         public async Task<IHttpActionResult> Reject(int id)

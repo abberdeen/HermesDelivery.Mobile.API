@@ -12,32 +12,25 @@ namespace CourierAPI.Infrastructure.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class CourierWorkShiftsItem
+    public partial class ShiftPauseReason
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CourierWorkShiftsItem()
+        public ShiftPauseReason()
         {
-            this.Orders = new HashSet<Order>();
+            this.CourierShiftHistories = new HashSet<CourierShiftHistory>();
         }
     
         public int Id { get; set; }
-        public int CourierWorkShiftShceduleId { get; set; }
-        public bool IsStarted { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public bool IsEnded { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
-        public bool IsPaused { get; set; }
-        public Nullable<int> PauseReasonId { get; set; }
-        public Nullable<System.DateTime> PauseTime { get; set; }
-        public string PauseDescription { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public string CreatedBy { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual WorkShiftPauseReason WorkShiftPauseReason { get; set; }
-        public virtual CourierWorkShiftsSchedule CourierWorkShiftsSchedule { get; set; }
+        public virtual AspNetUser AspNetUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<CourierShiftHistory> CourierShiftHistories { get; set; }
     }
 }

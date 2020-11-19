@@ -1,4 +1,4 @@
-﻿namespace CourierAPI.Infrastructure
+﻿namespace CourierAPI.Models
 {
     public class AppMessageDto
     {

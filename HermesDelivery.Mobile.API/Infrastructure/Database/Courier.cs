@@ -20,7 +20,7 @@ namespace CourierAPI.Infrastructure.Database
             this.CourierFiles = new HashSet<CourierFile>();
             this.CourierOAuthDatas = new HashSet<CourierOAuthData>();
             this.CourierPenalties = new HashSet<CourierPenalty>();
-            this.CourierWorkShiftsSchedules = new HashSet<CourierWorkShiftsSchedule>();
+            this.CourierShifts = new HashSet<CourierShift>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -59,7 +59,7 @@ namespace CourierAPI.Infrastructure.Database
         public virtual ICollection<CourierPenalty> CourierPenalties { get; set; }
         public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
+        public virtual ICollection<CourierShift> CourierShifts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

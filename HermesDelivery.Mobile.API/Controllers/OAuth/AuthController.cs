@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CourierAPI.Models;
 using WebGrease.Css.Extensions;
 
 namespace CourierAPI.Controllers.OAuth

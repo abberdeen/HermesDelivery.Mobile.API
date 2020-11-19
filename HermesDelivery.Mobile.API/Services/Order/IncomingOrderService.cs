@@ -25,7 +25,7 @@ namespace CourierAPI.Services.Order
         }
 
         /// <summary>
-        /// Получить список заказов.
+        /// Получить список заказов текущей смены.
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<IncomingOrderDto>> GetOrders()

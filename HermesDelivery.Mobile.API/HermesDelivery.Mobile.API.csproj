@@ -363,11 +363,11 @@
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
-    <Compile Include="Controllers\WorkShift\WorkShiftPauseReasonController.cs" />
-    <Compile Include="Controllers\WorkShift\CourierWorkShiftsItemsController.cs" />
+    <Compile Include="Controllers\WorkShift\ShiftPauseReasonController.cs" />
+    <Compile Include="Controllers\WorkShift\CourierShiftHistoryController.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\WorkShiftPauseReasonProfile.cs" />
-    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierWorkShiftsItemProfile.cs" />
-    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierWorkShiftsScheduleProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftHistoryProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\PaymentSystemProfile.cs" />
     <Compile Include="Infrastructure\Database\AppDbContext.cs" />
     <Compile Include="Infrastructure\Database\Application.cs">
@@ -418,10 +418,16 @@
     <Compile Include="Infrastructure\Database\CourierPenalty.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\CourierWorkShiftsItem.cs">
+    <Compile Include="Infrastructure\Database\CourierShift.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\CourierWorkShiftsSchedule.cs">
+    <Compile Include="Infrastructure\Database\CourierShiftHistory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierShiftHistoryOrder.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\CourierShiftHistoryOrderStatu.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\Customer.cs">
@@ -508,6 +514,12 @@
     <Compile Include="Infrastructure\Database\RolePermission.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Database\Shift.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\ShiftPauseReason.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Database\Slider.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -550,12 +562,6 @@
     <Compile Include="Infrastructure\Database\VehicleType.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\WorkShift.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Database\WorkShiftPauseReason.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
@@ -567,18 +573,20 @@
     <Compile Include="Infrastructure\Extensions\CustomMemoryCacher.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
     <Compile Include="Infrastructure\Exceptions\AppException.cs" />
+    <Compile Include="Infrastructure\Extensions\TimeSpanCalculator.cs" />
     <Compile Include="Models\DTO\Customer\CustomerDto.cs" />
     <Compile Include="Models\DTO\Orders\IncomingOrderDto.cs" />
     <Compile Include="Models\DTO\Orders\OrderDto.cs" />
     <Compile Include="Models\DTO\Orders\OrderStatusDto.cs" />
-    <Compile Include="Models\DTO\PaymentSystems\PaymentSystemDto.cs" />
+    <Compile Include="Models\DTO\PaymentSystem\PaymentSystemDto.cs" />
     <Compile Include="Models\DTO\Sms\SMSHandlers.cs" />
     <Compile Include="Models\DTO\Sms\SMSSendLogs.cs" />
     <Compile Include="Models\DTO\Sms\SMSSettings.cs" />
     <Compile Include="Models\DTO\Supplier\ProductDto.cs" />
     <Compile Include="Models\DTO\Supplier\SupplierDto.cs" />
-    <Compile Include="Models\DTO\WorkShifts\CourierWorkShiftsShceduleDto.cs" />
-    <Compile Include="Models\DTO\WorkShifts\WorkShiftPauseReasonDto.cs" />
+    <Compile Include="Models\DTO\Shift\CourierShiftDto.cs" />
+    <Compile Include="Models\DTO\Shift\ShiftPauseReasonDto.cs" />
+    <Compile Include="Models\OrderStatusCode.cs" />
     <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
     <Compile Include="Services\Service.cs" />
@@ -590,8 +598,8 @@
     <Compile Include="Services\Sms\MessageService.cs" />
     <Compile Include="Services\Sms\SmsSettingService.cs" />
     <Compile Include="Models\DTO\Account\AccountDto.cs" />
-    <Compile Include="Infrastructure\AppMessage.cs" />
-    <Compile Include="Infrastructure\AppMessageDto.cs" />
+    <Compile Include="Models\AppMessage.cs" />
+    <Compile Include="Models\AppMessageDto.cs" />
     <Compile Include="Services\Account\AccountService.cs" />
     <Compile Include="Services\OAuth\AuthService.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\PreflightRequestsHandler.cs" />
@@ -610,10 +618,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DTO\WorkShifts\CourierWorkShiftsItemsDto.cs" />
-    <Compile Include="Services\WorkShift\CourierWorkShiftsScheduleService.cs" />
-    <Compile Include="Services\WorkShift\WorkShiftPauseReasonService.cs" />
-    <Compile Include="Services\WorkShift\CourierWorkShiftsItemService.cs" />
+    <Compile Include="Models\DTO\Shift\CourierShiftHistoryDto.cs" />
+    <Compile Include="Services\Shift\CourierShiftService.cs" />
+    <Compile Include="Services\Shift\ShiftPauseReasonService.cs" />
+    <Compile Include="Services\Shift\CourierShiftHistoryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

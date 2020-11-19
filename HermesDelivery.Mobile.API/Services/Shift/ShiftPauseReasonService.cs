@@ -1,26 +1,24 @@
-﻿using AutoMapper;
-using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.WorkShifts;
-using CourierAPI.Services.Mock;
-using CourierAPI.Services.Sms;
-using Serilog;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Models.DTO.Shift;
+using Serilog;
 
-namespace CourierAPI.Services.WorkShift
+namespace CourierAPI.Services.Shift
 {
     /// <summary>
     /// Сервис причин приостановки смен.
     /// </summary>
-    public class WorkShiftPauseReasonService
+    public class ShiftPauseReasonService
     {
         private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public WorkShiftPauseReasonService(ILogger logger, IMapper mapper)
+        public ShiftPauseReasonService(ILogger logger, IMapper mapper)
         {
             _dbContext = new AppDbContext();
             _logger = logger;
@@ -31,11 +29,11 @@ namespace CourierAPI.Services.WorkShift
         ///
         /// </summary>
         /// <returns>Возвращает список причин приостановки рабочей смены.</returns>
-        public async Task<IEnumerable<WorkShiftPauseReasonDto>> GetReasons()
+        public async Task<IEnumerable<ShiftPauseReasonDto>> GetReasons()
         {
-            var items = await _dbContext.WorkShiftPauseReasons.Where(x => x.IsActive).ToListAsync();
+            var items = await _dbContext.ShiftPauseReasons.Where(x => x.IsActive).ToListAsync();
 
-            return _mapper.Map<IEnumerable<WorkShiftPauseReasonDto>>(items);
+            return _mapper.Map<IEnumerable<ShiftPauseReasonDto>>(items);
         }
     }
 }

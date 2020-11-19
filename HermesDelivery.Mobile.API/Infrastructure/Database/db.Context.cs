@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CourierAPI.Infrastructure.Database
+using CourierAPI.Infrastructure.Database;
+
+namespace CourierAPI
 {
     using System;
     using System.Data.Entity;
@@ -42,8 +44,9 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<CourierOAuthData> CourierOAuthDatas { get; set; }
         public virtual DbSet<CourierPenalty> CourierPenalties { get; set; }
         public virtual DbSet<Courier> Couriers { get; set; }
-        public virtual DbSet<CourierWorkShiftsItem> CourierWorkShiftsItems { get; set; }
-        public virtual DbSet<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
+        public virtual DbSet<CourierShift> CourierShifts { get; set; }
+        public virtual DbSet<CourierShiftHistory> CourierShiftHistories { get; set; }
+        public virtual DbSet<CourierShiftHistoryOrderStatu> CourierShiftHistoryOrderStatus { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<EmployeeLockReason> EmployeeLockReasons { get; set; }
         public virtual DbSet<EmployeePosition> EmployeePositions { get; set; }
@@ -66,6 +69,8 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<RestaurantMenuItem> RestaurantMenuItems { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
+        public virtual DbSet<ShiftPauseReason> ShiftPauseReasons { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<Slider> Sliders { get; set; }
         public virtual DbSet<SMSHandler> SMSHandlers { get; set; }
         public virtual DbSet<SMSSendLog> SMSSendLogs { get; set; }
@@ -80,7 +85,6 @@ namespace CourierAPI.Infrastructure.Database
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehiclesGallery> VehiclesGalleries { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
-        public virtual DbSet<WorkShiftPauseReason> WorkShiftPauseReasons { get; set; }
-        public virtual DbSet<WorkShift> WorkShifts { get; set; }
+        public virtual DbSet<CourierShiftHistoryOrder> CourierShiftHistoryOrders { get; set; }
     }
 }

@@ -3,6 +3,9 @@ using CourierAPI.Infrastructure.AutoMapper.Profiles;
 
 namespace CourierAPI.Infrastructure.AutoMapper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ConfigurationManager
     {
         public static MapperConfiguration CreateConfiguration()
@@ -16,8 +19,8 @@ namespace CourierAPI.Infrastructure.AutoMapper
                 cfg.AddProfile<PaymentSystemProfile>();
 
                 // Work shifts
-                cfg.AddProfile<CourierWorkShiftsScheduleProfile>();
-                cfg.AddProfile<CourierWorkShiftsItemProfile>();
+                cfg.AddProfile<CourierShiftProfile>();
+                cfg.AddProfile<CourierShiftHistoryProfile>();
                 cfg.AddProfile<WorkShiftPauseReasonProfile>();
             });
             return config;

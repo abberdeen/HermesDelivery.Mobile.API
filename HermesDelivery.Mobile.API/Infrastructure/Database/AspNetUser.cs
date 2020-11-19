@@ -33,9 +33,9 @@ namespace CourierAPI.Infrastructure.Database
             this.CourierPenalties = new HashSet<CourierPenalty>();
             this.Couriers = new HashSet<Courier>();
             this.Couriers1 = new HashSet<Courier>();
-            this.CourierWorkShiftsSchedules = new HashSet<CourierWorkShiftsSchedule>();
-            this.CourierWorkShiftsSchedules1 = new HashSet<CourierWorkShiftsSchedule>();
-            this.CourierWorkShiftsItems = new HashSet<CourierWorkShiftsItem>();
+            this.CourierShifts = new HashSet<CourierShift>();
+            this.CourierShifts1 = new HashSet<CourierShift>();
+            this.CourierShiftHistories = new HashSet<CourierShiftHistory>();
             this.EmployeeLockReasons = new HashSet<EmployeeLockReason>();
             this.EmployeeLockReasons1 = new HashSet<EmployeeLockReason>();
             this.EmployeePositions = new HashSet<EmployeePosition>();
@@ -79,10 +79,10 @@ namespace CourierAPI.Infrastructure.Database
             this.VehiclesGalleries = new HashSet<VehiclesGallery>();
             this.VehicleTypes = new HashSet<VehicleType>();
             this.VehicleTypes1 = new HashSet<VehicleType>();
-            this.WorkShiftPauseReasons = new HashSet<WorkShiftPauseReason>();
-            this.WorkShiftPauseReasons1 = new HashSet<WorkShiftPauseReason>();
-            this.WorkShifts = new HashSet<WorkShift>();
-            this.WorkShifts1 = new HashSet<WorkShift>();
+            this.ShiftPauseReasons = new HashSet<ShiftPauseReason>();
+            this.ShiftPauseReasons1 = new HashSet<ShiftPauseReason>();
+            this.Shifts = new HashSet<Shift>();
+            this.Shifts1 = new HashSet<Shift>();
         }
     
         public string Id { get; set; }
@@ -135,11 +135,11 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Courier> Couriers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules { get; set; }
+        public virtual ICollection<CourierShift> CourierShifts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsSchedule> CourierWorkShiftsSchedules1 { get; set; }
+        public virtual ICollection<CourierShift> CourierShifts1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierWorkShiftsItem> CourierWorkShiftsItems { get; set; }
+        public virtual ICollection<CourierShiftHistory> CourierShiftHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeLockReason> EmployeeLockReasons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -227,12 +227,12 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehicleType> VehicleTypes1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkShiftPauseReason> WorkShiftPauseReasons { get; set; }
+        public virtual ICollection<ShiftPauseReason> ShiftPauseReasons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkShiftPauseReason> WorkShiftPauseReasons1 { get; set; }
+        public virtual ICollection<ShiftPauseReason> ShiftPauseReasons1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkShift> WorkShifts { get; set; }
+        public virtual ICollection<Shift> Shifts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkShift> WorkShifts1 { get; set; }
+        public virtual ICollection<Shift> Shifts1 { get; set; }
     }
 }
