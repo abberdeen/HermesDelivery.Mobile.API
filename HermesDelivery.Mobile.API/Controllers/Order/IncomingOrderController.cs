@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models.DTO.Orders;
 using CourierAPI.Services.Order;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CourierAPI.DTO.Orders;
 
 namespace CourierAPI.Controllers.Order
 {

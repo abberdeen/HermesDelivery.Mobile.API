@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using CourierAPI.DTO.Sms;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Sms;
 
 namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {

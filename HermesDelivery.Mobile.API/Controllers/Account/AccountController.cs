@@ -1,10 +1,10 @@
 ﻿using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models.DTO.Account;
 using CourierAPI.Services.Account;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourierAPI.Models;
+using CourierAPI.DTO;
+using CourierAPI.DTO.Account;
 
 namespace CourierAPI.Controllers.Account
 {

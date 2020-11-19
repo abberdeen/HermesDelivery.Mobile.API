@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CourierAPI.DTO.Shift;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Shift;
 using Serilog;
 
 namespace CourierAPI.Services.Shift

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models.DTO.PaymentSystems;
 using CourierAPI.Services.PaymentSystem;
 using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CourierAPI.DTO.PaymentSystem;
 
 namespace CourierAPI.Controllers.PaymentSystem
 {

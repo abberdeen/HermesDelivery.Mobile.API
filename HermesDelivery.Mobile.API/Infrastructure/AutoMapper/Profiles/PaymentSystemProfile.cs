@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using CourierAPI.DTO.PaymentSystem;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.PaymentSystems;
 
 namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using CourierAPI.DTO.Shift;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Shift;
 
 namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {

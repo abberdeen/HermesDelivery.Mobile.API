@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Sms;
 using CourierAPI.Services.Sms.External;
 using Serilog;
 using System;
 using System.Threading.Tasks;
 using System.Web;
+using CourierAPI.DTO.Sms;
 
 namespace CourierAPI.Services.Sms
 {

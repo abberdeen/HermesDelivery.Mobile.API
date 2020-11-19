@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.Account;
 using CourierAPI.Services.Sms;
 using Microsoft.AspNet.Identity;
 using Serilog;
@@ -10,7 +9,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using CourierAPI.Models;
+using CourierAPI.DTO;
+using CourierAPI.DTO.Account;
 
 namespace CourierAPI.Services.Account
 {

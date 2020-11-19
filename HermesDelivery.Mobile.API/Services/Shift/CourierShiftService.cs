@@ -4,11 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CourierAPI.DTO;
 using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models;
 using Serilog;
 
 namespace CourierAPI.Services.Shift

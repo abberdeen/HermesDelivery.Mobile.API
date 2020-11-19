@@ -44,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\HermesDelivery.CourierMobile.API.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=5.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -363,8 +364,8 @@
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
-    <Compile Include="Controllers\WorkShift\ShiftPauseReasonController.cs" />
-    <Compile Include="Controllers\WorkShift\CourierShiftHistoryController.cs" />
+    <Compile Include="Controllers\Shift\ShiftPauseReasonController.cs" />
+    <Compile Include="Controllers\Shift\CourierShiftHistoryController.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\WorkShiftPauseReasonProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftHistoryProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftProfile.cs" />
@@ -424,12 +425,6 @@
     <Compile Include="Infrastructure\Database\CourierShiftHistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\CourierShiftHistoryOrder.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Database\CourierShiftHistoryOrderStatu.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Database\Customer.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -461,6 +456,12 @@
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\Gender.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\IncomingOrder.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Database\IncomingOrderStatus.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\MessageTemplate.cs">
@@ -574,19 +575,18 @@
     <Compile Include="Infrastructure\Extensions\OAuth\AuthorizationHeaderParameterOperationFilter.cs" />
     <Compile Include="Infrastructure\Exceptions\AppException.cs" />
     <Compile Include="Infrastructure\Extensions\TimeSpanCalculator.cs" />
-    <Compile Include="Models\DTO\Customer\CustomerDto.cs" />
-    <Compile Include="Models\DTO\Orders\IncomingOrderDto.cs" />
-    <Compile Include="Models\DTO\Orders\OrderDto.cs" />
-    <Compile Include="Models\DTO\Orders\OrderStatusDto.cs" />
-    <Compile Include="Models\DTO\PaymentSystem\PaymentSystemDto.cs" />
-    <Compile Include="Models\DTO\Sms\SMSHandlers.cs" />
-    <Compile Include="Models\DTO\Sms\SMSSendLogs.cs" />
-    <Compile Include="Models\DTO\Sms\SMSSettings.cs" />
-    <Compile Include="Models\DTO\Supplier\ProductDto.cs" />
-    <Compile Include="Models\DTO\Supplier\SupplierDto.cs" />
-    <Compile Include="Models\DTO\Shift\CourierShiftDto.cs" />
-    <Compile Include="Models\DTO\Shift\ShiftPauseReasonDto.cs" />
-    <Compile Include="Models\OrderStatusCode.cs" />
+    <Compile Include="DTO\Customer\CustomerDto.cs" />
+    <Compile Include="DTO\Orders\IncomingOrderDto.cs" />
+    <Compile Include="DTO\Orders\OrderDto.cs" />
+    <Compile Include="DTO\Orders\OrderStatusDto.cs" />
+    <Compile Include="DTO\PaymentSystem\PaymentSystemDto.cs" />
+    <Compile Include="DTO\Sms\SMSHandlers.cs" />
+    <Compile Include="DTO\Sms\SMSSendLogs.cs" />
+    <Compile Include="DTO\Sms\SMSSettings.cs" />
+    <Compile Include="DTO\Supplier\ProductDto.cs" />
+    <Compile Include="DTO\Supplier\SupplierDto.cs" />
+    <Compile Include="DTO\Shift\CourierShiftDto.cs" />
+    <Compile Include="DTO\Shift\ShiftPauseReasonDto.cs" />
     <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
     <Compile Include="Services\Service.cs" />
@@ -597,16 +597,16 @@
     <Compile Include="Services\Sms\SmsSendLogService.cs" />
     <Compile Include="Services\Sms\MessageService.cs" />
     <Compile Include="Services\Sms\SmsSettingService.cs" />
-    <Compile Include="Models\DTO\Account\AccountDto.cs" />
-    <Compile Include="Models\AppMessage.cs" />
-    <Compile Include="Models\AppMessageDto.cs" />
+    <Compile Include="DTO\Account\AccountDto.cs" />
+    <Compile Include="DTO\AppMessage.cs" />
+    <Compile Include="DTO\AppMessageDto.cs" />
     <Compile Include="Services\Account\AccountService.cs" />
     <Compile Include="Services\OAuth\AuthService.cs" />
     <Compile Include="Infrastructure\Extensions\OAuth\PreflightRequestsHandler.cs" />
     <Compile Include="Controllers\OAuth\AuthController.cs" />
-    <Compile Include="Models\DTO\OAuth\JwtSettingsDto.cs" />
-    <Compile Include="Models\DTO\OAuth\AuthDto.cs" />
-    <Compile Include="Models\DTO\OAuth\RefreshTokenDto.cs" />
+    <Compile Include="DTO\OAuth\JwtSettingsDto.cs" />
+    <Compile Include="DTO\OAuth\AuthDto.cs" />
+    <Compile Include="DTO\OAuth\RefreshTokenDto.cs" />
     <Compile Include="Services\OAuth\JwTokenService.cs" />
     <Compile Include="Services\OAuth\RefreshTokenService.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -618,7 +618,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DTO\Shift\CourierShiftHistoryDto.cs" />
+    <Compile Include="DTO\Shift\CourierShiftHistoryDto.cs" />
     <Compile Include="Services\Shift\CourierShiftService.cs" />
     <Compile Include="Services\Shift\ShiftPauseReasonService.cs" />
     <Compile Include="Services\Shift\CourierShiftHistoryService.cs" />

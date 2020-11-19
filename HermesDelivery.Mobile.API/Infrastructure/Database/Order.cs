@@ -17,7 +17,7 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.CourierShiftHistoryOrders = new HashSet<CourierShiftHistoryOrder>();
+            this.IncomingOrders = new HashSet<IncomingOrder>();
             this.RestaurantMenuItem_Order = new HashSet<RestaurantMenuItem_Order>();
             this.StoreProduct_Order = new HashSet<StoreProduct_Order>();
         }
@@ -51,7 +51,7 @@ namespace CourierAPI.Infrastructure.Database
         public virtual Customer Customer { get; set; }
         public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourierShiftHistoryOrder> CourierShiftHistoryOrders { get; set; }
+        public virtual ICollection<IncomingOrder> IncomingOrders { get; set; }
         public virtual OrderStatusCode OrderStatusCode { get; set; }
         public virtual Platform Platform { get; set; }
         public virtual Region Region { get; set; }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.PaymentSystems;
 using CourierAPI.Services.Sms;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CourierAPI.DTO.PaymentSystem;
 
 namespace CourierAPI.Services.PaymentSystem
 {

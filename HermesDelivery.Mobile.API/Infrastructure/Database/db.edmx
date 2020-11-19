@@ -245,29 +245,6 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "hermes_dev.dbo.CourierShiftHistoryOrder" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="CourierShiftHistoryOrder">
-          <Key>
-            <PropertyRef Name="CourierShiftHistoryId" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="StatusId" />
-            <PropertyRef Name="UpdatedAt" />
-          </Key>
-          <Property Name="CourierShiftHistoryId" Type="int" Nullable="false" />
-          <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CourierShiftHistoryOrderStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="IsFinal" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -324,6 +301,29 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "hermes_dev.dbo.IncomingOrder" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="IncomingOrder">
+          <Key>
+            <PropertyRef Name="CourierShiftHistoryId" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="StatusId" />
+            <PropertyRef Name="UpdatedAt" />
+          </Key>
+          <Property Name="CourierShiftHistoryId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomingOrderStatuss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsFinal" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="MessageTemplates">
           <Key>
@@ -1067,36 +1067,36 @@
         </Association>
         <Association Name="FK_CourierShiftHistoryOrder_CourierShiftHistory">
           <End Role="CourierShiftHistory" Type="Self.CourierShiftHistory" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourierShiftHistory">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
+            <Dependent Role="IncomingOrder">
               <PropertyRef Name="CourierShiftHistoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
-          <End Role="CourierShiftHistoryOrderStatus" Type="Self.CourierShiftHistoryOrderStatus" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
+          <End Role="IncomingOrderStatuss" Type="Self.IncomingOrderStatuss" Multiplicity="1" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourierShiftHistoryOrderStatus">
+            <Principal Role="IncomingOrderStatuss">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
+            <Dependent Role="IncomingOrder">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourierShiftHistoryOrder_Orders">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
+            <Dependent Role="IncomingOrder">
               <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2197,12 +2197,12 @@
           <EntitySet Name="Couriers" EntityType="Self.Couriers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourierShift" EntityType="Self.CourierShift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourierShiftHistory" EntityType="Self.CourierShiftHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourierShiftHistoryOrderStatus" EntityType="Self.CourierShiftHistoryOrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLockReasons" EntityType="Self.EmployeeLockReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePositions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomingOrderStatuss" EntityType="Self.IncomingOrderStatuss" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessageTemplates" EntityType="Self.MessageTemplates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperationStatuses" EntityType="Self.OperationStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderEmailSendLogs" EntityType="Self.OrderEmailSendLogs" Schema="dbo" store:Type="Tables" />
@@ -2236,13 +2236,13 @@
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclesGallery" EntityType="Self.VehiclesGallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourierShiftHistoryOrder" EntityType="Self.CourierShiftHistoryOrder" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="IncomingOrder" EntityType="Self.IncomingOrder" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [CourierShiftHistoryOrder].[CourierShiftHistoryId] AS [CourierShiftHistoryId], 
-    [CourierShiftHistoryOrder].[OrderId] AS [OrderId], 
-    [CourierShiftHistoryOrder].[StatusId] AS [StatusId], 
-    [CourierShiftHistoryOrder].[UpdatedAt] AS [UpdatedAt]
-    FROM [dbo].[CourierShiftHistoryOrder] AS [CourierShiftHistoryOrder]</DefiningQuery>
+    [IncomingOrder].[CourierShiftHistoryId] AS [CourierShiftHistoryId], 
+    [IncomingOrder].[OrderId] AS [OrderId], 
+    [IncomingOrder].[StatusId] AS [StatusId], 
+    [IncomingOrder].[UpdatedAt] AS [UpdatedAt]
+    FROM [dbo].[IncomingOrder] AS [IncomingOrder]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Applications_AspNetUsers" Association="Self.FK_Applications_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2350,15 +2350,15 @@
           </AssociationSet>
           <AssociationSet Name="FK_CourierShiftHistoryOrder_CourierShiftHistory" Association="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory">
             <End Role="CourierShiftHistory" EntitySet="CourierShiftHistory" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrder" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" Association="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
-            <End Role="CourierShiftHistoryOrderStatus" EntitySet="CourierShiftHistoryOrderStatus" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrder" />
+            <End Role="IncomingOrderStatuss" EntitySet="IncomingOrderStatuss" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierShiftHistoryOrder_Orders" Association="Self.FK_CourierShiftHistoryOrder_Orders">
             <End Role="Orders" EntitySet="Orders" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrder" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShifts_AspNetUsers" Association="Self.FK_CourierWorkShifts_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3077,18 +3077,8 @@
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_CourierWorkShiftsHistory_AspNetUsers1" FromRole="CourierShiftHistory" ToRole="AspNetUsers" />
           <NavigationProperty Name="CourierShift" Relationship="Self.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" FromRole="CourierShiftHistory" ToRole="CourierShift" />
-          <NavigationProperty Name="CourierShiftHistoryOrders" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory" FromRole="CourierShiftHistory" ToRole="CourierShiftHistoryOrder" />
+          <NavigationProperty Name="IncomingOrders" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory" FromRole="CourierShiftHistory" ToRole="IncomingOrder" />
           <NavigationProperty Name="ShiftPauseReason" Relationship="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" FromRole="CourierShiftHistory" ToRole="ShiftPauseReasons" />
-        </EntityType>
-        <EntityType Name="CourierShiftHistoryOrderStatu">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsFinal" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CourierShiftHistoryOrders" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" FromRole="CourierShiftHistoryOrderStatus" ToRole="CourierShiftHistoryOrder" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -3162,6 +3152,16 @@
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Gender" FromRole="Gender" ToRole="Employees" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Orders" FromRole="Gender" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="IncomingOrderStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsFinal" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="IncomingOrders" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" FromRole="IncomingOrderStatuss" ToRole="IncomingOrder" />
+        </EntityType>
         <EntityType Name="MessageTemplate">
           <Key>
             <PropertyRef Name="Id" />
@@ -3225,7 +3225,7 @@
           <NavigationProperty Name="Courier" Relationship="Self.FK_Orders_Couriers" FromRole="Orders" ToRole="Couriers" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customers" FromRole="Orders" ToRole="Customers" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Orders_Orders" FromRole="Orders" ToRole="Gender" />
-          <NavigationProperty Name="CourierShiftHistoryOrders" Relationship="Self.FK_CourierShiftHistoryOrder_Orders" FromRole="Orders" ToRole="CourierShiftHistoryOrder" />
+          <NavigationProperty Name="IncomingOrders" Relationship="Self.FK_CourierShiftHistoryOrder_Orders" FromRole="Orders" ToRole="IncomingOrder" />
           <NavigationProperty Name="OrderStatusCode" Relationship="Self.FK_Orders_OrderStatusCodes" FromRole="Orders" ToRole="OrderStatusCodes" />
           <NavigationProperty Name="Platform" Relationship="Self.FK_Orders_Platforms" FromRole="Orders" ToRole="Platforms" />
           <NavigationProperty Name="Region" Relationship="Self.FK_Orders_Regions" FromRole="Orders" ToRole="Regions" />
@@ -3689,7 +3689,7 @@
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK_VehicleTypes_AspNetUsers1" FromRole="VehicleTypes" ToRole="AspNetUsers" />
           <NavigationProperty Name="Vehicles" Relationship="Self.FK_Vehicles_VehicleType" FromRole="VehicleTypes" ToRole="Vehicles" />
         </EntityType>
-        <EntityType Name="CourierShiftHistoryOrder">
+        <EntityType Name="IncomingOrder">
           <Key>
             <PropertyRef Name="CourierShiftHistoryId" />
             <PropertyRef Name="OrderId" />
@@ -3700,9 +3700,9 @@
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="CourierShiftHistory" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory" FromRole="CourierShiftHistoryOrder" ToRole="CourierShiftHistory" />
-          <NavigationProperty Name="CourierShiftHistoryOrderStatu" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" FromRole="CourierShiftHistoryOrder" ToRole="CourierShiftHistoryOrderStatus" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_CourierShiftHistoryOrder_Orders" FromRole="CourierShiftHistoryOrder" ToRole="Orders" />
+          <NavigationProperty Name="CourierShiftHistory" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory" FromRole="IncomingOrder" ToRole="CourierShiftHistory" />
+          <NavigationProperty Name="IncomingOrderStatus" Relationship="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" FromRole="IncomingOrder" ToRole="IncomingOrderStatuss" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_CourierShiftHistoryOrder_Orders" FromRole="IncomingOrder" ToRole="Orders" />
         </EntityType>
         <Association Name="FK_Applications_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
@@ -4734,12 +4734,12 @@
         </Association>
         <Association Name="FK_CourierShiftHistoryOrder_CourierShiftHistory">
           <End Role="CourierShiftHistory" Type="Self.CourierShiftHistory" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourierShiftHistory">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
+            <Dependent Role="IncomingOrder">
               <PropertyRef Name="CourierShiftHistoryId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4753,18 +4753,6 @@
             </Principal>
             <Dependent Role="CourierShiftHistory">
               <PropertyRef Name="PauseReasonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
-          <End Role="CourierShiftHistoryOrderStatus" Type="Self.CourierShiftHistoryOrderStatu" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CourierShiftHistoryOrderStatus">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
-              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4828,6 +4816,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
+          <End Role="IncomingOrderStatuss" Type="Self.IncomingOrderStatus" Multiplicity="1" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomingOrderStatuss">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrder">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderEmailSendLogs_OrderEmailSendLogs">
           <End Role="OrderEmailSendLogs" Type="Self.OrderEmailSendLog" Multiplicity="1" />
           <End Role="OrderEmailSendLogs1" Type="Self.OrderEmailSendLog" Multiplicity="0..1" />
@@ -4842,12 +4842,12 @@
         </Association>
         <Association Name="FK_CourierShiftHistoryOrder_Orders">
           <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-          <End Role="CourierShiftHistoryOrder" Type="Self.CourierShiftHistoryOrder" Multiplicity="*" />
+          <End Role="IncomingOrder" Type="Self.IncomingOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CourierShiftHistoryOrder">
+            <Dependent Role="IncomingOrder">
               <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5148,12 +5148,12 @@
           <EntitySet Name="Couriers" EntityType="Self.Courier" />
           <EntitySet Name="CourierShifts" EntityType="Self.CourierShift" />
           <EntitySet Name="CourierShiftHistories" EntityType="Self.CourierShiftHistory" />
-          <EntitySet Name="CourierShiftHistoryOrderStatus" EntityType="Self.CourierShiftHistoryOrderStatu" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="EmployeeLockReasons" EntityType="Self.EmployeeLockReason" />
           <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePosition" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="IncomingOrderStatuss" EntityType="Self.IncomingOrderStatus" />
           <EntitySet Name="MessageTemplates" EntityType="Self.MessageTemplate" />
           <EntitySet Name="OperationStatuses" EntityType="Self.OperationStatus" />
           <EntitySet Name="OrderEmailSendLogs" EntityType="Self.OrderEmailSendLog" />
@@ -5187,7 +5187,7 @@
           <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
           <EntitySet Name="VehiclesGalleries" EntityType="Self.VehiclesGallery" />
           <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
-          <EntitySet Name="CourierShiftHistoryOrders" EntityType="Self.CourierShiftHistoryOrder" />
+          <EntitySet Name="IncomingOrders" EntityType="Self.IncomingOrder" />
           <AssociationSet Name="FK_Applications_AspNetUsers" Association="Self.FK_Applications_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Applications" EntitySet="Applications" />
@@ -5530,15 +5530,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_CourierShiftHistoryOrder_CourierShiftHistory" Association="Self.FK_CourierShiftHistoryOrder_CourierShiftHistory">
             <End Role="CourierShiftHistory" EntitySet="CourierShiftHistories" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrders" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" Association="Self.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons">
             <End Role="ShiftPauseReasons" EntitySet="ShiftPauseReasons" />
             <End Role="CourierShiftHistory" EntitySet="CourierShiftHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" Association="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
-            <End Role="CourierShiftHistoryOrderStatus" EntitySet="CourierShiftHistoryOrderStatus" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
             <End Role="Customers" EntitySet="Customers" />
@@ -5560,13 +5556,17 @@
             <End Role="Gender" EntitySet="Genders" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" Association="Self.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1">
+            <End Role="IncomingOrderStatuss" EntitySet="IncomingOrderStatuss" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrders" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrderEmailSendLogs_OrderEmailSendLogs" Association="Self.FK_OrderEmailSendLogs_OrderEmailSendLogs">
             <End Role="OrderEmailSendLogs" EntitySet="OrderEmailSendLogs" />
             <End Role="OrderEmailSendLogs1" EntitySet="OrderEmailSendLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_CourierShiftHistoryOrder_Orders" Association="Self.FK_CourierShiftHistoryOrder_Orders">
             <End Role="Orders" EntitySet="Orders" />
-            <End Role="CourierShiftHistoryOrder" EntitySet="CourierShiftHistoryOrders" />
+            <End Role="IncomingOrder" EntitySet="IncomingOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_OrderStatusCodes" Association="Self.FK_Orders_OrderStatusCodes">
             <End Role="OrderStatusCodes" EntitySet="OrderStatusCodes" />
@@ -5923,16 +5923,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CourierShiftHistoryOrderStatus">
-            <EntityTypeMapping TypeName="hermes_devModel.CourierShiftHistoryOrderStatu">
-              <MappingFragment StoreEntitySet="CourierShiftHistoryOrderStatus">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsFinal" ColumnName="IsFinal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="hermes_devModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
@@ -5992,6 +5982,16 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomingOrderStatuss">
+            <EntityTypeMapping TypeName="hermes_devModel.IncomingOrderStatus">
+              <MappingFragment StoreEntitySet="IncomingOrderStatuss">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsFinal" ColumnName="IsFinal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6456,9 +6456,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CourierShiftHistoryOrders">
-            <EntityTypeMapping TypeName="hermes_devModel.CourierShiftHistoryOrder">
-              <MappingFragment StoreEntitySet="CourierShiftHistoryOrder">
+          <EntitySetMapping Name="IncomingOrders">
+            <EntityTypeMapping TypeName="hermes_devModel.IncomingOrder">
+              <MappingFragment StoreEntitySet="IncomingOrder">
                 <ScalarProperty Name="CourierShiftHistoryId" ColumnName="CourierShiftHistoryId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />

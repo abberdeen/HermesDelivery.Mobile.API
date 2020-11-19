@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="35446889a71a4d6aa3c9af645a012d1c" Name="Diagram1">
+      <Diagram DiagramId="e74b39afe57b49f390c904a89e2cf750" Name="Diagram1">
         <EntityTypeShape EntityType="hermes_devModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.Application" Width="1.5" PointX="3" PointY="37.125" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.AspNetRole" Width="1.5" PointX="3.75" PointY="93.75" IsExpanded="true" />
@@ -24,12 +24,12 @@
         <EntityTypeShape EntityType="hermes_devModel.Courier" Width="1.5" PointX="8.25" PointY="64.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.CourierShift" Width="1.5" PointX="10.5" PointY="82.375" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.CourierShiftHistory" Width="1.5" PointX="12.75" PointY="80" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierShiftHistoryOrderStatu" Width="1.5" PointX="16.5" PointY="76.125" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.Customer" Width="1.5" PointX="14.25" PointY="66.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.EmployeeLockReason" Width="1.5" PointX="3" PointY="60.875" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.EmployeePosition" Width="1.5" PointX="3" PointY="64.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.Employee" Width="1.5" PointX="8.25" PointY="72.875" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.Gender" Width="1.5" PointX="6" PointY="57.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.IncomingOrderStatu" Width="1.5" PointX="16.5" PointY="76.125" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.MessageTemplate" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.OperationStatus" Width="1.5" PointX="11.25" PointY="60.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.OrderEmailSendLog" Width="1.5" PointX="3" PointY="68.25" IsExpanded="true" />
@@ -63,7 +63,7 @@
         <EntityTypeShape EntityType="hermes_devModel.Vehicle" Width="1.5" PointX="5.25" PointY="103" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.VehiclesGallery" Width="1.5" PointX="7.5" PointY="87.625" IsExpanded="true" />
         <EntityTypeShape EntityType="hermes_devModel.VehicleType" Width="1.5" PointX="3" PointY="141.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="hermes_devModel.CourierShiftHistoryOrder" Width="1.5" PointX="18.75" PointY="76" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.IncomingOrder" Width="1.5" PointX="18.75" PointY="76" IsExpanded="true" />
         <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
@@ -151,12 +151,12 @@
         <AssociationConnector Association="hermes_devModel.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_CourierShiftHistory" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" ManuallyRouted="false" />
-        <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Orders_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Employees_EmployeeLockReasons" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Employees_EmployeePositions" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Employees_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Orders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_OrderEmailSendLogs_OrderEmailSendLogs" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="hermes_devModel.FK_Orders_OrderStatusCodes" ManuallyRouted="false" />

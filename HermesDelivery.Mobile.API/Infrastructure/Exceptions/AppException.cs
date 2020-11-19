@@ -1,5 +1,5 @@
 ﻿using System;
-using CourierAPI.Models;
+using CourierAPI.DTO;
 
 namespace CourierAPI.Infrastructure.Exceptions
 {

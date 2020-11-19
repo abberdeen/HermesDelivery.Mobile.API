@@ -4,14 +4,16 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CourierAPI.DTO;
+using CourierAPI.DTO.Orders;
+using CourierAPI.DTO.Shift;
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models;
-using CourierAPI.Models.DTO.Orders;
-using CourierAPI.Models.DTO.Shift;
 using CourierAPI.Services.Mock;
 using Serilog;
+using IncomingOrderStatus = CourierAPI.DTO.IncomingOrderStatus;
+using OrderStatusCode = CourierAPI.DTO.OrderStatusCode;
 
 namespace CourierAPI.Services.Shift
 {
@@ -39,7 +41,9 @@ namespace CourierAPI.Services.Shift
         /// <returns>Возвращает историю рабочих смен.</returns>
         public async Task<IEnumerable<CourierShiftHistoryListItemDto>> GetHistoryAsync()
         {
-           // var courierWorkShiftItems = _dbContext.CourierShiftHistorys.Join()
+            var courierWorkShiftItems = _dbContext.CourierShiftHistories.Where(x =>
+                x.IncomingOrders.Any(y => y.Order.OrderStatusCode.IsFinal && y.IncomingOrderStatus.IsFinal));
+
             var items = MockService.WorkShiftResponse_getHistory();
 
             return _mapper.Map<IEnumerable<CourierShiftHistoryListItemDto>>(items);

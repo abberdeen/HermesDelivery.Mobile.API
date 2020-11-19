@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.OAuth;
 using Serilog;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using CourierAPI.DTO.OAuth;
 
 namespace CourierAPI.Services.OAuth
 {

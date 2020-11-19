@@ -46,12 +46,12 @@ namespace CourierAPI
         public virtual DbSet<Courier> Couriers { get; set; }
         public virtual DbSet<CourierShift> CourierShifts { get; set; }
         public virtual DbSet<CourierShiftHistory> CourierShiftHistories { get; set; }
-        public virtual DbSet<CourierShiftHistoryOrderStatu> CourierShiftHistoryOrderStatus { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<EmployeeLockReason> EmployeeLockReasons { get; set; }
         public virtual DbSet<EmployeePosition> EmployeePositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<IncomingOrderStatus> IncomingOrderStatus { get; set; }
         public virtual DbSet<MessageTemplate> MessageTemplates { get; set; }
         public virtual DbSet<OperationStatus> OperationStatuses { get; set; }
         public virtual DbSet<OrderEmailSendLog> OrderEmailSendLogs { get; set; }
@@ -85,6 +85,6 @@ namespace CourierAPI
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehiclesGallery> VehiclesGalleries { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
-        public virtual DbSet<CourierShiftHistoryOrder> CourierShiftHistoryOrders { get; set; }
+        public virtual DbSet<IncomingOrder> IncomingOrders { get; set; }
     }
 }

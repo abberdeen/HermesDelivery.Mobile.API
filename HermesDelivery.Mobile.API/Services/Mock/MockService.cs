@@ -1,9 +1,9 @@
-﻿using CourierAPI.Models.DTO.Orders;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using CourierAPI.Models.DTO.Shift;
+using CourierAPI.DTO.Orders;
+using CourierAPI.DTO.Shift;
 
 namespace CourierAPI.Services.Mock
 {

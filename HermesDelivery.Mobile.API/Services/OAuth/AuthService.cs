@@ -1,5 +1,4 @@
 ﻿using CourierAPI.Infrastructure.Database;
-using CourierAPI.Models.DTO.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
@@ -11,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using CourierAPI.DTO.OAuth;
 
 namespace CourierAPI.Services.OAuth
 {

@@ -2,7 +2,6 @@
 using CourierAPI.Infrastructure;
 using CourierAPI.Infrastructure.Database;
 using CourierAPI.Infrastructure.Extensions;
-using CourierAPI.Models.DTO.OAuth;
 using CourierAPI.Services.OAuth;
 using Microsoft.AspNet.Identity;
 using Serilog;
@@ -13,7 +12,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using CourierAPI.Models;
+using CourierAPI.DTO;
+using CourierAPI.DTO.OAuth;
 using WebGrease.Css.Extensions;
 
 namespace CourierAPI.Controllers.OAuth

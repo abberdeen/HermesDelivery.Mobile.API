@@ -12,32 +12,20 @@ namespace CourierAPI.Infrastructure.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class CourierShiftHistory
+    public partial class IncomingOrderStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CourierShiftHistory()
+        public IncomingOrderStatus()
         {
             this.IncomingOrders = new HashSet<IncomingOrder>();
         }
     
         public int Id { get; set; }
-        public int CourierShiftId { get; set; }
-        public bool IsStarted { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public bool IsEnded { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
-        public bool IsPaused { get; set; }
-        public Nullable<int> PauseReasonId { get; set; }
-        public Nullable<System.DateTime> PauseTime { get; set; }
-        public string PauseDescription { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsFinal { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual CourierShift CourierShift { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IncomingOrder> IncomingOrders { get; set; }
-        public virtual ShiftPauseReason ShiftPauseReason { get; set; }
     }
 }

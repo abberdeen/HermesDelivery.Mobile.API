@@ -5,8 +5,8 @@ using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using CourierAPI.DTO;
 using CourierAPI.Infrastructure.Exceptions;
-using CourierAPI.Models;
 using Microsoft.AspNet.Identity;
 
 namespace CourierAPI.Infrastructure.Extensions
