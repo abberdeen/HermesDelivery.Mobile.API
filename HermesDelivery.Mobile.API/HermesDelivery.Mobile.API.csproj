@@ -366,7 +366,12 @@
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
     <Compile Include="Controllers\Shift\ShiftPauseReasonController.cs" />
     <Compile Include="Controllers\Shift\CourierShiftHistoryController.cs" />
-    <Compile Include="Infrastructure\AutoMapper\Profiles\WorkShiftPauseReasonProfile.cs" />
+    <Compile Include="DTO\Orders\OrderStatusCode.cs" />
+    <Compile Include="DTO\Orders\OrdersDto.cs" />
+    <Compile Include="DTO\Orders\IncomingOrderStatuses.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\OrderInfoProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\SupplierInfoProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapper\Profiles\ShiftPauseReasonProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftHistoryProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\CourierShiftProfile.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\PaymentSystemProfile.cs" />
@@ -458,10 +463,10 @@
     <Compile Include="Infrastructure\Database\Gender.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\IncomingOrder.cs">
+    <Compile Include="Infrastructure\Database\IncomingOrderHistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Database\IncomingOrderStatus.cs">
+    <Compile Include="Infrastructure\Database\IncomingOrderStatu.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Database\MessageTemplate.cs">
@@ -587,8 +592,11 @@
     <Compile Include="DTO\Supplier\SupplierDto.cs" />
     <Compile Include="DTO\Shift\CourierShiftDto.cs" />
     <Compile Include="DTO\Shift\ShiftPauseReasonDto.cs" />
+    <Compile Include="Services\Content\FileService.cs" />
     <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
+    <Compile Include="Services\Order\OrderInfoService.cs" />
+    <Compile Include="Services\Order\SupplierInfoService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\PaymentSystem\PaymentSystemService.cs" />
     <Compile Include="Services\Sms\External\ISmsService.cs" />

@@ -76,7 +76,7 @@ namespace CourierAPI.DTO
 
         #endregion "AuthService"
 
-        #region WorkShift - 1600
+        #region Shift - 1600
 
         /// <summary>
         /// 
@@ -107,6 +107,46 @@ namespace CourierAPI.DTO
         /// 
         /// </summary>
         public static AppMessage ShiftNotStarted = new AppMessage(1606, "Нельзя ставить на паузу не запущенную смену.", HttpStatusCode.BadRequest);
+
+        #endregion
+
+        #region Supplier - 1700
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage UndefinedSupplier = new AppMessage(1701, "Неизвестный поставщик.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage CantFindRestaurant = new AppMessage(1702, "Не удается найти информацию о ресторане.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage CantFindStore= new AppMessage(1703, "Не удается найти информацию о магазине.", HttpStatusCode.BadRequest);
+
+
+        #endregion
+
+        #region Order - 1800
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage OrderNotExists = new AppMessage(1801, "Заказ с указанным идентификатором не существует.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage BadAcceptRequest = new AppMessage(1802, "Передаваемый идентификатор заказа не совпадает идентификатором заказа в ожидании.", HttpStatusCode.BadRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage OrderStatusIsCompleted = new AppMessage(1803, "Нельзя принять или отклонить завершенный заказ.", HttpStatusCode.BadRequest);
+
 
         #endregion
     }

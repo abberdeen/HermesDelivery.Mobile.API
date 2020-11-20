@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using CourierAPI.DTO;
+using CourierAPI.Infrastructure.Database;
+using CourierAPI.Infrastructure.Exceptions;
+using Serilog;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using CourierAPI.DTO;
-using CourierAPI.Infrastructure;
-using CourierAPI.Infrastructure.Database;
-using CourierAPI.Infrastructure.Exceptions;
-using CourierAPI.Infrastructure.Extensions;
-using Serilog;
 
 namespace CourierAPI.Services.Shift
 {
@@ -30,7 +27,7 @@ namespace CourierAPI.Services.Shift
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public async Task<CourierShift> GetCurrentOrNextActiveScheduleAsync(int courierId)
@@ -48,7 +45,7 @@ namespace CourierAPI.Services.Shift
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public async Task<CourierShift> GetCurrentActiveScheduleAsync(int courierId)
@@ -85,10 +82,10 @@ namespace CourierAPI.Services.Shift
 
             // Получает список расписаний курьера, сортирует по начальному времени смены.
             var courierShiftsSchedules = await _dbContext.CourierShifts
-                .Where(x => 
+                .Where(x =>
                     x.CourierId == courierId &&
                     x.IsActive)
-                .OrderBy(x => 
+                .OrderBy(x =>
                     x.Shift.StartTime)
                 .ToListAsync();
 

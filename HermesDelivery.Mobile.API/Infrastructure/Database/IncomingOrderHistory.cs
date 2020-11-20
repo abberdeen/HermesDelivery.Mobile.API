@@ -12,15 +12,16 @@ namespace CourierAPI.Infrastructure.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class IncomingOrder
+    public partial class IncomingOrderHistory
     {
         public int CourierShiftHistoryId { get; set; }
         public int OrderId { get; set; }
         public int StatusId { get; set; }
         public System.DateTime UpdatedAt { get; set; }
+        public int rowid { get; set; }
     
         public virtual CourierShiftHistory CourierShiftHistory { get; set; }
-        public virtual IncomingOrderStatus IncomingOrderStatus { get; set; }
+        public virtual IncomingOrderStatu IncomingOrderStatu { get; set; }
         public virtual Order Order { get; set; }
     }
 }

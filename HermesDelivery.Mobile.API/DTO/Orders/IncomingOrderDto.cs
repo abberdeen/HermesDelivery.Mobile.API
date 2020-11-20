@@ -35,8 +35,8 @@ namespace CourierAPI.DTO.Orders
     {
         public int Id { get; set; }
         public string CreatedAt { get; set; }
-        public double TotalCost { get; set; }
-        public double DeliveryCost { get; set; }
+        public decimal TotalCost { get; set; }
+        public decimal DeliveryCost { get; set; }
         public string Comment { get; set; }
         public NextStatus NextStatus { get; set; }
         public IncomingOrderDetailsSupplierDto Vendor { get; set; }

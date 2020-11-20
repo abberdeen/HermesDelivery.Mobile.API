@@ -8,7 +8,7 @@
         public int Total { get; set; }
     }
 
-    public class WorkShiftOrderDto
+    public class ShiftOrderDto
     {
         public int Id { get; set; }
         public string VendorLogo { get; set; }

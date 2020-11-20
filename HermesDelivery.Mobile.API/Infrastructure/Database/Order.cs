@@ -17,7 +17,7 @@ namespace CourierAPI.Infrastructure.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.IncomingOrders = new HashSet<IncomingOrder>();
+            this.IncomingOrderHistories = new HashSet<IncomingOrderHistory>();
             this.RestaurantMenuItem_Order = new HashSet<RestaurantMenuItem_Order>();
             this.StoreProduct_Order = new HashSet<StoreProduct_Order>();
         }
@@ -44,14 +44,16 @@ namespace CourierAPI.Infrastructure.Database
         public Nullable<System.DateTime> SupplierCallAt { get; set; }
         public string SupplierCallBy { get; set; }
         public Nullable<int> PlatformId { get; set; }
+        public Nullable<int> CourierShiftHistoryId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
         public virtual Courier Courier { get; set; }
+        public virtual CourierShiftHistory CourierShiftHistory { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IncomingOrder> IncomingOrders { get; set; }
+        public virtual ICollection<IncomingOrderHistory> IncomingOrderHistories { get; set; }
         public virtual OrderStatusCode OrderStatusCode { get; set; }
         public virtual Platform Platform { get; set; }
         public virtual Region Region { get; set; }

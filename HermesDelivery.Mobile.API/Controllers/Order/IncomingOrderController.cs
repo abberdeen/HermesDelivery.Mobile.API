@@ -41,7 +41,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderList = await _incomingOrderService.GetOrders();
+                var incomingOrderList = await _incomingOrderService.GetOrders(GetCourierId());
                 return Ok(incomingOrderList);
             }
             catch (AppException e)
@@ -60,7 +60,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderInfo = await _incomingOrderService.GetPending();
+                var incomingOrderInfo = await _incomingOrderService.GetPendingAsync(GetCourierId());
                 return Ok(incomingOrderInfo);
             }
             catch (AppException e)
@@ -80,7 +80,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderDetails = await _incomingOrderService.Details(id);
+                var incomingOrderDetails = await _incomingOrderService.GetDetailsAsync(id);
                 return Ok(incomingOrderDetails);
             }
             catch (AppException e)
@@ -101,7 +101,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                var incomingOrderInfo = await _incomingOrderService.Accept(id);
+                var incomingOrderInfo = await _incomingOrderService.AcceptAsync(GetCourierId(), id);
                 return Ok(incomingOrderInfo);
             }
             catch (AppException e)
@@ -139,7 +139,7 @@ namespace CourierAPI.Controllers.Order
         {
             try
             {
-                await _incomingOrderService.Reject(id);
+                await _incomingOrderService.RejectAsync(GetCourierId(),id);
                 return Ok();
             }
             catch (AppException e)

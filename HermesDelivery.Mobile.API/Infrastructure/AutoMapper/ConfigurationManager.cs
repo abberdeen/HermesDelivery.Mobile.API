@@ -4,7 +4,7 @@ using CourierAPI.Infrastructure.AutoMapper.Profiles;
 namespace CourierAPI.Infrastructure.AutoMapper
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ConfigurationManager
     {
@@ -12,16 +12,20 @@ namespace CourierAPI.Infrastructure.AutoMapper
         {
             var config = new MapperConfiguration(cfg =>
             {
-                // SMS 
+                // SMS
                 cfg.AddProfile<SmsProfile>();
 
                 // Payment systems
                 cfg.AddProfile<PaymentSystemProfile>();
 
-                // Work shifts
+                // Shifts
                 cfg.AddProfile<CourierShiftProfile>();
                 cfg.AddProfile<CourierShiftHistoryProfile>();
-                cfg.AddProfile<WorkShiftPauseReasonProfile>();
+                cfg.AddProfile<ShiftPauseReasonProfile>();
+
+                // Orders
+                cfg.AddProfile<SupplierInfoProfile>();
+                cfg.AddProfile<OrderInfoProfile>();
             });
             return config;
         }

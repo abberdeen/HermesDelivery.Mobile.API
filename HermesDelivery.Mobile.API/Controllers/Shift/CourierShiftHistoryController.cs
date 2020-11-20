@@ -42,7 +42,7 @@ namespace CourierAPI.Controllers.Shift
         {
             try
             {
-                var workShiftHistory = await _courierWorkShiftService.GetHistoryAsync();
+                var workShiftHistory = await _courierWorkShiftService.GetHistoryAsync(GetCourierId());
                 return Ok(workShiftHistory);
             }
             catch (AppException e)

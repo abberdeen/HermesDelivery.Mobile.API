@@ -4,9 +4,9 @@ using CourierAPI.Infrastructure.Database;
 
 namespace CourierAPI.Infrastructure.AutoMapper.Profiles
 {
-    public class WorkShiftPauseReasonProfile : Profile
+    public class ShiftPauseReasonProfile : Profile
     {
-        public WorkShiftPauseReasonProfile()
+        public ShiftPauseReasonProfile()
         {
             // WorkShiftPauseReason.
             CreateMap<ShiftPauseReason, ShiftPauseReasonDto>();

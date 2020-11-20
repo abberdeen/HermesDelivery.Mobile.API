@@ -14,7 +14,7 @@ namespace CourierAPI.DTO.Shift
         public string CloseAt { get; set; }
         public string PausedAt { get; set; }
         public OrderCountDto OrderCount { get; set; }
-        public List<WorkShiftOrderDto> Orders { get; set; }
+        public List<ShiftOrderDto> Orders { get; set; }
     }
 
     /// <summary>

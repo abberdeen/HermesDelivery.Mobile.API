@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CourierAPI.DTO;
 using CourierAPI.DTO.Orders;
 using CourierAPI.DTO.Shift;
@@ -11,9 +6,14 @@ using CourierAPI.Infrastructure.Database;
 using CourierAPI.Infrastructure.Exceptions;
 using CourierAPI.Infrastructure.Extensions;
 using CourierAPI.Services.Mock;
+using CourierAPI.Services.Order;
 using Serilog;
-using IncomingOrderStatus = CourierAPI.DTO.IncomingOrderStatus;
-using OrderStatusCode = CourierAPI.DTO.OrderStatusCode;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using OrderStatusCode = HermesDAdmin.Dto.Orders.OrderStatusCode;
 
 namespace CourierAPI.Services.Shift
 {
@@ -25,13 +25,22 @@ namespace CourierAPI.Services.Shift
         private AppDbContext _dbContext;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-        private readonly CourierShiftService _courierWorkShiftsScheduleService; 
+        private readonly SupplierInfoService _supplierInfoService;
+        private readonly OrderInfoService _orderInfoSrv;
+        private readonly CourierShiftService _courierWorkShiftsScheduleService;
 
-        public CourierShiftHistoryService(ILogger logger, IMapper mapper,   CourierShiftService courierWorkShiftsScheduleService)
+        public CourierShiftHistoryService(
+            ILogger logger,
+            IMapper mapper,
+            SupplierInfoService supplierInfoService,
+            OrderInfoService orderInfoSrv,
+            CourierShiftService courierWorkShiftsScheduleService)
         {
             _dbContext = new AppDbContext();
             _logger = logger;
-            _mapper = mapper; 
+            _mapper = mapper;
+            _supplierInfoService = supplierInfoService;
+            _orderInfoSrv = orderInfoSrv;
             _courierWorkShiftsScheduleService = courierWorkShiftsScheduleService;
         }
 
@@ -39,14 +48,31 @@ namespace CourierAPI.Services.Shift
         ///
         /// </summary>
         /// <returns>Возвращает историю рабочих смен.</returns>
-        public async Task<IEnumerable<CourierShiftHistoryListItemDto>> GetHistoryAsync()
+        public async Task<IEnumerable<CourierShiftHistoryListItemDto>> GetHistoryAsync(int courierId)
         {
-            var courierWorkShiftItems = _dbContext.CourierShiftHistories.Where(x =>
-                x.IncomingOrders.Any(y => y.Order.OrderStatusCode.IsFinal && y.IncomingOrderStatus.IsFinal));
+            var courierWorkShiftItems = await _dbContext.CourierShiftHistories 
+                .Where(x =>
+                    x.CourierShift.CourierId== courierId &&
+                    x.IsEnded &&
+                    x.IncomingOrderHistories.Any(y => 
+                        y.IncomingOrderStatu.Id == (int)IncomingOrderStatuses.Accepted))
+                .Select(x=> new
+                {
+                    x.StartTime,
+                    x.EndTime,
+                    OrderCount = x.Orders.Count(z => z.OrderStatusCode.IsFinal)
+                }) 
+                .ToListAsync();
 
-            var items = MockService.WorkShiftResponse_getHistory();
+            var list = courierWorkShiftItems.Select(x=> new CourierShiftHistoryListItemDto
+            {
+                StartedAt = x.StartTime?.Format(),
+                StoppedAt = x.EndTime?.Format(),
+                Distance = null, 
+                Orders = x.OrderCount
+            }); 
 
-            return _mapper.Map<IEnumerable<CourierShiftHistoryListItemDto>>(items);
+            return list;
         }
 
         /// <summary>
@@ -63,53 +89,98 @@ namespace CourierAPI.Services.Shift
             {
                 await CreateCurrentOrNextAsync(courierId);
                 currentOrNextCourierShiftHistory = await FindCurrentOrNextAsync(courierId);
-            }
+            } 
 
-            var item = MapCourierShiftHistoryToDTO(currentOrNextCourierShiftHistory);
+            var item = await MapCourierShiftHistoryToDTO(courierId, currentOrNextCourierShiftHistory);
 
             return item;
-        } 
+        }
 
-        private CourierShiftHistoryDto MapCourierShiftHistoryToDTO(CourierShiftHistory courierWorkShiftsItem)
+        private async Task<CourierShiftHistoryDto> MapCourierShiftHistoryToDTO(int courierId, CourierShiftHistory courierShiftHistory)
         {
+            var orderCountDto = new OrderCountDto
+            {
+                Active = _dbContext.Orders
+                    .Count(x =>
+                        x.OrderStatusCode.IsFinal == false &&
+                        x.CourierShiftHistoryId == courierShiftHistory.Id),
+
+                Delivered = _dbContext.Orders
+                    .Count(x =>
+                        x.OrderStatusCodeId == (int)OrderStatusCode.Completed &&
+                        x.CourierShiftHistoryId == courierShiftHistory.Id),
+
+                Rejected = _dbContext.IncomingOrderHistories
+                    .Count(x => 
+                        x.StatusId == (int) IncomingOrderStatuses.Rejected &&
+                        x.CourierShiftHistoryId == courierShiftHistory.Id),
+                Total = 0
+            };
+
+            orderCountDto.Total = orderCountDto.Rejected + orderCountDto.Active + orderCountDto.Delivered;
+
             // Текущая смена курьера.
 
             // Получает время начала.
-            var workShiftStartTime = courierWorkShiftsItem.CourierShift.Shift.StartTime;
+            var shiftStartTime = courierShiftHistory.CourierShift.Shift.StartTime;
 
             // Получает время завершения.
-            var workShiftEndTime = courierWorkShiftsItem.CourierShift.Shift.EndTime;
+            var shiftEndTime = courierShiftHistory.CourierShift.Shift.EndTime;
 
             // Создаст дату и время начала.
-            var startDateTime = CalcStartDateTime(workShiftStartTime, workShiftEndTime);
-            
+            var startDateTime = CalcStartDateTime(shiftStartTime, shiftEndTime);
+
             // Создаст дату и время завершения.
-            var endDateTime = CalcEndDateTime(workShiftStartTime, workShiftEndTime, startDateTime);
+            var endDateTime = CalcEndDateTime(shiftStartTime, shiftEndTime, startDateTime);
 
             // Создаст и заполнит запись для возвращения.
             var item = new CourierShiftHistoryDto
             {
-                IsStarted = courierWorkShiftsItem.IsStarted,
-                StartedAt = courierWorkShiftsItem.StartTime?.Format(),
+                IsStarted = courierShiftHistory.IsStarted,
+                StartedAt = courierShiftHistory.StartTime?.Format(),
                 StartAt = startDateTime.Format(),
                 CloseAt = endDateTime.Format(),
-                PausedAt = courierWorkShiftsItem.PauseTime?.Format(),
-                OrderCount = new OrderCountDto()
-                {
-
-                },
-                Orders = new List<WorkShiftOrderDto>()
+                PausedAt = courierShiftHistory.PauseTime?.Format(),
+                OrderCount = orderCountDto,
+                Orders = await GetShiftOrderList(courierId, courierShiftHistory.Id)
             };
             return item;
         }
 
-        private DateTime CalcStartDateTime(TimeSpan workShiftStartTime, TimeSpan workShiftEndTime)
+        public async Task<List<ShiftOrderDto>> GetShiftOrderList(int courierId, int courierShiftHistoryId)
+        {
+            var orders = _dbContext.Orders.Where(x =>
+                x.CourierId == courierId &&
+                x.CourierShiftHistoryId == courierShiftHistoryId &&
+                x.OrderStatusCode.IsFinal == false);
+
+            var shiftOrderList = new List<ShiftOrderDto>();
+            foreach (var order in orders)
+            {
+                var supplierInfo = await _supplierInfoService.GetSupplierInfo(order.Id);
+
+                var orderInfo = await _orderInfoSrv.GetOrderInfoAsync(order.Id);
+                var item = new ShiftOrderDto
+                {
+                    Id = order.Id,
+                    VendorLogo = supplierInfo.Logo,
+                    ClientName = order.Customer.Name,
+                    Status = order.OrderStatusCode.Text,
+                    TotalCost = orderInfo.SubTotal
+                };
+                shiftOrderList.Add(item);
+            }
+
+            return shiftOrderList;
+        } 
+
+        private DateTime CalcStartDateTime(TimeSpan shiftStartTime, TimeSpan shiftEndTime)
         {
             // Создаст дату и время начала.
-            var startDateTime = DateTime.Now.Date.Add(workShiftStartTime);
+            var startDateTime = DateTime.Now.Date.Add(shiftStartTime);
 
             // Если начало смены приходится на следующий день.
-            if (DateTime.Now.TimeOfDay > workShiftEndTime)
+            if (DateTime.Now.TimeOfDay > shiftEndTime)
             {
                 startDateTime = startDateTime.AddDays(1);
             }
@@ -117,18 +188,18 @@ namespace CourierAPI.Services.Shift
             return startDateTime;
         }
 
-        private DateTime CalcEndDateTime(TimeSpan workShiftStartTime, TimeSpan workShiftEndTime, DateTime startDateTime)
+        private DateTime CalcEndDateTime(TimeSpan shiftStartTime, TimeSpan shiftEndTime, DateTime startDateTime)
         {
             DateTime endDateTime;
 
             // Проверяет переходит ли время завершения смены на новый день.
-            if (workShiftStartTime < workShiftEndTime)
+            if (shiftStartTime < shiftEndTime)
             {
-                endDateTime = startDateTime.Date.Add(workShiftEndTime);
+                endDateTime = startDateTime.Date.Add(shiftEndTime);
             }
             else
             {
-                endDateTime = startDateTime.Date.AddDays(1).Add(workShiftEndTime);
+                endDateTime = startDateTime.Date.AddDays(1).Add(shiftEndTime);
             }
 
             return endDateTime;
@@ -157,7 +228,7 @@ namespace CourierAPI.Services.Shift
                     item.StartTime = DateTime.Now;
                 }
 
-                // Если был на паузе, то снимает с паузы. 
+                // Если был на паузе, то снимает с паузы.
                 item.IsPaused = false;
                 item.PauseTime = null;
                 item.PauseReasonId = null;
@@ -184,7 +255,7 @@ namespace CourierAPI.Services.Shift
 
                 // Обнуляет ненужные параметры.
                 //
-                item.IsStarted = false; 
+                item.IsStarted = false;
                 //
                 item.IsPaused = false;
                 item.PauseTime = null;
@@ -195,7 +266,7 @@ namespace CourierAPI.Services.Shift
             }
             else
             {
-               throw new AppException(AppMessage.ShiftNotStartedOrPaused);
+                throw new AppException(AppMessage.ShiftNotStartedOrPaused);
             }
 
             return await GetCurrentOrNextAsync(courierId);
@@ -216,9 +287,9 @@ namespace CourierAPI.Services.Shift
 
             if (item.IsStarted)
             {
-                item.IsStarted = false; 
+                item.IsStarted = false;
 
-                // Если был на паузе, то снимает с паузы. 
+                // Если был на паузе, то снимает с паузы.
                 item.IsPaused = true;
                 item.PauseTime = DateTime.Now;
                 item.PauseReasonId = model.ReasonId;
@@ -238,17 +309,17 @@ namespace CourierAPI.Services.Shift
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="courierId"></param>
         /// <returns></returns>
-        private async Task<CourierShiftHistory> FindCurrentOrNextAsync(int courierId)
+        public async Task<CourierShiftHistory> FindCurrentOrNextAsync(int courierId)
         {
             var courierShift = await _courierWorkShiftsScheduleService.GetCurrentOrNextActiveScheduleAsync(courierId);
-             
+
             var currentCourierShiftHistory = await _dbContext.CourierShiftHistories
-                .Include(x=>x.CourierShift)
-                .OrderByDescending(x=>
+                .Include(x => x.CourierShift)
+                .OrderByDescending(x =>
                     x.CreatedAt)
                 .FirstOrDefaultAsync(x =>
                     x.CourierShiftId == courierShift.Id &&
@@ -258,7 +329,7 @@ namespace CourierAPI.Services.Shift
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="courierId"></param>
         /// <returns></returns>
@@ -283,23 +354,22 @@ namespace CourierAPI.Services.Shift
 
             _dbContext.CourierShiftHistories.Add(item);
 
-            await _dbContext.SaveChangesAsync(); 
+            await _dbContext.SaveChangesAsync();
         }
-
 
         /// <summary>
         /// Проверит текущее время с временем расписания.
         /// </summary>
-        /// <param name="workShiftStartTime"></param>
-        /// <param name="workShiftEndTime"></param>
+        /// <param name="shiftStartTime"></param>
+        /// <param name="shiftEndTime"></param>
         /// <returns></returns>
-        private bool IsTimeOfWorkShift(TimeSpan workShiftStartTime, TimeSpan workShiftEndTime)
+        private bool IsTimeOfWorkShift(TimeSpan shiftStartTime, TimeSpan shiftEndTime)
         {
             // Создаст дату и время начала.
-            var startDateTime = CalcStartDateTime(workShiftStartTime, workShiftEndTime);
+            var startDateTime = CalcStartDateTime(shiftStartTime, shiftEndTime);
 
             // Создаст дату и время завершения.
-            var endDateTime = CalcEndDateTime(workShiftStartTime, workShiftEndTime, startDateTime);
+            var endDateTime = CalcEndDateTime(shiftStartTime, shiftEndTime, startDateTime);
 
             var dateTimeNow = DateTime.Now;
             return dateTimeNow >= startDateTime && dateTimeNow < endDateTime;
