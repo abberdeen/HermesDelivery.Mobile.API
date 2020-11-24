@@ -80,7 +80,7 @@ namespace CourierAPI.Services.Order
         /// <returns></returns>
         private List<OrderSupplierItemDto> GetRestaurantMenusItemsList(int orderId)
         {
-            // Получаем запись по ИД.
+             
             var orderDetails = _dbContext.RestaurantMenuItem_Order
                     .Where(x => x.OrderId == orderId)
                     .Select(x => new OrderSupplierItemDto
@@ -107,8 +107,7 @@ namespace CourierAPI.Services.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         private List<OrderSupplierItemDto> GetStoreProductsList(int orderId)
-        {
-            // Получаем запись по ИД.
+        { 
             var orderDetails = _dbContext.StoreProduct_Order
                 .Where(x => x.OrderId == orderId)
                 .Select(x => new OrderSupplierItemDto
@@ -124,8 +123,7 @@ namespace CourierAPI.Services.Order
                 .ToList();
 
             orderDetails.ForEach(x => x.Image = FileService.GetImageUrl(x.Image));
-
-            // Передаем выходную модель.
+             
             return orderDetails;
         }
     }

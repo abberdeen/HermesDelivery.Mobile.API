@@ -108,6 +108,12 @@ namespace CourierAPI.DTO
         /// </summary>
         public static AppMessage ShiftNotStarted = new AppMessage(1606, "Нельзя ставить на паузу не запущенную смену.", HttpStatusCode.BadRequest);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage ClosingUncompletedShift = new AppMessage(1607, "Нельзя закрывать или ставить на паузу когда есть активные заказы", HttpStatusCode.BadRequest);
+
+
         #endregion
 
         #region Supplier - 1700
@@ -147,6 +153,10 @@ namespace CourierAPI.DTO
         /// </summary>
         public static AppMessage OrderStatusIsCompleted = new AppMessage(1803, "Нельзя принять или отклонить завершенный заказ.", HttpStatusCode.BadRequest);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AppMessage UndefinedCourierShiftHistory = new AppMessage(1804, "Сначала запусти смену!", HttpStatusCode.BadRequest);
 
         #endregion
     }

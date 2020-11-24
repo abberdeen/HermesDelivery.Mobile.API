@@ -6,9 +6,9 @@ namespace CourierAPI.Infrastructure.AutoMapper
     /// <summary>
     ///
     /// </summary>
-    public class ConfigurationManager
+    public class AutoMapperConfigurationManager
     {
-        public static MapperConfiguration CreateConfiguration()
+        public static IMapper CreateMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -27,7 +27,7 @@ namespace CourierAPI.Infrastructure.AutoMapper
                 cfg.AddProfile<SupplierInfoProfile>();
                 cfg.AddProfile<OrderInfoProfile>();
             });
-            return config;
+            return config.CreateMapper();
         }
     }
 }

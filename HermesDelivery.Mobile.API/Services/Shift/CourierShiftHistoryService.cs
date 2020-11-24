@@ -53,9 +53,7 @@ namespace CourierAPI.Services.Shift
             var courierWorkShiftItems = await _dbContext.CourierShiftHistories 
                 .Where(x =>
                     x.CourierShift.CourierId== courierId &&
-                    x.IsEnded &&
-                    x.IncomingOrderHistories.Any(y => 
-                        y.IncomingOrderStatu.Id == (int)IncomingOrderStatuses.Accepted))
+                    x.IsEnded)
                 .Select(x=> new
                 {
                     x.StartTime,
@@ -142,12 +140,39 @@ namespace CourierAPI.Services.Shift
                 CloseAt = endDateTime.Format(),
                 PausedAt = courierShiftHistory.PauseTime?.Format(),
                 OrderCount = orderCountDto,
-                Orders = await GetShiftOrderList(courierId, courierShiftHistory.Id)
+                Orders = await GetShiftActiveOrderList(courierId, courierShiftHistory.Id)
             };
             return item;
         }
 
-        public async Task<List<ShiftOrderDto>> GetShiftOrderList(int courierId, int courierShiftHistoryId)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="courierId"></param>
+        /// <returns></returns>
+        public async Task<bool> AnyPendingOrActiveOrder(int courierId)
+        {
+            // 
+            var anyPendingOrder = await _dbContext.Orders
+                .AnyAsync(x =>
+                    x.CourierId == courierId &&
+                    x.OrderStatusCode.IsFinal == false &&
+                    x.CourierShiftHistoryId.HasValue == false);
+
+            // Выполняет запрос на получение записи элемента текущей смены.
+            var currentOrNextCourierShiftHistory = await FindCurrentOrNextAsync(courierId);
+
+            var anyActiveOrder =await _dbContext.Orders.AnyAsync(x =>
+                x.CourierId == courierId &&
+                x.CourierShiftHistoryId == currentOrNextCourierShiftHistory.Id &&
+                x.OrderStatusCode.IsFinal == false);
+
+            return anyPendingOrder || anyActiveOrder;
+        }
+
+
+        public async Task<List<ShiftOrderDto>> GetShiftActiveOrderList(int courierId, int courierShiftHistoryId)
         {
             var orders = _dbContext.Orders.Where(x =>
                 x.CourierId == courierId &&
@@ -166,7 +191,7 @@ namespace CourierAPI.Services.Shift
                     VendorLogo = supplierInfo.Logo,
                     ClientName = order.Customer.Name,
                     Status = order.OrderStatusCode.Text,
-                    TotalCost = orderInfo.SubTotal
+                    TotalCost = orderInfo.Total
                 };
                 shiftOrderList.Add(item);
             }
@@ -248,6 +273,11 @@ namespace CourierAPI.Services.Shift
         {
             var item = await FindCurrentOrNextAsync(courierId);
 
+            if (await AnyPendingOrActiveOrder(courierId))
+            {
+                throw new AppException(AppMessage.ClosingUncompletedShift);
+            }
+
             if (item.IsStarted || item.IsPaused)
             {
                 item.IsEnded = true;
@@ -285,11 +315,16 @@ namespace CourierAPI.Services.Shift
                 throw new AppException(AppMessage.ShiftEnded);
             }
 
+            if (await AnyPendingOrActiveOrder(courierId))
+            {
+                throw new AppException(AppMessage.ClosingUncompletedShift);
+            }
+
             if (item.IsStarted)
             {
                 item.IsStarted = false;
 
-                // Если был на паузе, то снимает с паузы.
+                //
                 item.IsPaused = true;
                 item.PauseTime = DateTime.Now;
                 item.PauseReasonId = model.ReasonId;

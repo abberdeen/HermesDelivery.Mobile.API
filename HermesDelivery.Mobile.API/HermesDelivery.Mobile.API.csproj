@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CourierAPI</RootNamespace>
     <AssemblyName>HermesDelivery.CourierMobile.API</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,10 +61,10 @@
       <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FromHeaderAttribute, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FromHeaderAttribute.2.0.4\lib\net45\FromHeaderAttribute.dll</HintPath>
@@ -150,6 +151,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -276,11 +278,10 @@
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
@@ -288,7 +289,6 @@
     <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -340,10 +340,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="WatsonWebsocket, Version=2.2.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WatsonWebsocket.2.2.0.8\lib\net452\WatsonWebsocket.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -362,6 +366,7 @@
   <ItemGroup>
     <Compile Include="App_Start\CustomDocumentFilter.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\Thor\ThorController.cs" />
     <Compile Include="Controllers\Order\IncomingOrderController.cs" />
     <Compile Include="Controllers\PaymentSystem\PaymentSystemController.cs" />
     <Compile Include="Controllers\Shift\ShiftPauseReasonController.cs" />
@@ -570,7 +575,7 @@
     </Compile>
     <Compile Include="Infrastructure\Extensions\ApiControlllerExtension.cs" />
     <Compile Include="Infrastructure\Autofac\ContainerManager.cs" />
-    <Compile Include="Infrastructure\AutoMapper\ConfigurationManager.cs" />
+    <Compile Include="Infrastructure\AutoMapper\AutoMapperConfigurationManager.cs" />
     <Compile Include="Infrastructure\AutoMapper\Profiles\SmsProfile.cs" />
     <Compile Include="Infrastructure\Extensions\DateTimeExtension.cs" />
     <Compile Include="Infrastructure\Extensions\EnumExtension.cs" />
@@ -592,6 +597,7 @@
     <Compile Include="DTO\Supplier\SupplierDto.cs" />
     <Compile Include="DTO\Shift\CourierShiftDto.cs" />
     <Compile Include="DTO\Shift\ShiftPauseReasonDto.cs" />
+    <Compile Include="Infrastructure\Serilog\SerilogConfigurationManager.cs" />
     <Compile Include="Services\Content\FileService.cs" />
     <Compile Include="Services\Mock\MockService.cs" />
     <Compile Include="Services\Order\IncomingOrderService.cs" />
@@ -630,6 +636,10 @@
     <Compile Include="Services\Shift\CourierShiftService.cs" />
     <Compile Include="Services\Shift\ShiftPauseReasonService.cs" />
     <Compile Include="Services\Shift\CourierShiftHistoryService.cs" />
+    <Compile Include="Services\ThorWebSocket\arc\WebSocketHandler.cs" />
+    <Compile Include="Services\ThorWebSocket\WebSocketMessageDTO.cs" />
+    <Compile Include="Services\ThorWebSocket\WebSocketSerivce.cs" />
+    <Compile Include="Services\ThorWebSocket\WebSocketHandler.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

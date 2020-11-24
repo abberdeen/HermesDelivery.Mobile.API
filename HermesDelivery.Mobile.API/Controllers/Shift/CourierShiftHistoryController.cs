@@ -20,16 +20,16 @@ namespace CourierAPI.Controllers.Shift
     {
         private ILogger _logger;
         private IMapper _mapper;
-        private readonly CourierShiftHistoryService _courierWorkShiftService;
+        private readonly CourierShiftHistoryService _courierShiftHistoryService;
 
         public CourierShiftHistoryController(
             ILogger logger,
             IMapper mapper,
-            CourierShiftHistoryService courierWorkShiftService)
+            CourierShiftHistoryService courierShiftHistoryService)
         {
             _logger = logger;
             _mapper = mapper;
-            _courierWorkShiftService = courierWorkShiftService;
+            _courierShiftHistoryService = courierShiftHistoryService;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace CourierAPI.Controllers.Shift
         {
             try
             {
-                var workShiftHistory = await _courierWorkShiftService.GetHistoryAsync(GetCourierId());
+                var workShiftHistory = await _courierShiftHistoryService.GetHistoryAsync(GetCourierId());
                 return Ok(workShiftHistory);
             }
             catch (AppException e)
@@ -61,7 +61,7 @@ namespace CourierAPI.Controllers.Shift
         {
             try
             {
-                var currentWorkShift = await _courierWorkShiftService.GetCurrentOrNextAsync(GetCourierId());
+                var currentWorkShift = await _courierShiftHistoryService.GetCurrentOrNextAsync(GetCourierId());
                 return Ok(currentWorkShift);
             }
             catch (AppException e)
@@ -81,7 +81,7 @@ namespace CourierAPI.Controllers.Shift
         {
             try
             {
-                var startedWorkShift = await _courierWorkShiftService.StartAsync(GetCourierId());
+                var startedWorkShift = await _courierShiftHistoryService.StartAsync(GetCourierId());
                 return Ok(startedWorkShift);
             }
             catch (AppException e)
@@ -107,7 +107,7 @@ namespace CourierAPI.Controllers.Shift
 
             try
             {
-                var pauseResponse = await _courierWorkShiftService.PauseAsync(model, GetCourierId());
+                var pauseResponse = await _courierShiftHistoryService.PauseAsync(model, GetCourierId());
                 return Ok(pauseResponse);
             }
             catch (AppException e)
@@ -127,7 +127,7 @@ namespace CourierAPI.Controllers.Shift
         {
             try
             {
-                var nextWorkShift = await _courierWorkShiftService.EndAsync(GetCourierId());
+                var nextWorkShift = await _courierShiftHistoryService.EndAsync(GetCourierId());
                 return Ok(nextWorkShift);
             }
             catch (AppException e)

@@ -88,6 +88,7 @@ namespace CourierAPI.Services.Order
         /// <returns></returns>
         public async Task<IncomingOrderInfoDto> GetPendingAsync(int courierId)
         {
+            // 
             var pendingOrder = await _dbContext.Orders
                 .Select(x => new { x.Id, x.CourierId, x.OrderStatusCode, x.CourierShiftHistoryId })
                 .Where(x =>
@@ -99,7 +100,7 @@ namespace CourierAPI.Services.Order
 
             if (pendingOrder is null)
             {
-                return new IncomingOrderInfoDto();
+                return null;
             }
 
             return await GetOrderInfoAsync(pendingOrder.Id);
@@ -115,12 +116,17 @@ namespace CourierAPI.Services.Order
         {
             var pendingOrder = await GetPendingAsync(courierId);
 
-            if (pendingOrder.Id != orderId)
+            if (pendingOrder?.Id != orderId)
             {
                 throw new AppException(AppMessage.BadAcceptRequest);
             }
 
             var courierShiftHistory = await _courierShiftHistoryService.FindCurrentOrNextAsync(courierId);
+
+            if (courierShiftHistory is null)
+            {
+                throw new AppException(AppMessage.UndefinedCourierShiftHistory);
+            }
 
             //
             var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == pendingOrder.Id);
@@ -150,7 +156,7 @@ namespace CourierAPI.Services.Order
                 Id = orderId,
                 VendorLogo = pendingOrder.Vendor.Logo,
                 ClientName = pendingOrder.Client.Name,
-                Status = "Неизвест.",
+                Status = order.OrderStatusCode.Text,
                 TotalCost = pendingOrder.TotalCost
             };
         }
@@ -170,6 +176,12 @@ namespace CourierAPI.Services.Order
             }
 
             var courierShiftHistory = await _courierShiftHistoryService.FindCurrentOrNextAsync(courierId);
+
+            if (courierShiftHistory is null)
+            {
+                throw new AppException(AppMessage.UndefinedCourierShiftHistory);
+            }
+
             //
             var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == pendingOrder.Id);
 
@@ -208,11 +220,28 @@ namespace CourierAPI.Services.Order
             {
                 throw new AppException(AppMessage.OrderNotExists);
             }
+            
+            // 
+            var orderStatusCodeId = order.OrderStatusCodeId;
+            var nextOrderStatusCode = await GetOrderStatusCodeAsync(orderStatusCodeId + 1);
+             
+            var nextStatus = new NextStatus();
+            if (nextOrderStatusCode != null &&
+                (orderStatusCodeId == (int)OrderStatusCode.CourierAccepted ||
+                orderStatusCodeId == (int)OrderStatusCode.Prepared))
+            {
+                nextStatus.Id = nextOrderStatusCode.Id;
+                nextStatus.Name = nextOrderStatusCode.Text;
+            }
+            else
+            {
+                nextStatus = null;
+            }
 
             var supplierInfo = await _supplierInfoService.GetSupplierInfo(orderId);
 
             var orderInfo = await _orderInfoSrv.GetOrderInfoAsync(orderId);
-
+            
             var orderDetails = new IncomingOrderDetailsDto
             {
                 Id = orderId,
@@ -220,7 +249,7 @@ namespace CourierAPI.Services.Order
                 TotalCost = orderInfo.SubTotal,
                 DeliveryCost = orderInfo.DeliveryCost,
                 Comment = order.DeliveryCustomerNote,
-                NextStatus = new NextStatus(),
+                NextStatus = nextStatus,
                 Vendor = _mapper.Map<IncomingOrderDetailsSupplierDto>(supplierInfo),
                 Client = new IncomingOrderDetailsCustomerDto
                 {
@@ -231,6 +260,54 @@ namespace CourierAPI.Services.Order
                 Products = _mapper.Map<List<ProductDto>>(orderInfo.OrderItems)
             };
             return orderDetails;
+        }
+
+        public async Task<NextStatus> UpdateStatus(int orderId, int statusId)
+        {
+            var order = _dbContext.Orders
+                .FirstOrDefault(x => x.Id == orderId);
+
+            if (order is null)
+            {
+                throw new AppException(AppMessage.OrderNotExists);
+            }
+
+            int currentOrderStatusCodeId = order.OrderStatusCodeId;
+            int nextOrderStatusCodeId = 0;
+
+            if (order.OrderStatusCodeId ==(int) OrderStatusCode.CourierAccepted)
+            {
+                currentOrderStatusCodeId = (int) OrderStatusCode.Prepared;
+                nextOrderStatusCodeId = (int)OrderStatusCode.Delivered;
+            }
+            else if(order.OrderStatusCodeId == (int)OrderStatusCode.Prepared)
+            {
+                currentOrderStatusCodeId = (int)OrderStatusCode.Delivered;
+                nextOrderStatusCodeId = -1;
+            }
+
+            order.OrderStatusCodeId = currentOrderStatusCodeId;
+            await _dbContext.SaveChangesAsync();
+
+            var nextOrderStatusCode = await GetOrderStatusCodeAsync(nextOrderStatusCodeId);
+
+            if (nextOrderStatusCode is null)
+            {
+                return null;
+            }
+
+            var nextStatus = new NextStatus
+            {
+                Id = nextOrderStatusCode.Id,
+                Name = nextOrderStatusCode.Text
+            };
+
+            return nextStatus;
+        }
+
+        private async Task<Infrastructure.Database.OrderStatusCode> GetOrderStatusCodeAsync(int orderStatusCodeId)
+        {
+            return await _dbContext.OrderStatusCodes.FirstOrDefaultAsync(x=>x.Id == orderStatusCodeId && x.IsFinal == false);
         }
 
         private async Task<IncomingOrderInfoDto> GetOrderInfoAsync(int orderId)
@@ -255,7 +332,7 @@ namespace CourierAPI.Services.Order
                 //
                 PickupTime = FormatPickupTime(order.SupplierOrderPreparationTime),
                 //
-                TotalCost = orderInfo.SubTotal,
+                TotalCost = orderInfo.Total,
                 //
                 Vendor = _mapper.Map<IncomingOrderInfoSupplierDto>(supplierInfo),
                 //

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CourierAPI.DTO.Orders;
+using CourierAPI.Services.ThorWebSocket;
 
 namespace CourierAPI.Controllers.Order
 {
@@ -117,15 +118,19 @@ namespace CourierAPI.Controllers.Order
         /// <param name="statusId"></param>
         /// <returns></returns> 
         [Route("Turn/Orders/{orderId:int}/UpdateStatus/{statusId:int}")]
-        [ResponseType(typeof(IncomingOrderStatusChangeResponseDto))]
+        [ResponseType(typeof(NextStatus))]
         [HttpPut]
         public async Task<IHttpActionResult> SetStatus(int orderId, int statusId)
         {
-            return Ok(new IncomingOrderStatusChangeResponseDto()
+            try
             {
-                Id = 2,
-                Name = "Отдал клиенту"
-            });
+                var nextStatus = await _incomingOrderService.UpdateStatus(orderId, statusId);
+                return Ok(nextStatus);
+            }
+            catch (AppException e)
+            {
+                return Response(e.AppMessage);
+            }
         }
 
         /// <summary>
@@ -146,6 +151,16 @@ namespace CourierAPI.Controllers.Order
             {
                 return Response(e.AppMessage);
             }
+        }
+
+
+        [Route("Test")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Test()
+        {
+            await WebSocketService.CourierSelected(30);
+            return Ok();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -27,13 +28,13 @@ namespace CourierAPI.Infrastructure.Extensions
             return ResponseMessage(responseMsg);
         }
 
-        private HttpResponseMessage CreateErrorResponse(  AppMessage appMessage)
+        private HttpResponseMessage CreateErrorResponse(AppMessage appMessage)
         {
             var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
             var dto = new AppMessageDto(appMessage);
             return new HttpResponseMessage(appMessage.HttpStatusCode)
             {
-                ReasonPhrase = appMessage.Code + ": " +  appMessage.Description,
+                ReasonPhrase = appMessage.Description,
                 RequestMessage = request,
                 Content = new ObjectContent(dto.GetType(), dto, new JsonMediaTypeFormatter())
             };

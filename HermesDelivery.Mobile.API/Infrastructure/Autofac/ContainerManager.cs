@@ -6,6 +6,7 @@ using Serilog;
 using System;
 using System.Reflection;
 using CourierAPI.Infrastructure.Extensions;
+using CourierAPI.Infrastructure.Serilog;
 
 namespace CourierAPI.Infrastructure.Autofac
 {
@@ -27,19 +28,13 @@ namespace CourierAPI.Infrastructure.Autofac
             var builder = new ContainerBuilder();
 
             // Scan an assembly for services.
-            builder.RegisterAssemblyTypes(assembly)
-                .Where(t => t.Name.EndsWith("Service"));
-              //  .WithParameter("courierId", new ApiControllerExtension().GetCourierId());
+            builder.RegisterAssemblyTypes(assembly).Where(t => t.Name.EndsWith("Service")); 
              
-            // Register Serilog.
-            var dataDirectoryPath = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            builder.Register<ILogger>((c, p) => new LoggerConfiguration()
-                .WriteTo.RollingFile(
-                    dataDirectoryPath + "/Logs/Log-{Date}.txt")
-                .CreateLogger()).SingleInstance();
+            // Register Serilog. 
+            builder.Register<ILogger>((c, p) => SerilogConfigurationManager.CreateLogger()).SingleInstance();
 
             // Register AutoMapper.
-            builder.Register<IMapper>(c => ConfigurationManager.CreateConfiguration().CreateMapper()).SingleInstance();
+            builder.Register<IMapper>(c => AutoMapperConfigurationManager.CreateMapper()).SingleInstance();
 
             //
             builder.RegisterApiControllers(assembly);

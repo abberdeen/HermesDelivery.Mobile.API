@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Configuration;
 
 namespace CourierAPI.Services.Content
 {
     public static class FileService
     {
-        private static readonly Uri BaseUrl = new Uri("https://admin.kenguru.tj/files/");
-         
+
         public static string GetImageUrl(string fileName)
         {
-         return  new Uri(BaseUrl, fileName).ToString();
-        } 
+            var baseUrl = ConfigurationManager.AppSettings["FileUrl"];
+            return new Uri(new Uri(baseUrl), fileName).ToString();
+        }
     }
 }
