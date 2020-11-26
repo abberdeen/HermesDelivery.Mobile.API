@@ -21,7 +21,16 @@ namespace CourierAPI.Infrastructure.Serilog
             var dataDirectoryPath = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             return  new LoggerConfiguration()
                 .WriteTo.RollingFile(
-                    dataDirectoryPath + "/Logs/Log-{Date}.txt")
+                    dataDirectoryPath + "/Logs/Log-{Date}.txt", retainedFileCountLimit: null)
+                .CreateLogger();
+        }
+
+        public static ILogger CreateWebSocketLogger()
+        {
+            var dataDirectoryPath = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            return new LoggerConfiguration()
+                .WriteTo.RollingFile(
+                    dataDirectoryPath + "/Logs/Log-WebSocket-{Date}.txt", retainedFileCountLimit: null)
                 .CreateLogger();
         }
     }

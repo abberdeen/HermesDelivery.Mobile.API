@@ -170,8 +170,7 @@ namespace CourierAPI.Services.Shift
 
             return anyPendingOrder || anyActiveOrder;
         }
-
-
+         
         public async Task<List<ShiftOrderDto>> GetShiftActiveOrderList(int courierId, int courierShiftHistoryId)
         {
             var orders = _dbContext.Orders.Where(x =>
@@ -320,22 +319,16 @@ namespace CourierAPI.Services.Shift
                 throw new AppException(AppMessage.ClosingUncompletedShift);
             }
 
-            if (item.IsStarted)
-            {
-                item.IsStarted = false;
+            item.IsStarted = false;
 
-                //
-                item.IsPaused = true;
-                item.PauseTime = DateTime.Now;
-                item.PauseReasonId = model.ReasonId;
-                item.PauseDescription = model.Comment;
+            //
+            item.IsPaused = true;
+            item.PauseTime = DateTime.Now;
+            item.PauseReasonId = model.ReasonId;
+            item.PauseDescription = model.Comment;
 
-                await _dbContext.SaveChangesAsync();
-            }
-            else
-            {
-                throw new AppException(AppMessage.ShiftNotStarted);
-            }
+            await _dbContext.SaveChangesAsync();
+
 
             return new CourierShiftHistoryPauseResponseDto()
             {

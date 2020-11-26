@@ -1,7 +1,0 @@
-2020-11-05 16:06:52.420 +05:00 [Information] Courier 926661996 logged in.
-2020-11-05 16:20:55.121 +05:00 [Error] SmsService : Service returned exception code 114 for 926661996
-2020-11-05 16:20:55.190 +05:00 [Information] AccountSrv: Password for courier 30 reset-ed
-2020-11-05 16:22:11.975 +05:00 [Error] SmsService : Service returned exception code 114 for 926661996
-2020-11-05 16:22:11.981 +05:00 [Information] AccountSrv: Password for courier 30 reset-ed
-2020-11-05 16:22:30.361 +05:00 [Error] SmsService : Service returned exception code 114 for 926661996
-2020-11-05 16:22:30.366 +05:00 [Information] AccountSrv: Password for courier 30 reset-ed

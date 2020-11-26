@@ -1,0 +1,82 @@
+2020-11-26 09:45:41.618 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 09:45:41.629 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 09:45:41.638 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 09:45:59.568 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 09:45:59.568 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 09:45:59.568 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 09:45:59.568 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 09:46:39.410 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 09:46:53.920 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 09:46:53.920 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 09:46:53.925 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 09:46:53.925 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 09:53:35.416 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 09:53:35.428 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 09:53:35.436 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:01:13.836 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:01:13.851 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:01:13.860 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:01:15.455 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:01:15.455 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:01:15.455 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:02:00.720 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 10:02:00.720 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 10:02:00.720 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 10:02:00.720 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 10:02:44.644 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:02:44.678 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:02:44.719 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:03:13.064 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 10:03:15.510 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 10:03:15.510 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 10:03:15.510 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 10:03:15.510 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 10:03:44.776 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:03:44.776 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:03:44.776 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:05:04.505 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:05:04.517 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:05:04.525 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:05:19.915 +05:00 [Information] THOR: Cant find client with key: "courier_30", to send message "{\"event\":\"OnTurnChange\",\"data\":{\"isStarted\":false,\"startedAt\":null,\"startAt\":\"2020-11-26T09:00:00Z\",\"closeAt\":\"2020-11-26T11:00:00Z\",\"pausedAt\":null,\"orderCount\":{\"active\":0,\"delivered\":0,\"rejected\":0,\"total\":0},\"orders\":[]}}"
+2020-11-26 10:05:20.160 +05:00 [Information] THOR: Cant find client with key: "courier_30", to send message "{\"event\":\"OnOrderUpdate\",\"data\":{\"id\":4864,\"createdAt\":\"2020-11-25T19:08:37Z\",\"totalCost\":22.00,\"deliveryCost\":123.00,\"comment\":null,\"nextStatus\":{\"id\":7,\"name\":\"Заказ доставлен\"},\"vendor\":{\"logo\":\"https://admin.kenguru.tj/files/yE6OdVyPzkW7D08qvuzpwA.jpg\",\"banner\":\"https://admin.kenguru.tj/files/pK6FFJyGPUWRgf9DyCmsHQ.jpg\",\"name\":\"IL Патио\",\"address\":\"IL Патио\"},\"client\":{\"name\":\"AppTest\",\"phone\":\"123456789\",\"deliveryAddress\":\"123456789\"},\"products\":[{\"name\":\"Овощи гриль\",\"price\":22.00,\"amount\":1}]}}"
+2020-11-26 10:05:20.162 +05:00 [Information] THOR: Received from client with key: "admin", message: "{\"Event\":\"OrderChanged\",\"CourierId\":30,\"OrderId\":4864}"
+2020-11-26 10:06:04.774 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:06:04.774 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:06:04.774 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:06:32.502 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:06:32.520 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:06:32.660 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 10:06:50.692 +05:00 [Information] THOR: Received from client with key: "admin", message: "{\"Event\":\"OrderChanged\",\"CourierId\":30,\"OrderId\":4864}"
+2020-11-26 10:06:53.206 +05:00 [Information] THOR: Cant find client with key: "courier_30", to send message "{\"event\":\"OnTurnChange\",\"data\":{\"isStarted\":false,\"startedAt\":null,\"startAt\":\"2020-11-26T09:00:00Z\",\"closeAt\":\"2020-11-26T11:00:00Z\",\"pausedAt\":null,\"orderCount\":{\"active\":0,\"delivered\":0,\"rejected\":0,\"total\":0},\"orders\":[]}}"
+2020-11-26 10:06:53.423 +05:00 [Information] THOR: Cant find client with key: "courier_30", to send message "{\"event\":\"OnOrderUpdate\",\"data\":{\"id\":4864,\"createdAt\":\"2020-11-25T19:08:37Z\",\"totalCost\":22.00,\"deliveryCost\":123.00,\"comment\":null,\"nextStatus\":null,\"vendor\":{\"logo\":\"https://admin.kenguru.tj/files/yE6OdVyPzkW7D08qvuzpwA.jpg\",\"banner\":\"https://admin.kenguru.tj/files/pK6FFJyGPUWRgf9DyCmsHQ.jpg\",\"name\":\"IL Патио\",\"address\":\"IL Патио\"},\"client\":{\"name\":\"AppTest\",\"phone\":\"123456789\",\"deliveryAddress\":\"123456789\"},\"products\":[{\"name\":\"Овощи гриль\",\"price\":22.00,\"amount\":1}]}}"
+2020-11-26 10:07:32.821 +05:00 [Information] THOR: Client with key: "admin" removed
+2020-11-26 10:07:32.821 +05:00 [Information] THOR: Connected new client with key: "admin", state: Open
+2020-11-26 10:07:32.821 +05:00 [Information] THOR: Sent message to client with key "admin", content: "Hello son of Thor"
+2020-11-26 12:47:19.922 +05:00 [Information] THOR: Cant find client with key: "courier_30", to send message "{\"event\":\"OnTurnChange\",\"data\":{\"isStarted\":true,\"startedAt\":\"2020-11-26T12:44:49Z\",\"startAt\":\"2020-11-26T15:00:00Z\",\"closeAt\":\"2020-11-26T16:00:00Z\",\"pausedAt\":null,\"orderCount\":{\"active\":2,\"delivered\":0,\"rejected\":0,\"total\":2},\"orders\":[{\"id\":4901,\"vendorLogo\":\"https://admin.kenguru.tj/files/GqsSywufS0ytUz050z22yQ.jpg\",\"clientName\":\"Абдураҳимҷон\",\"status\":\"Курьер подтвержден\",\"totalCost\":65.00},{\"id\":4902,\"vendorLogo\":\"https://admin.kenguru.tj/files/Hj4Bv1HYp0OYMiASkbooFw.png\",\"clientName\":\"Абдураҳимҷон\",\"status\":\"Курьер подтвержден\",\"totalCost\":56.00}]}}"
+2020-11-26 15:42:12.280 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:42:12.292 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 15:42:12.301 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 15:42:12.307 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 15:42:19.412 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:42:19.412 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:42:27.155 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:42:27.155 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 15:42:27.156 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 15:42:27.156 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 15:42:49.850 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:42:49.850 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:43:54.455 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:43:54.456 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:43:54.456 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:43:54.456 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:43:57.373 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:43:57.373 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:44:02.605 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[]"
+2020-11-26 15:44:02.605 +05:00 [Information] THOR: Client with key: "courier_30" removed
+2020-11-26 15:44:02.606 +05:00 [Information] THOR: Connected new client with key: "courier_30", state: Open
+2020-11-26 15:44:02.613 +05:00 [Information] THOR: Sent message to client with key "courier_30", content: "Hello son of Thor"
+2020-11-26 15:44:02.619 +05:00 [Information] THOR: Received from client with key: "courier_30", message: "My name is John"
+2020-11-26 15:44:03.614 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[\"courier_30\"]"
+2020-11-26 15:44:04.629 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[\"courier_30\"]"
+2020-11-26 15:44:05.630 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[\"courier_30\"]"
+2020-11-26 15:44:06.631 +05:00 [Information] THOR: Cant find client with key: "observer", to send message "[\"courier_30\"]"

@@ -12,8 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using CourierAPI.Services.ThorWebSocket;
 using OrderStatusCode = HermesDAdmin.Dto.Orders.OrderStatusCode;
 
 namespace CourierAPI.Services.Order
@@ -107,6 +109,31 @@ namespace CourierAPI.Services.Order
         }
 
         /// <summary>
+        /// Получить информацию о входящем заказе.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IncomingOrderInfoDto> GetOrderIfPendingAsync(int courierId, int orderId)
+        {
+            // 
+            var pendingOrder = await _dbContext.Orders
+                .Select(x => new { x.Id, x.CourierId, x.OrderStatusCode, x.CourierShiftHistoryId })
+                .Where(x =>
+                    x.Id == orderId && 
+                    x.CourierId == courierId &&
+                    x.OrderStatusCode.IsFinal == false &&
+                    x.CourierShiftHistoryId.HasValue == false)
+                .OrderBy(x => x.Id)
+                .FirstOrDefaultAsync();
+
+            if (pendingOrder is null)
+            {
+                return null;
+            }
+
+            return await GetOrderInfoAsync(pendingOrder.Id);
+        }
+
+        /// <summary>
         /// Принять входящий заказ в работу.
         /// </summary>
         /// <param name="courierId"></param>
@@ -114,11 +141,11 @@ namespace CourierAPI.Services.Order
         /// <returns></returns>
         public async Task<IncomingOrderDto> AcceptAsync(int courierId, int orderId)
         {
-            var pendingOrder = await GetPendingAsync(courierId);
+            var pendingOrder = await GetOrderIfPendingAsync(courierId, orderId);
 
-            if (pendingOrder?.Id != orderId)
+            if (pendingOrder == null)
             {
-                throw new AppException(AppMessage.BadAcceptRequest);
+                throw new AppException(new AppMessage(0, "Accept: Undefined error", HttpStatusCode.BadRequest));
             }
 
             var courierShiftHistory = await _courierShiftHistoryService.FindCurrentOrNextAsync(courierId);
@@ -129,7 +156,7 @@ namespace CourierAPI.Services.Order
             }
 
             //
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == pendingOrder.Id);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order.OrderStatusCode.IsFinal)
             {
@@ -150,6 +177,8 @@ namespace CourierAPI.Services.Order
 
             await _dbContext.SaveChangesAsync();
 
+            await WebSocketService.ShiftChanged(courierId);
+             
             // mocked
             return new IncomingOrderDto()
             {
@@ -167,14 +196,7 @@ namespace CourierAPI.Services.Order
         /// <param name="orderId"></param>
         /// <returns></returns>
         public async Task RejectAsync(int courierId, int orderId)
-        {
-            var pendingOrder = await GetPendingAsync(courierId);
-
-            if (pendingOrder.Id != orderId)
-            {
-                throw new AppException(AppMessage.BadAcceptRequest);
-            }
-
+        {  
             var courierShiftHistory = await _courierShiftHistoryService.FindCurrentOrNextAsync(courierId);
 
             if (courierShiftHistory is null)
@@ -183,7 +205,7 @@ namespace CourierAPI.Services.Order
             }
 
             //
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == pendingOrder.Id);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order.OrderStatusCode.IsFinal)
             {
@@ -204,6 +226,8 @@ namespace CourierAPI.Services.Order
             _dbContext.IncomingOrderHistories.Add(incomingOrder);
 
             await _dbContext.SaveChangesAsync();
+
+            await WebSocketService.ShiftChanged(courierId);
         }
 
         /// <summary>
@@ -213,8 +237,8 @@ namespace CourierAPI.Services.Order
         /// <returns></returns>
         public async Task<IncomingOrderDetailsDto> GetDetailsAsync(int orderId)
         {
-            var order = _dbContext.Orders
-                .FirstOrDefault(x => x.Id == orderId);
+            var order =await _dbContext.Orders
+                .FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order is null)
             {
@@ -224,19 +248,17 @@ namespace CourierAPI.Services.Order
             // 
             var orderStatusCodeId = order.OrderStatusCodeId;
             var nextOrderStatusCode = await GetOrderStatusCodeAsync(orderStatusCodeId + 1);
-             
-            var nextStatus = new NextStatus();
-            if (nextOrderStatusCode != null &&
-                (orderStatusCodeId == (int)OrderStatusCode.CourierAccepted ||
-                orderStatusCodeId == (int)OrderStatusCode.Prepared))
+
+            NextStatus nextStatus = null;
+            if (orderStatusCodeId == (int)OrderStatusCode.CourierAccepted ||
+                orderStatusCodeId == (int)OrderStatusCode.Prepared)
             {
-                nextStatus.Id = nextOrderStatusCode.Id;
-                nextStatus.Name = nextOrderStatusCode.Text;
-            }
-            else
-            {
-                nextStatus = null;
-            }
+                nextStatus = new NextStatus
+                {
+                    Id = nextOrderStatusCode.Id,
+                    Name = nextOrderStatusCode.Text
+                };
+            } 
 
             var supplierInfo = await _supplierInfoService.GetSupplierInfo(orderId);
 
@@ -264,8 +286,8 @@ namespace CourierAPI.Services.Order
 
         public async Task<NextStatus> UpdateStatus(int orderId, int statusId)
         {
-            var order = _dbContext.Orders
-                .FirstOrDefault(x => x.Id == orderId);
+            var order = await _dbContext.Orders
+                .FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order is null)
             {
@@ -301,6 +323,8 @@ namespace CourierAPI.Services.Order
                 Id = nextOrderStatusCode.Id,
                 Name = nextOrderStatusCode.Text
             };
+
+            await WebSocketService.ShiftChanged((int)order.CourierId);
 
             return nextStatus;
         }

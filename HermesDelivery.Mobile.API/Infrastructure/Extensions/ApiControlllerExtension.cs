@@ -34,7 +34,7 @@ namespace CourierAPI.Infrastructure.Extensions
             var dto = new AppMessageDto(appMessage);
             return new HttpResponseMessage(appMessage.HttpStatusCode)
             {
-                ReasonPhrase = appMessage.Description,
+                ReasonPhrase = appMessage.Code + ": " + appMessage.Description,
                 RequestMessage = request,
                 Content = new ObjectContent(dto.GetType(), dto, new JsonMediaTypeFormatter())
             };

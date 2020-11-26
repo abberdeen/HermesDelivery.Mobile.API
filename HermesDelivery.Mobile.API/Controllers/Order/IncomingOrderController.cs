@@ -159,7 +159,7 @@ namespace CourierAPI.Controllers.Order
         [AllowAnonymous]
         public async Task<IHttpActionResult> Test()
         {
-            await WebSocketService.CourierSelected(30);
+            await WebSocketService.CourierSelected(30,1);
             return Ok();
         }
     }
