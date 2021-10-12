@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="882462b3cd14456a8a0e6ebda838e943" Name="Diagram1">
+        <EntityTypeShape EntityType="hermes_devModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Application" Width="1.5" PointX="3" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetRole" Width="1.5" PointX="3.75" PointY="93" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUserRole" Width="1.5" PointX="6" PointY="71" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.AspNetUser" Width="1.5" PointX="0.75" PointY="63.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Company" Width="1.5" PointX="3" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanyInSocialNetwork" Width="1.5" PointX="5.25" PointY="82.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanyPhone" Width="1.5" PointX="5.25" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CompanySchedule" Width="1.5" PointX="8.25" PointY="60" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierFile" Width="1.5" PointX="6" PointY="67.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierLockReason" Width="1.5" PointX="3" PointY="56.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierMovementMethod" Width="1.5" PointX="6" PointY="60" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierOAuthData" Width="1.5" PointX="10.5" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierPenalty" Width="1.5" PointX="13.5" PointY="70.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Courier" Width="1.5" PointX="8.25" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierShift" Width="1.5" PointX="10.5" PointY="81.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.CourierShiftHistory" Width="1.5" PointX="12.75" PointY="79.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Customer" Width="1.5" PointX="13.75" PointY="67.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.EmployeeLockReason" Width="1.5" PointX="3" PointY="60.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.EmployeePosition" Width="1.5" PointX="3" PointY="63.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Employee" Width="1.5" PointX="8.25" PointY="72.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Gender" Width="1.5" PointX="6" PointY="56.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.IncomingOrderHistory" Width="1.5" PointX="15" PointY="80.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.IncomingOrderStatu" Width="1.5" PointX="12.75" PointY="91.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.MessageTemplate" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OperationStatus" Width="1.5" PointX="11.25" PointY="60" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OrderEmailSendLog" Width="1.5" PointX="3" PointY="67.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Order" Width="1.5" PointX="16" PointY="69.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.OrderStatusCode" Width="1.5" PointX="13.75" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.PaymentSystem" Width="1.5" PointX="3" PointY="71.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.PenaltyCategory" Width="1.5" PointX="3" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Permission" Width="1.5" PointX="8.75" PointY="56.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Platform" Width="1.5" PointX="13.75" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Region" Width="1.5" PointX="13.75" PointY="88.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantCategory" Width="1.5" PointX="3" PointY="79" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantInCategory" Width="1.5" PointX="5.25" PointY="76.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenu" Width="1.5" PointX="8.25" PointY="78.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem_Order" Width="1.5" PointX="18.25" PointY="73" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RestaurantMenuItem" Width="1.5" PointX="10.5" PointY="74.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Restaurant" Width="1.5" PointX="3" PointY="87.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.RolePermission" Width="1.5" PointX="11" PointY="70.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.ShiftPauseReason" Width="1.5" PointX="3" PointY="96.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Shift" Width="1.5" PointX="3" PointY="99.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Slider" Width="1.5" PointX="11" PointY="66.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSHandler" Width="1.5" PointX="3" PointY="84.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSSendLog" Width="1.5" PointX="5.25" PointY="87.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SMSSetting" Width="1.5" PointX="3" PointY="112" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.SocialNetwork" Width="1.5" PointX="3" PointY="116.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreCategory" Width="1.5" PointX="5.25" PointY="97.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProduct_Order" Width="1.5" PointX="18.25" PointY="85.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProductInCategory" Width="1.5" PointX="13.5" PointY="85" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreProduct" Width="1.5" PointX="8.25" PointY="99" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Store" Width="1.5" PointX="3" PointY="129.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.StoreSubCategory" Width="1.5" PointX="7.5" PointY="82.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.Vehicle" Width="1.5" PointX="5.25" PointY="102.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.VehiclesGallery" Width="1.5" PointX="7.5" PointY="86.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hermes_devModel.VehicleType" Width="1.5" PointX="3" PointY="140.5" IsExpanded="true" />
+        <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Applications_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RolePermissions_RolePermissions" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_AspNetUsers_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Companies_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Companies_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanyInSocialNetworks_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanyPhones_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanySchedules_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierFiles_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierLockReasons_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierLockReasons_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierPenalties_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Couriers_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Couriers_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShifts_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShifts_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShiftsHistory_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_EmployeeLockReasons_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_EmployeeLockReasons_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_EmployeePositions_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_EmployeePositions_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Employees_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Employees_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_OrderEmailSendLogs_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PaymentSystems_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PaymentSystems_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PenaltyCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_PenaltyCategories_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantCategories_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantInCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenu_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenu_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenuItems_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenuItems_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Restaurants_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Restaurants_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Sliders_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SMSSendLogs_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SMSSettings_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SMSSettings_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SocialNetworks_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SocialNetworks_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreCategories_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProductInCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProducts_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProducts_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Stores_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Stores_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreSubCategories_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreSubCategories_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_UserPermissions_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Vehicles_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Vehicles_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_VehiclesGallery_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_VehicleTypes_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_VehicleTypes_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_WorkShiftPauseReasons_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_WorkShiftPauseReasons_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_WorkShifts_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_WorkShifts_AspNetUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanyInSocialNetworks_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanyPhones_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanySchedules_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CompanyInSocialNetworks_SocialNetworks" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierFiles_Couriers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Couriers_EmployeeLockReasons" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Couriers_CourierMovementMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierOAuthData_CourierOAuthData" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierPenalties_Couriers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierPenalties_OperationStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierPenalties_PenaltyCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Couriers_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShifts_Couriers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_Couriers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShifts_WorkShifts" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShiftsItems_CourierWorkShiftsSchedules" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_CourierShiftHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierWorkShiftsHistory_WorkShiftPauseReasons" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_CourierShiftHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Employees_EmployeeLockReasons" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Employees_EmployeePositions" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Employees_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_CourierShiftHistoryOrderStatus1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_CourierShiftHistoryOrder_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_OrderEmailSendLogs_OrderEmailSendLogs" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_OrderStatusCodes" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_Platforms" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Orders_Regions" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenuItem_Order_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProduct_Order_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Permissions_Permissions" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RolePermissions_Permissions" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Sliders_Platforms" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantInCategories_RestaurantCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantInCategories_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenu_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenuItems_RestaurantMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_RestaurantMenuItem_Order_RestaurantMenuItems" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SMSSendLogs_SMSHandlers" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_SMSSendLogs_SMSSettings" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreCategories_StoreCategories1" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreSubCategories_StoreCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProduct_Order_StoreProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProductInCategories_StoreProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProductInCategories_StoreSubCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_StoreProducts_Stores" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_Vehicles_VehicleType" ManuallyRouted="false" />
+        <AssociationConnector Association="hermes_devModel.FK_VehiclesGallery_VehiclesGallery" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

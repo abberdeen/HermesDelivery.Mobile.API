@@ -1,0 +1,13 @@
+﻿{
+  "isStarted": false,
+  "startAt": "2020-10-10T09:00:00Z",
+  "closeAt": "2020-10-10T18:00:00Z",
+  "pausedAt": null,
+  "orderCount": {
+    "active": 0,
+    "delivered": 0,
+    "rejected": 0,
+    "total": 0
+  },
+  "orders": []
+}
